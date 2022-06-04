@@ -1,8 +1,11 @@
+from sre_parse import State
 import dash
 import dash_bootstrap_components as dbc
 from dash import Input, Output, dcc, html
 
-app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP])
+app = dash.Dash(
+    external_stylesheets=[dbc.themes.BOOTSTRAP, dbc.icons.BOOTSTRAP]
+)
 
 ## Import other pages
 from pages import national,home,regional,about
@@ -48,12 +51,59 @@ sidebar = html.Div(
     style=SIDEBAR_STYLE,
 )
 
+sidebar_responsive=html.Div(className="container-fluid overflow-hidden",
+    children=[
+        html.Div(className="row vh-100 overflow-auto",
+        children=[
+            html.Div(className="col-12 col-sm-3 col-xl-2 px-sm-2 px-0 bg-dark d-flex sticky-top",
+            children=[
+                html.Div(className="d-flex flex-sm-column flex-row flex-grow-1 align-items-center align-items-sm-start px-3 pt-2 text-white",
+                children=[
+                    dbc.NavLink(href="/", className="d-flex align-items-center pb-sm-3 mb-md-0 me-md-auto text-white text-decoration-none",
+                    children=[
+                        html.Img(src="https://www.collinsdictionary.com/images/full/tree_267376982.jpg", className="w-25 rounded-circle"),
+                        html.Span("COREST",className="d-none d-md-inline p-2")
+                        ]),
+                    html.Br(),
+                    dbc.Nav(className="nav nav-pills flex-sm-column flex-row flex-nowrap flex-shrink-1 flex-sm-grow-0 flex-grow-1 mb-sm-auto mb-0 justify-content-center align-items-center align-items-sm-start pt-5",id="menu",
+                    children=[
+                        dbc.NavLink(className="nav-item",href="/",active="exact",
+                        children=[
+                            html.I(className="fs-5 bi-house"),
+                            html.Span("Home",className="ms-1 d-none d-sm-inline") 
+                        ]),
+                        dbc.NavLink(className="nav-item",href="/national",active="exact",
+                        children=[
+                            html.I(className="fs-5 bi-tree-fill"),
+                            html.Span("National",className="ms-1 d-none d-sm-inline") 
+                        ]),
+                        dbc.NavLink(className="nav-item",href="/regional",active="exact",
+                        children=[
+                            html.I(className="fs-5 bi-table"),
+                            html.Span("Regional",className="ms-1 d-none d-sm-inline") 
+                        ]),
+                        dbc.NavLink(className="nav-item",href="/about",active="exact",
+                        children=[
+                            html.I(className="fs-5 bi-people-fill"),
+                            html.Span("About",className="ms-1 d-none d-sm-inline") 
+                        ]),
+                        
+                    ])
+            ])
+            ]),
+            html.Div(id="page-content",className="col d-flex flex-column h-100")
+        ]
+        )
+    ]
+)
+
 
 ### LAYOUT AND CONTENT
 
-content = html.Div(id="page-content", style=CONTENT_STYLE)
+content = html.Div(className="col d-flex flex-column h-100",
+children=[html.Main(className="row")])
 
-app.layout = html.Div([dcc.Location(id="url"), sidebar, content])
+app.layout = html.Div([dcc.Location(id="url"), sidebar_responsive, content])
 
 
 ### Callbacks
@@ -65,7 +115,7 @@ def render_page_content(pathname):
     elif pathname == "/national":
         return national.layout
     elif pathname == "/regional":
-        return regional.layout
+        return  regional.layout
     elif pathname == "/about":
         return about.layout
     # If the user tries to reach a different page, return a 404 message
@@ -90,4 +140,4 @@ def render_page_content(pathname):
 
 
 if __name__ == "__main__":
-    app.run_server(port=8888,debug=True)
+    app.run_server(debug=True)
