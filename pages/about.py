@@ -10,7 +10,7 @@ layout=html.Div(
         html.H1(
             children="About page"
         ),
-        html.P("We are interested in seraching which are the main problems of deforestation in Colombia. Here we can see explicitly the changes along each year since 1990 to 2020",
+        html.P("We are interested in searching which are the main problems of deforestation in Colombia. Here we can see explicitly the changes along each year since 1990 to 2020",
         className="text-justify")
     ]
 )
