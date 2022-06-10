@@ -138,6 +138,5 @@ def render_page_content(pathname):
     className="p-3 bg-light rounded-3",
 )
 
-
 if __name__ == "__main__":
     app.run_server(debug=True)
