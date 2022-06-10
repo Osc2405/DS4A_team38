@@ -1,0 +1,262 @@
+﻿,Domain,Element,Item,Year,Unit,Value
+25,Land Cover,Area from CCI_LC,Artificial surfaces ,1992,1000 ha,127.173
+26,Land Cover,Area from CCI_LC,Artificial surfaces ,1993,1000 ha,129.6783
+27,Land Cover,Area from CCI_LC,Artificial surfaces ,1994,1000 ha,131.8988
+28,Land Cover,Area from CCI_LC,Artificial surfaces ,1995,1000 ha,134.0437
+29,Land Cover,Area from CCI_LC,Artificial surfaces ,1996,1000 ha,136.2236
+30,Land Cover,Area from CCI_LC,Artificial surfaces ,1997,1000 ha,138.3278
+31,Land Cover,Area from CCI_LC,Artificial surfaces ,1998,1000 ha,140.6587
+32,Land Cover,Area from CCI_LC,Artificial surfaces ,1999,1000 ha,143.3791
+33,Land Cover,Area from CCI_LC,Artificial surfaces ,2000,1000 ha,146.8901
+34,Land Cover,Area from CCI_LC,Artificial surfaces ,2001,1000 ha,148.1631
+35,Land Cover,Area from CCI_LC,Artificial surfaces ,2002,1000 ha,149.3082
+36,Land Cover,Area from CCI_LC,Artificial surfaces ,2003,1000 ha,150.1685
+37,Land Cover,Area from CCI_LC,Artificial surfaces ,2004,1000 ha,152.296
+38,Land Cover,Area from CCI_LC,Artificial surfaces ,2005,1000 ha,153.7027
+39,Land Cover,Area from CCI_LC,Artificial surfaces ,2006,1000 ha,157.1672
+40,Land Cover,Area from CCI_LC,Artificial surfaces ,2007,1000 ha,160.6549
+41,Land Cover,Area from CCI_LC,Artificial surfaces ,2008,1000 ha,163.631
+42,Land Cover,Area from CCI_LC,Artificial surfaces ,2009,1000 ha,166.5781
+43,Land Cover,Area from CCI_LC,Artificial surfaces ,2010,1000 ha,169.5252
+44,Land Cover,Area from CCI_LC,Artificial surfaces ,2011,1000 ha,172.7455
+45,Land Cover,Area from CCI_LC,Artificial surfaces ,2012,1000 ha,176.2739
+46,Land Cover,Area from CCI_LC,Artificial surfaces ,2013,1000 ha,182.3193
+47,Land Cover,Area from CCI_LC,Artificial surfaces ,2014,1000 ha,188.3878
+48,Land Cover,Area from CCI_LC,Artificial surfaces ,2015,1000 ha,192.079
+49,Land Cover,Area from CCI_LC,Artificial surfaces ,2016,1000 ha,192.3289
+50,Land Cover,Area from CCI_LC,Artificial surfaces ,2017,1000 ha,197.4035
+51,Land Cover,Area from CCI_LC,Artificial surfaces ,2018,1000 ha,201.0424
+52,Land Cover,Area from CCI_LC,Artificial surfaces ,2019,1000 ha,206.6808
+53,Land Cover,Area from CCI_LC,Artificial surfaces ,2020,1000 ha,206.7447
+79,Land Cover,Area from CCI_LC,Herbaceous crops,1992,1000 ha,6189.2375
+80,Land Cover,Area from CCI_LC,Herbaceous crops,1993,1000 ha,5991.3584
+81,Land Cover,Area from CCI_LC,Herbaceous crops,1994,1000 ha,5850.6094
+82,Land Cover,Area from CCI_LC,Herbaceous crops,1995,1000 ha,5355.4969
+83,Land Cover,Area from CCI_LC,Herbaceous crops,1996,1000 ha,5865.2322
+84,Land Cover,Area from CCI_LC,Herbaceous crops,1997,1000 ha,5907.645
+85,Land Cover,Area from CCI_LC,Herbaceous crops,1998,1000 ha,5815.1746
+86,Land Cover,Area from CCI_LC,Herbaceous crops,1999,1000 ha,5837.6952
+87,Land Cover,Area from CCI_LC,Herbaceous crops,2000,1000 ha,6236.4192
+88,Land Cover,Area from CCI_LC,Herbaceous crops,2001,1000 ha,5930.2888
+89,Land Cover,Area from CCI_LC,Herbaceous crops,2002,1000 ha,5971.8797
+90,Land Cover,Area from CCI_LC,Herbaceous crops,2003,1000 ha,6112.2598
+91,Land Cover,Area from CCI_LC,Herbaceous crops,2004,1000 ha,6180.7854
+92,Land Cover,Area from CCI_LC,Herbaceous crops,2005,1000 ha,5731.9294
+93,Land Cover,Area from CCI_LC,Herbaceous crops,2006,1000 ha,5769.5392
+94,Land Cover,Area from CCI_LC,Herbaceous crops,2007,1000 ha,5678.6814
+95,Land Cover,Area from CCI_LC,Herbaceous crops,2008,1000 ha,5341.8846
+96,Land Cover,Area from CCI_LC,Herbaceous crops,2009,1000 ha,5330.472
+97,Land Cover,Area from CCI_LC,Herbaceous crops,2010,1000 ha,5289.3697
+98,Land Cover,Area from CCI_LC,Herbaceous crops,2011,1000 ha,4677.6456
+99,Land Cover,Area from CCI_LC,Herbaceous crops,2012,1000 ha,4592.1473
+100,Land Cover,Area from CCI_LC,Herbaceous crops,2013,1000 ha,4891.0764
+101,Land Cover,Area from CCI_LC,Herbaceous crops,2014,1000 ha,4804.2924
+102,Land Cover,Area from CCI_LC,Herbaceous crops,2015,1000 ha,4748.7343
+103,Land Cover,Area from CCI_LC,Herbaceous crops,2016,1000 ha,4704.3466
+104,Land Cover,Area from CCI_LC,Herbaceous crops,2017,1000 ha,6084.2929
+105,Land Cover,Area from CCI_LC,Herbaceous crops,2018,1000 ha,6087.9633
+106,Land Cover,Area from CCI_LC,Herbaceous crops,2019,1000 ha,6074.97
+107,Land Cover,Area from CCI_LC,Herbaceous crops,2020,1000 ha,6090.8436
+133,Land Cover,Area from CCI_LC,Woody crops,1992,1000 ha,3689.35
+134,Land Cover,Area from CCI_LC,Woody crops,1993,1000 ha,3888.3363
+135,Land Cover,Area from CCI_LC,Woody crops,1994,1000 ha,4028.4916
+136,Land Cover,Area from CCI_LC,Woody crops,1995,1000 ha,4533.9784
+137,Land Cover,Area from CCI_LC,Woody crops,1996,1000 ha,4008.9935
+138,Land Cover,Area from CCI_LC,Woody crops,1997,1000 ha,3997.3746
+139,Land Cover,Area from CCI_LC,Woody crops,1998,1000 ha,4162.4887
+140,Land Cover,Area from CCI_LC,Woody crops,1999,1000 ha,4207.9285
+141,Land Cover,Area from CCI_LC,Woody crops,2000,1000 ha,3821.9645
+142,Land Cover,Area from CCI_LC,Woody crops,2001,1000 ha,4144.3801
+143,Land Cover,Area from CCI_LC,Woody crops,2002,1000 ha,4119.0034
+144,Land Cover,Area from CCI_LC,Woody crops,2003,1000 ha,4009.1457
+145,Land Cover,Area from CCI_LC,Woody crops,2004,1000 ha,4059.7652
+146,Land Cover,Area from CCI_LC,Woody crops,2005,1000 ha,4489.9171
+147,Land Cover,Area from CCI_LC,Woody crops,2006,1000 ha,4436.9653
+148,Land Cover,Area from CCI_LC,Woody crops,2007,1000 ha,4467.9115
+149,Land Cover,Area from CCI_LC,Woody crops,2008,1000 ha,4760.9912
+150,Land Cover,Area from CCI_LC,Woody crops,2009,1000 ha,4741.8678
+151,Land Cover,Area from CCI_LC,Woody crops,2010,1000 ha,4770.3334
+152,Land Cover,Area from CCI_LC,Woody crops,2011,1000 ha,5376.6381
+153,Land Cover,Area from CCI_LC,Woody crops,2012,1000 ha,5456.4488
+154,Land Cover,Area from CCI_LC,Woody crops,2013,1000 ha,5135.3394
+155,Land Cover,Area from CCI_LC,Woody crops,2014,1000 ha,5162.6369
+156,Land Cover,Area from CCI_LC,Woody crops,2015,1000 ha,5216.34
+157,Land Cover,Area from CCI_LC,Woody crops,2016,1000 ha,5277.0543
+158,Land Cover,Area from CCI_LC,Woody crops,2017,1000 ha,3915.0135
+159,Land Cover,Area from CCI_LC,Woody crops,2018,1000 ha,3914.0518
+160,Land Cover,Area from CCI_LC,Woody crops,2019,1000 ha,3968.9261
+161,Land Cover,Area from CCI_LC,Woody crops,2020,1000 ha,3979.2967
+187,Land Cover,Area from CCI_LC,Multiple or layered crops,1992,1000 ha,
+188,Land Cover,Area from CCI_LC,Multiple or layered crops,1993,1000 ha,
+189,Land Cover,Area from CCI_LC,Multiple or layered crops,1994,1000 ha,
+190,Land Cover,Area from CCI_LC,Multiple or layered crops,1995,1000 ha,
+191,Land Cover,Area from CCI_LC,Multiple or layered crops,1996,1000 ha,
+192,Land Cover,Area from CCI_LC,Multiple or layered crops,1997,1000 ha,
+193,Land Cover,Area from CCI_LC,Multiple or layered crops,1998,1000 ha,
+194,Land Cover,Area from CCI_LC,Multiple or layered crops,1999,1000 ha,
+195,Land Cover,Area from CCI_LC,Multiple or layered crops,2000,1000 ha,
+196,Land Cover,Area from CCI_LC,Multiple or layered crops,2001,1000 ha,
+197,Land Cover,Area from CCI_LC,Multiple or layered crops,2002,1000 ha,
+198,Land Cover,Area from CCI_LC,Multiple or layered crops,2003,1000 ha,
+199,Land Cover,Area from CCI_LC,Multiple or layered crops,2004,1000 ha,
+200,Land Cover,Area from CCI_LC,Multiple or layered crops,2005,1000 ha,
+201,Land Cover,Area from CCI_LC,Multiple or layered crops,2006,1000 ha,
+202,Land Cover,Area from CCI_LC,Multiple or layered crops,2007,1000 ha,
+203,Land Cover,Area from CCI_LC,Multiple or layered crops,2008,1000 ha,
+204,Land Cover,Area from CCI_LC,Multiple or layered crops,2009,1000 ha,
+205,Land Cover,Area from CCI_LC,Multiple or layered crops,2010,1000 ha,
+206,Land Cover,Area from CCI_LC,Multiple or layered crops,2011,1000 ha,
+207,Land Cover,Area from CCI_LC,Multiple or layered crops,2012,1000 ha,
+208,Land Cover,Area from CCI_LC,Multiple or layered crops,2013,1000 ha,
+209,Land Cover,Area from CCI_LC,Multiple or layered crops,2014,1000 ha,
+210,Land Cover,Area from CCI_LC,Multiple or layered crops,2015,1000 ha,
+211,Land Cover,Area from CCI_LC,Multiple or layered crops,2016,1000 ha,
+212,Land Cover,Area from CCI_LC,Multiple or layered crops,2017,1000 ha,
+213,Land Cover,Area from CCI_LC,Multiple or layered crops,2018,1000 ha,
+214,Land Cover,Area from CCI_LC,Multiple or layered crops,2019,1000 ha,
+215,Land Cover,Area from CCI_LC,Multiple or layered crops,2020,1000 ha,
+241,Land Cover,Area from CCI_LC,Grassland,1992,1000 ha,16617.5473
+242,Land Cover,Area from CCI_LC,Grassland,1993,1000 ha,16618.7033
+243,Land Cover,Area from CCI_LC,Grassland,1994,1000 ha,16617.346
+244,Land Cover,Area from CCI_LC,Grassland,1995,1000 ha,16715.0707
+245,Land Cover,Area from CCI_LC,Grassland,1996,1000 ha,16716.1991
+246,Land Cover,Area from CCI_LC,Grassland,1997,1000 ha,16742.7201
+247,Land Cover,Area from CCI_LC,Grassland,1998,1000 ha,16784.7534
+248,Land Cover,Area from CCI_LC,Grassland,1999,1000 ha,16862.1395
+249,Land Cover,Area from CCI_LC,Grassland,2000,1000 ha,16847.4783
+250,Land Cover,Area from CCI_LC,Grassland,2001,1000 ha,16854.124
+251,Land Cover,Area from CCI_LC,Grassland,2002,1000 ha,16863.5718
+252,Land Cover,Area from CCI_LC,Grassland,2003,1000 ha,16889.7553
+253,Land Cover,Area from CCI_LC,Grassland,2004,1000 ha,16968.1278
+254,Land Cover,Area from CCI_LC,Grassland,2005,1000 ha,16976.5878
+255,Land Cover,Area from CCI_LC,Grassland,2006,1000 ha,16979.3626
+256,Land Cover,Area from CCI_LC,Grassland,2007,1000 ha,16969.2984
+257,Land Cover,Area from CCI_LC,Grassland,2008,1000 ha,16959.3017
+258,Land Cover,Area from CCI_LC,Grassland,2009,1000 ha,16958.7201
+259,Land Cover,Area from CCI_LC,Grassland,2010,1000 ha,16957.2089
+260,Land Cover,Area from CCI_LC,Grassland,2011,1000 ha,16953.9289
+261,Land Cover,Area from CCI_LC,Grassland,2012,1000 ha,16952.5797
+262,Land Cover,Area from CCI_LC,Grassland,2013,1000 ha,16946.4679
+263,Land Cover,Area from CCI_LC,Grassland,2014,1000 ha,16910.4506
+264,Land Cover,Area from CCI_LC,Grassland,2015,1000 ha,16909.382
+265,Land Cover,Area from CCI_LC,Grassland,2016,1000 ha,16902.6136
+266,Land Cover,Area from CCI_LC,Grassland,2017,1000 ha,16900.5601
+267,Land Cover,Area from CCI_LC,Grassland,2018,1000 ha,16893.8474
+268,Land Cover,Area from CCI_LC,Grassland,2019,1000 ha,16890.1344
+269,Land Cover,Area from CCI_LC,Grassland,2020,1000 ha,16888.1222
+295,Land Cover,Area from CCI_LC,Tree-covered areas,1992,1000 ha,76556.9361
+296,Land Cover,Area from CCI_LC,Tree-covered areas,1993,1000 ha,76491.2778
+297,Land Cover,Area from CCI_LC,Tree-covered areas,1994,1000 ha,76491.4638
+298,Land Cover,Area from CCI_LC,Tree-covered areas,1995,1000 ha,76311.8401
+299,Land Cover,Area from CCI_LC,Tree-covered areas,1996,1000 ha,76289.1693
+300,Land Cover,Area from CCI_LC,Tree-covered areas,1997,1000 ha,76178.1748
+301,Land Cover,Area from CCI_LC,Tree-covered areas,1998,1000 ha,75976.9328
+302,Land Cover,Area from CCI_LC,Tree-covered areas,1999,1000 ha,75710.5064
+303,Land Cover,Area from CCI_LC,Tree-covered areas,2000,1000 ha,75677.2621
+304,Land Cover,Area from CCI_LC,Tree-covered areas,2001,1000 ha,75631.6012
+305,Land Cover,Area from CCI_LC,Tree-covered areas,2002,1000 ha,75572.1546
+306,Land Cover,Area from CCI_LC,Tree-covered areas,2003,1000 ha,75478.9968
+307,Land Cover,Area from CCI_LC,Tree-covered areas,2004,1000 ha,74982.066
+308,Land Cover,Area from CCI_LC,Tree-covered areas,2005,1000 ha,74984.7189
+309,Land Cover,Area from CCI_LC,Tree-covered areas,2006,1000 ha,74987.9025
+310,Land Cover,Area from CCI_LC,Tree-covered areas,2007,1000 ha,75075.1315
+311,Land Cover,Area from CCI_LC,Tree-covered areas,2008,1000 ha,75110.2414
+312,Land Cover,Area from CCI_LC,Tree-covered areas,2009,1000 ha,75149.791
+313,Land Cover,Area from CCI_LC,Tree-covered areas,2010,1000 ha,75164.125
+314,Land Cover,Area from CCI_LC,Tree-covered areas,2011,1000 ha,75164.2427
+315,Land Cover,Area from CCI_LC,Tree-covered areas,2012,1000 ha,75171.0554
+316,Land Cover,Area from CCI_LC,Tree-covered areas,2013,1000 ha,75207.5172
+317,Land Cover,Area from CCI_LC,Tree-covered areas,2014,1000 ha,75339.9421
+318,Land Cover,Area from CCI_LC,Tree-covered areas,2015,1000 ha,75340.1831
+319,Land Cover,Area from CCI_LC,Tree-covered areas,2016,1000 ha,75292.6927
+320,Land Cover,Area from CCI_LC,Tree-covered areas,2017,1000 ha,75261.8293
+321,Land Cover,Area from CCI_LC,Tree-covered areas,2018,1000 ha,75266.9241
+322,Land Cover,Area from CCI_LC,Tree-covered areas,2019,1000 ha,75211.6027
+323,Land Cover,Area from CCI_LC,Tree-covered areas,2020,1000 ha,75169.039
+349,Land Cover,Area from CCI_LC,Mangroves,1992,1000 ha,345.8863
+350,Land Cover,Area from CCI_LC,Mangroves,1993,1000 ha,345.8708
+351,Land Cover,Area from CCI_LC,Mangroves,1994,1000 ha,345.8398
+352,Land Cover,Area from CCI_LC,Mangroves,1995,1000 ha,356.0162
+353,Land Cover,Area from CCI_LC,Mangroves,1996,1000 ha,357.45
+354,Land Cover,Area from CCI_LC,Mangroves,1997,1000 ha,359.1938
+355,Land Cover,Area from CCI_LC,Mangroves,1998,1000 ha,360.4029
+356,Land Cover,Area from CCI_LC,Mangroves,1999,1000 ha,361.1082
+357,Land Cover,Area from CCI_LC,Mangroves,2000,1000 ha,361.7127
+358,Land Cover,Area from CCI_LC,Mangroves,2001,1000 ha,362.4103
+359,Land Cover,Area from CCI_LC,Mangroves,2002,1000 ha,363.4101
+360,Land Cover,Area from CCI_LC,Mangroves,2003,1000 ha,363.5806
+361,Land Cover,Area from CCI_LC,Mangroves,2004,1000 ha,364.4796
+362,Land Cover,Area from CCI_LC,Mangroves,2005,1000 ha,364.8516
+363,Land Cover,Area from CCI_LC,Mangroves,2006,1000 ha,367.0915
+364,Land Cover,Area from CCI_LC,Mangroves,2007,1000 ha,370.2769
+365,Land Cover,Area from CCI_LC,Mangroves,2008,1000 ha,372.6098
+366,Land Cover,Area from CCI_LC,Mangroves,2009,1000 ha,373.2299
+367,Land Cover,Area from CCI_LC,Mangroves,2010,1000 ha,373.8266
+368,Land Cover,Area from CCI_LC,Mangroves,2011,1000 ha,374.0747
+369,Land Cover,Area from CCI_LC,Mangroves,2012,1000 ha,376.6556
+370,Land Cover,Area from CCI_LC,Mangroves,2013,1000 ha,376.1518
+371,Land Cover,Area from CCI_LC,Mangroves,2014,1000 ha,375.1132
+372,Land Cover,Area from CCI_LC,Mangroves,2015,1000 ha,375.09
+373,Land Cover,Area from CCI_LC,Mangroves,2016,1000 ha,375.1597
+374,Land Cover,Area from CCI_LC,Mangroves,2017,1000 ha,375.0512
+375,Land Cover,Area from CCI_LC,Mangroves,2018,1000 ha,374.966
+376,Land Cover,Area from CCI_LC,Mangroves,2019,1000 ha,374.9892
+377,Land Cover,Area from CCI_LC,Mangroves,2020,1000 ha,374.0747
+403,Land Cover,Area from CCI_LC,Shrub-covered areas,1992,1000 ha,6920.239
+404,Land Cover,Area from CCI_LC,Shrub-covered areas,1993,1000 ha,6931.066
+405,Land Cover,Area from CCI_LC,Shrub-covered areas,1994,1000 ha,6930.8226
+406,Land Cover,Area from CCI_LC,Shrub-covered areas,1995,1000 ha,6973.3489
+407,Land Cover,Area from CCI_LC,Shrub-covered areas,1996,1000 ha,6974.1894
+408,Land Cover,Area from CCI_LC,Shrub-covered areas,1997,1000 ha,7008.8904
+409,Land Cover,Area from CCI_LC,Shrub-covered areas,1998,1000 ha,7083.6813
+410,Land Cover,Area from CCI_LC,Shrub-covered areas,1999,1000 ha,7148.0894
+411,Land Cover,Area from CCI_LC,Shrub-covered areas,2000,1000 ha,7173.8673
+412,Land Cover,Area from CCI_LC,Shrub-covered areas,2001,1000 ha,7198.4652
+413,Land Cover,Area from CCI_LC,Shrub-covered areas,2002,1000 ha,7228.0661
+414,Land Cover,Area from CCI_LC,Shrub-covered areas,2003,1000 ha,7259.7851
+415,Land Cover,Area from CCI_LC,Shrub-covered areas,2004,1000 ha,7403.1472
+416,Land Cover,Area from CCI_LC,Shrub-covered areas,2005,1000 ha,7410.8775
+417,Land Cover,Area from CCI_LC,Shrub-covered areas,2006,1000 ha,7416.0862
+418,Land Cover,Area from CCI_LC,Shrub-covered areas,2007,1000 ha,7392.3815
+419,Land Cover,Area from CCI_LC,Shrub-covered areas,2008,1000 ha,7402.2796
+420,Land Cover,Area from CCI_LC,Shrub-covered areas,2009,1000 ha,7392.6772
+421,Land Cover,Area from CCI_LC,Shrub-covered areas,2010,1000 ha,7393.0728
+422,Land Cover,Area from CCI_LC,Shrub-covered areas,2011,1000 ha,7396.6105
+423,Land Cover,Area from CCI_LC,Shrub-covered areas,2012,1000 ha,7394.4338
+424,Land Cover,Area from CCI_LC,Shrub-covered areas,2013,1000 ha,7384.0071
+425,Land Cover,Area from CCI_LC,Shrub-covered areas,2014,1000 ha,7339.2123
+426,Land Cover,Area from CCI_LC,Shrub-covered areas,2015,1000 ha,7338.578
+427,Land Cover,Area from CCI_LC,Shrub-covered areas,2016,1000 ha,7374.2931
+428,Land Cover,Area from CCI_LC,Shrub-covered areas,2017,1000 ha,7382.4164
+429,Land Cover,Area from CCI_LC,Shrub-covered areas,2018,1000 ha,7373.4724
+430,Land Cover,Area from CCI_LC,Shrub-covered areas,2019,1000 ha,7378.4404
+431,Land Cover,Area from CCI_LC,Shrub-covered areas,2020,1000 ha,7392.7314
+457,Land Cover,Area from CCI_LC,Sparsely natural vegetated areas,1992,1000 ha,578.1436
+458,Land Cover,Area from CCI_LC,Sparsely natural vegetated areas,1993,1000 ha,578.0971
+459,Land Cover,Area from CCI_LC,Sparsely natural vegetated areas,1994,1000 ha,578.0041
+460,Land Cover,Area from CCI_LC,Sparsely natural vegetated areas,1995,1000 ha,575.9037
+461,Land Cover,Area from CCI_LC,Sparsely natural vegetated areas,1996,1000 ha,575.6867
+462,Land Cover,Area from CCI_LC,Sparsely natural vegetated areas,1997,1000 ha,575.7719
+463,Land Cover,Area from CCI_LC,Sparsely natural vegetated areas,1998,1000 ha,571.6642
+464,Land Cover,Area from CCI_LC,Sparsely natural vegetated areas,1999,1000 ha,569.3468
+465,Land Cover,Area from CCI_LC,Sparsely natural vegetated areas,2000,1000 ha,564.0533
+466,Land Cover,Area from CCI_LC,Sparsely natural vegetated areas,2001,1000 ha,559.5813
+467,Land Cover,Area from CCI_LC,Sparsely natural vegetated areas,2002,1000 ha,559.4573
+468,Land Cover,Area from CCI_LC,Sparsely natural vegetated areas,2003,1000 ha,557.6359
+469,Land Cover,Area from CCI_LC,Sparsely natural vegetated areas,2004,1000 ha,550.5288
+470,Land Cover,Area from CCI_LC,Sparsely natural vegetated areas,2005,1000 ha,545.553
+471,Land Cover,Area from CCI_LC,Sparsely natural vegetated areas,2006,1000 ha,540.585
+472,Land Cover,Area from CCI_LC,Sparsely natural vegetated areas,2007,1000 ha,540.6005
+473,Land Cover,Area from CCI_LC,Sparsely natural vegetated areas,2008,1000 ha,541.949
+474,Land Cover,Area from CCI_LC,Sparsely natural vegetated areas,2009,1000 ha,538.1591
+475,Land Cover,Area from CCI_LC,Sparsely natural vegetated areas,2010,1000 ha,532.757
+476,Land Cover,Area from CCI_LC,Sparsely natural vegetated areas,2011,1000 ha,532.7648
+477,Land Cover,Area from CCI_LC,Sparsely natural vegetated areas,2012,1000 ha,533.005
+478,Land Cover,Area from CCI_LC,Sparsely natural vegetated areas,2013,1000 ha,532.943
+479,Land Cover,Area from CCI_LC,Sparsely natural vegetated areas,2014,1000 ha,540.337
+480,Land Cover,Area from CCI_LC,Sparsely natural vegetated areas,2015,1000 ha,540.2905
+481,Land Cover,Area from CCI_LC,Sparsely natural vegetated areas,2016,1000 ha,540.6392
+482,Land Cover,Area from CCI_LC,Sparsely natural vegetated areas,2017,1000 ha,540.399
+483,Land Cover,Area from CCI_LC,Sparsely natural vegetated areas,2018,1000 ha,541.1198
+484,Land Cover,Area from CCI_LC,Sparsely natural vegetated areas,2019,1000 ha,540.9337
+485,Land Cover,Area from CCI_LC,Sparsely natural vegetated areas,2020,1000 ha,541.3833

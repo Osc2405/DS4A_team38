@@ -2,9 +2,16 @@ from sre_parse import State
 import dash
 import dash_bootstrap_components as dbc
 from dash import Input, Output, dcc, html
+import pathlib
+import plotly.express as px
+import pandas as pd
+
+PATH = pathlib.Path(__file__).parent
+DATA_PATH = PATH.joinpath("datasets").resolve()
 
 app = dash.Dash(
-    external_stylesheets=[dbc.themes.BOOTSTRAP, dbc.icons.BOOTSTRAP]
+    external_stylesheets=[dbc.themes.BOOTSTRAP, dbc.icons.BOOTSTRAP],
+    suppress_callback_exceptions=True
 )
 
 ## Import other pages
@@ -62,7 +69,7 @@ sidebar_responsive=html.Div(className="container-fluid overflow-hidden",
                     dbc.NavLink(href="/", className="d-flex align-items-center pb-sm-3 mb-md-0 me-md-auto text-white text-decoration-none",
                     children=[
                         html.Img(src="https://www.collinsdictionary.com/images/full/tree_267376982.jpg", className="w-25 rounded-circle"),
-                        html.Span("COREST",className="d-none d-md-inline p-2")
+                        html.Span("ECO REST",className="d-none d-md-inline p-2")
                         ]),
                     html.Br(),
                     dbc.Nav(className="nav nav-pills flex-sm-column flex-row flex-nowrap flex-shrink-1 flex-sm-grow-0 flex-grow-1 mb-sm-auto mb-0 justify-content-center align-items-center align-items-sm-start pt-5",id="menu",
@@ -75,12 +82,12 @@ sidebar_responsive=html.Div(className="container-fluid overflow-hidden",
                         dbc.NavLink(className="nav-item",href="/national",active="exact",
                         children=[
                             html.I(className="fs-5 bi-tree-fill"),
-                            html.Span("National",className="ms-1 d-none d-sm-inline") 
+                            html.Span("Nacional",className="ms-1 d-none d-sm-inline") 
                         ]),
                         dbc.NavLink(className="nav-item",href="/regional",active="exact",
                         children=[
                             html.I(className="fs-5 bi-table"),
-                            html.Span("Regional",className="ms-1 d-none d-sm-inline") 
+                            html.Span("Departamental",className="ms-1 d-none d-sm-inline") 
                         ]),
                         dbc.NavLink(className="nav-item",href="/about",active="exact",
                         children=[
@@ -137,7 +144,43 @@ def render_page_content(pathname):
     ),
     className="p-3 bg-light rounded-3",
 )
+## CALLBAKS NATIONAL ##
 
+## Callback Slider
+@app.callback(
+    Output("LandUsePie","figure"),
+    Output("LandUseLines","figure"),
+    [Input("year_slider","value")],
+    [Input("land_use_drop","value")])
+
+def update_output(value,value_drop):
+    df_land=pd.read_csv(DATA_PATH.joinpath("landcoverFAO.csv"))
+    df_land["Year"]=df_land["Year"].astype(int)
+    df=df_land[(df_land["Year"]>=value[0]) & (df_land["Year"]<=value[1])]
+    fig = px.pie(df,values="Value", names="Item")
+    fig.update_layout(transition_duration=500)
+    fig.update_layout(showlegend=False)
+
+    if value_drop is None:
+        fig2 = px.line(df,x="Year", y="Value",color="Item")
+    else:
+        dff=df[df.Item.str.contains('|'.join(value_drop))]
+        fig2 = px.line(dff,x="Year", y="Value",color="Item")
+    fig2.update_layout(transition_duration=500)
+    fig2.update_layout(showlegend=False)
+    return fig,fig2
+
+@app.callback(
+    Output('parrafo', 'children'),
+    [Input('year_slider', 'value')])
+def update_output(value):
+    string_exit='Estas viendo datos desde {} hasta {}'.format(value[0],value[1])
+    return string_exit
+
+
+
+
+## END CALLBACKS NATIONAL ##
 
 if __name__ == "__main__":
     app.run_server(debug=True)
