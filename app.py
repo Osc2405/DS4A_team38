@@ -178,7 +178,23 @@ def update_output(value):
     return string_exit
 
 
-
+@app.callback(
+    Output("forestvs","figure"),
+    [Input("year_slider","value")],
+    [Input("forestvs_drop","value")]
+)
+def forestvs(year,variable):
+    df_data=pd.read_csv(DATA_PATH.joinpath("output_merge.csv"))
+    df=df_data[(df_data["year"]>=year[0]) & (df_data["year"]<=year[1])]
+    if variable is None:
+        fig2 = px.line(df,x="year",y=df.columns[1:])
+    else:
+        variable.append("year")
+        dff=df[variable]
+        fig2 = px.line(dff,x="year", y=dff.columns[:-1])
+    fig2.update_layout(transition_duration=500)
+    fig2.update_layout(showlegend=False)
+    return fig2
 
 ## END CALLBACKS NATIONAL ##
 

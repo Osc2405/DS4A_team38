@@ -15,6 +15,13 @@ from app import app
 
 # DataSets
 df_land=pd.read_csv(DATA_PATH.joinpath("landcoverFAO.csv"))
+df_data=pd.read_csv(DATA_PATH.joinpath("output_merge.csv"))
+
+temperature=df_data["Temperature"].iloc[-1]
+Forest_area=df_data["Forest area (sq. km)"].iloc[-1]
+renewables=df_data["renewables_consumption"].iloc[-1]
+cattle=df_data["Cattle"].iloc[-1]
+
 
 #fig = px.pie(df_land,values="Value", names="Item")
 
@@ -45,8 +52,47 @@ layout = html.Div(
         dcc.RangeSlider(id="year_slider",
                         min=df_land["Year"].min(), max=df_land["Year"].max(),step=None,value=[df_land["Year"].min(),df_land["Year"].max()],marks={int(i):str(i) for i in df_land["Year"].unique()}, className="pt-4 pb-5"),
         dbc.Container([
-            html.Div(),
+            html.Div(className="card-body border rounded p-3",children=[
+                html.H3("Data from the most recent year (2020):", className="text-center"),
+            html.Div(className="d-flex flex-wrap justify-content-xl-between",children=[
+                html.Div(className="d-none d-xl-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item",children=[
+                    html.I(className="fs-5 bi-cloud me-3 text-warning"),
+                    html.Div(className="d-flex flex-column justify-content-around",children=[
+                        html.Small("Temperature",className="mb-1 text-muted"),
+                        html.H5(f'{temperature} °K',className="me-2 mb-0",id="temp_data")
+                    ])
+
+                ]),
+                html.Div(className="d-none d-xl-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item",children=[
+                    html.I(className="fs-5 bi-tree-fill me-5 text-success"),
+                    html.Div(className="d-flex flex-column justify-content-around",children=[
+                        html.Small("Forest area",className="mb-1 text-muted"),
+                        html.H5(f'{Forest_area} sq km',className="me-2 mb-0",id="CO2_data")
+                    ])
+
+                ]),
+                html.Div(className="d-none d-xl-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item",children=[
+                    html.I(className="fs-5 bi-battery-charging me-3 text-primary"),
+                    html.Div(className="d-flex flex-column justify-content-around",children=[
+                        html.Small("Renewable energy",className="mb-1 text-muted"),
+                        html.H5(renewables,className="me-2 mb-0",id="population_data")
+                    ])
+
+                ]),
+                html.Div(className="d-none d-xl-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item",children=[
+                    html.I(className="fs-5 bi-exclamation-octagon-fill me-3 text-danger"),
+                    html.Div(className="d-flex flex-column justify-content-around",children=[
+                        html.Small("Livestock",className="mb-1 text-muted"),
+                        html.H5(cattle,className="me-2 mb-0",id="cattle_data")
+                    ])
+
+                ]),
+            ]),
+            ]),
             # First row
+            html.Div(className="pt-3 border border-rounded",children=[
+
+            
             dbc.Row([
                 dbc.Col([
                     html.P("Comparative percentage land uses",
@@ -88,6 +134,12 @@ layout = html.Div(
                 ], width={'size': 4, 'offset': 0, 'order': 1}),
 
             ], justify='around'),
+            ]),
+            html.Div(className="",children=[
+                html.P("Comparative between forest area and other variables", className="text-center"),
+                dcc.Dropdown(id="forestvs_drop",multi=True, placeholder="Select variables to show...", options=[{'label': x, 'value': x} for x in sorted(df_data.columns[1:])]),
+                dcc.Graph(id="forestvs")
+            ])
 
             # Final Container
         ], fluid=True)
