@@ -63,8 +63,13 @@ layout = html.Div(
                                     html.P(
                                         "Since 1990 the amount of forest covering has been decreasing along the year, we are also interesting in studying which effects deforestation could be correlated with other phenomenum as the weather or the the increase in polluting emissions. ", className="text-justify text-success"),
                                 ]),
-
                             ),
+                            dbc.Card([
+                                dbc.CardBody([
+                                    html.P(
+                                        "The datasets where extracted from differents resources the previous data was taken from https://www.fao.org/faostat/en/#data/LC ", className="text-justify text-success"),
+                                ]),
+                            ]),
                         ]),
                     ]),
 
@@ -75,7 +80,7 @@ layout = html.Div(
                 dbc.Col([
                     html.P("The problem of polution emissions is other problem that we have to take care, in order to give a brief view we are going to posed the increasing change of this emissions.",
                            className="text-justify text-success"),
-                    dcc.Graph(id='LineChartForest', figure=fig),
+                    dcc.Graph(id='LineChartForest', figure={}),
 
                 ],  # width={'size': 7, 'offset': 0, 'order': 1}),
                     xs=12, sm=12, md=12, lg=11, xl=11),
@@ -87,23 +92,23 @@ layout = html.Div(
 
 
 
-        dbc.Container([
-            dbc.Button(
-                "Toggle fade", id="fade-button", className="mb-3", n_clicks=0
-            ),
-            dbc.Fade(
-                dbc.Card(
-                    dbc.CardBody(
-                        html.P(
-                            "This content fades in and out", className="card-text"
-                        )
-                    )
-                ),
-                id="fade",
-                is_in=True,
-                appear=False,
-            ),
-        ]),
+        # dbc.Container([
+        #     dbc.Button(
+        #         "Toggle fade", id="fade-button", className="mb-3", n_clicks=0
+        #     ),
+        #     dbc.Fade(
+        #         dbc.Card(
+        #             dbc.CardBody(
+        #                 html.P(
+        #                     "This content fades in and out", className="card-text"
+        #                 )
+        #             )
+        #         ),
+        #         id="fade",
+        #         is_in=True,
+        #         appear=False,
+        #     ),
+        # ]),
 
     ]
 )
@@ -111,13 +116,13 @@ layout = html.Div(
 # Callbacks
 
 
-@app.callback(
-    Output("fade", "is_in"),
-    [Input("fade-button", "n_clicks")],
-    [State("fade", "is_in")],
-)
-def toggle_fade(n, is_in):
-    if not n:
-        # Button has never been clicked
-        return False
-    return not is_in
+# @app.callback(
+#     Output("fade", "is_in"),
+#     [Input("fade-button", "n_clicks")],
+#     [State("fade", "is_in")],
+# )
+# def toggle_fade(n, is_in):
+#     if not n:
+#         # Button has never been clicked
+#         return False
+#     return not is_in
