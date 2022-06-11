@@ -15,7 +15,7 @@ app = dash.Dash(
 )
 
 ## Import other pages
-from pages import national,home,regional,about
+from pages import national,home,regional,about,graficas
 
 # Style of the sidebar
 SIDEBAR_STYLE = {
@@ -50,6 +50,7 @@ sidebar = html.Div(
                 dbc.NavLink("National", href="/national", active="exact"),
                 dbc.NavLink("Regional", href="/regional", active="exact"),
                 dbc.NavLink("About", href="/about", active="exact"),
+                dbc.NavLink("Graficas", href="/graficas", active="exact"),
             ],
             vertical=True,
             pills=True,
@@ -94,6 +95,11 @@ sidebar_responsive=html.Div(className="container-fluid overflow-hidden",
                             html.I(className="fs-5 bi-people-fill"),
                             html.Span("About",className="ms-1 d-none d-sm-inline") 
                         ]),
+                        dbc.NavLink(className="nav-item",href="/graficas",active="exact",
+                        children=[
+                            html.I(className="fs-5 bi-people-fill"),
+                            html.Span("Graficas",className="ms-1 d-none d-sm-inline") 
+                        ]),
                         
                     ])
             ])
@@ -125,6 +131,8 @@ def render_page_content(pathname):
         return  regional.layout
     elif pathname == "/about":
         return about.layout
+    elif pathname == "/graficas":
+        return graficas.layout
     # If the user tries to reach a different page, return a 404 message
     return html.Div(
     dbc.Container(
