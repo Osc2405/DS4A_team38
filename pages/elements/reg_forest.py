@@ -8,9 +8,9 @@ from app import app
 layout=html.Div(
     children=[
         html.H1(
-            children="Graficas"
+            children="Deforestacion Regional"
         ),
-        html.P("Pagina para resumir graficas que podriamos usar a futuro",
+        html.P("Pagina para mostrar la deforestacion regional",
         className="text-justify")
     ]
 )

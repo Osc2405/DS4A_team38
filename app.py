@@ -15,7 +15,8 @@ app = dash.Dash(
 )
 
 ## Import other pages
-from pages import national,home,regional,about,graficas
+from pages import national,home,regional,about,graficas,tabs_national,tabs_regional
+from pages.elements import nat_forest,nat_temperature,reg_forest,reg_temperature
 
 # Style of the sidebar
 SIDEBAR_STYLE = {
@@ -100,6 +101,16 @@ sidebar_responsive=html.Div(className="container-fluid overflow-hidden",
                             html.I(className="fs-5 bi-people-fill"),
                             html.Span("Graficas",className="ms-1 d-none d-sm-inline") 
                         ]),
+                        dbc.NavLink(className="nav-item",href="/tabs_national",active="exact",
+                        children=[
+                            html.I(className="fs-5 bi-people-fill"),
+                            html.Span("National (Tabs)",className="ms-1 d-none d-sm-inline") 
+                        ]),
+                        dbc.NavLink(className="nav-item",href="/tabs_regional",active="exact",
+                        children=[
+                            html.I(className="fs-5 bi-people-fill"),
+                            html.Span("Regional (Tabs)",className="ms-1 d-none d-sm-inline") 
+                        ]),
                         
                     ])
             ])
@@ -133,6 +144,10 @@ def render_page_content(pathname):
         return about.layout
     elif pathname == "/graficas":
         return graficas.layout
+    elif pathname == "/tabs_national":
+        return tabs_national.layout
+    elif pathname == "/tabs_regional":
+        return tabs_regional.layout
     # If the user tries to reach a different page, return a 404 message
     return html.Div(
     dbc.Container(
@@ -153,7 +168,34 @@ def render_page_content(pathname):
     className="p-3 bg-light rounded-3",
 )
 
-## CALLBAKS NATIONAL ##
+
+### CALLBACKS TABS NATIONAL ###
+
+@app.callback(Output('content_national', 'children'),
+              Input('tabs_national', 'value'))
+def render_content(tab):
+    if tab == 'tab_temperature':
+        return nat_temperature.layout
+    elif tab == 'tab_eforestation':
+        return nat_forest.layout
+
+### END CALLBACKS TABS NATIONAL ###
+
+### CALLBACKS TABS REGIONAL ###
+
+@app.callback(Output('content_regional', 'children'),
+              Input('tabs_regional', 'value'))
+def render_content(tab):
+    if tab == 'tab_temperature_reg':
+        return reg_temperature.layout
+    elif tab == 'tab_eforestation_reg':
+        return reg_forest.layout
+
+### END CALLBACKS TABS REGIONAL ###
+
+
+
+## CALLBACKS NATIONAL ##
 
 ## Callback Slider
 @app.callback(
