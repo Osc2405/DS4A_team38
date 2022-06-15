@@ -14,6 +14,8 @@ app = dash.Dash(
     suppress_callback_exceptions=True
 )
 
+app.title = "ECO REST"
+
 ## Import other pages
 from pages import national,home,regional,about,graficas,tabs_national,tabs_regional
 from pages.elements import nat_forest,nat_temperature,reg_forest,reg_temperature
