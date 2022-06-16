@@ -15,7 +15,7 @@ app = dash.Dash(
 )
 
 ## Import other pages
-from pages import national,home,regional,about,graficas,tabs_national,tabs_regional
+from pages import national,home,regional,about,graficas,tabs_national,tabs_regional,home2
 from pages.elements import nat_forest,nat_temperature,reg_forest,reg_temperature
 
 # Style of the sidebar
@@ -64,9 +64,9 @@ sidebar_responsive=html.Div(className="container-fluid overflow-hidden",
     children=[
         html.Div(className="row vh-100 overflow-auto",
         children=[
-            html.Div(className="col-12 col-sm-3 col-xl-2 px-sm-2 px-0 bg-dark d-flex sticky-top",
+            html.Div(className="col-12 col-sm-3 col-xl-2 px-sm-2 px-0 bg-black d-flex sticky-top",
             children=[
-                html.Div(className="d-flex flex-sm-column flex-row flex-grow-1 align-items-center align-items-sm-start px-3 pt-2 text-white",
+                html.Div(className="d-flex flex-sm-column flex-row flex-grow-1 align-items-center align-items-sm-start px-3 pt-4 text-white",
                 children=[
                     dbc.NavLink(href="/", className="d-flex align-items-center pb-sm-3 mb-md-0 me-md-auto text-white text-decoration-none",
                     children=[
@@ -115,7 +115,7 @@ sidebar_responsive=html.Div(className="container-fluid overflow-hidden",
                     ])
             ])
             ]),
-            html.Div(id="page-content",className="col d-flex flex-column h-100")
+            html.Div(id="page-content",className="col d-flex flex-column h-100 nopadding")
         ]
         )
     ]
@@ -135,7 +135,7 @@ app.layout = html.Div([dcc.Location(id="url"), sidebar_responsive, content])
 @app.callback(Output("page-content", "children"), [Input("url", "pathname")])
 def render_page_content(pathname):
     if pathname == "/":
-        return home.layout
+        return home2.layout
     elif pathname == "/national":
         return national.layout
     elif pathname == "/regional":
