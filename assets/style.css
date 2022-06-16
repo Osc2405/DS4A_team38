@@ -64,7 +64,7 @@
   margin: 0 !important;
 }
 
-.nav-link {
+.nav-pills .nav-link {
   color: #828e9f !important;
 }
 
@@ -89,4 +89,69 @@
   background-color: #21222d !important;
   border: 1px !important;
   border-radius: 25% !important;
+}
+
+.social-icon {
+  height: 70px;
+  width: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-size: 27px;
+  margin-right: 11px;
+  cursor: pointer;
+}
+
+.social-twitter:hover {
+  color: #55acee;
+}
+
+.social-facebook:hover {
+  color: #3b5999;
+}
+
+.social-linkedin:hover {
+  color: #0077b5;
+}
+
+.social-google:hover {
+  color: #dd4b39;
+}
+
+.social-instagram:hover {
+  color: #dd4b39;
+}
+
+.social-github:hover {
+  color: #dddddd;
+}
+
+.social-icon i {
+  transition: 0.4s all;
+}
+
+.social-icon:hover i {
+  transform: scale(1.4);
+}
+
+.list-social {
+  list-style: none;
+  display: flex;
+}
+
+.card-person {
+  background-color: #040d10;
+  border: 1px solid transparent;
+  transition: 0.4s all;
+}
+.card-person:hover {
+  transform: scale(1.1);
+  border-color: #66afe9;
+  box-shadow: 0 0 8px rgba(12, 94, 12, 0.6);
+  z-index: 3;
+}
+
+.image-person {
+  border-radius: 50%;
 }

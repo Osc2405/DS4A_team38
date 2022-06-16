@@ -10,7 +10,7 @@ PATH = pathlib.Path(__file__).parent
 DATA_PATH = PATH.joinpath("datasets").resolve()
 
 app = dash.Dash(
-    external_stylesheets=[dbc.themes.BOOTSTRAP, dbc.icons.BOOTSTRAP],
+    external_stylesheets=[dbc.themes.BOOTSTRAP, dbc.icons.BOOTSTRAP,dbc.icons.FONT_AWESOME],
     suppress_callback_exceptions=True
 )
 
@@ -48,8 +48,8 @@ sidebar = html.Div(
         dbc.Nav(
             [
                 dbc.NavLink("Home", href="/", active="exact"),
-                dbc.NavLink("National", href="/national", active="exact"),
-                dbc.NavLink("Regional", href="/regional", active="exact"),
+                dbc.NavLink("National", href="/prediction", active="exact"),
+                dbc.NavLink("Regional", href="/description", active="exact"),
                 dbc.NavLink("About", href="/about", active="exact"),
                 dbc.NavLink("Graficas", href="/graficas", active="exact"),
             ],
@@ -81,12 +81,12 @@ sidebar_responsive=html.Div(className="container-fluid overflow-hidden",
                             html.I(className="fs-5 bi-house"),
                             html.Span("Home",className="ms-1 d-none d-sm-inline") 
                         ]),
-                        dbc.NavLink(className="nav-item",href="/national",active="exact",
+                        dbc.NavLink(className="nav-item",href="/prediction",active="exact",
                         children=[
-                            html.I(className="fs-5 bi-tree-fill"),
-                            html.Span("Nacional",className="ms-1 d-none d-sm-inline") 
+                            html.I(className="fa-solid fa-temperature-low"),
+                            html.Span("Predicción",className="ms-1 d-none d-sm-inline") 
                         ]),
-                        dbc.NavLink(className="nav-item",href="/regional",active="exact",
+                        dbc.NavLink(className="nav-item",href="/description",active="exact",
                         children=[
                             html.I(className="fs-5 bi-table"),
                             html.Span("Departamental",className="ms-1 d-none d-sm-inline") 
@@ -122,12 +122,56 @@ sidebar_responsive=html.Div(className="container-fluid overflow-hidden",
 )
 
 
+sidebar_responsive2=html.Div(className="container-fluid overflow-hidden",
+    children=[
+        html.Div(className="row vh-100 overflow-auto",
+        children=[
+            html.Div(className="col-12 col-sm-3 col-xl-2 px-sm-2 px-0 bg-black d-flex sticky-top",
+            children=[
+                html.Div(className="d-flex flex-sm-column flex-row flex-grow-1 align-items-center align-items-sm-start px-3 pt-4 text-white",
+                children=[
+                    dbc.NavLink(href="/", className="d-flex align-items-center pb-sm-3 mb-md-0 me-md-auto text-white text-decoration-none",
+                    children=[
+                        html.Img(src="https://www.collinsdictionary.com/images/full/tree_267376982.jpg", className="w-25 rounded-circle"),
+                        html.Span("ECO REST",className="d-none d-md-inline p-2")
+                        ]),
+                    html.Br(),
+                    dbc.Nav(className="nav nav-pills flex-sm-column flex-row flex-nowrap flex-shrink-1 flex-sm-grow-0 flex-grow-1 mb-sm-auto mb-0 justify-content-center align-items-center align-items-sm-start pt-5",id="menu",
+                    children=[
+                        dbc.NavLink(className="nav-item",href="/",active="exact",
+                        children=[
+                            html.I(className="fs-5 bi-house"),
+                            html.Span("Home",className="ms-1 d-none d-sm-inline") 
+                        ]),
+                        dbc.NavLink(className="nav-item",href="/prediction",active="exact",
+                        children=[
+                            html.I(className="fa-solid fa-temperature-low"),
+                            html.Span("Predicción",className="ms-1 d-none d-sm-inline") 
+                        ]),
+                        dbc.NavLink(className="nav-item",href="/description",active="exact",
+                        children=[
+                            html.I(className="bi bi-graph-up"),
+                            html.Span("Area descriptiva",className="ms-1 d-none d-sm-inline") 
+                        ]),
+                        
+                        
+                    ])
+            ])
+            ]),
+            html.Div(id="page-content",className="col d-flex flex-column h-100 nopadding")
+        ]
+        )
+    ]
+)
+
+
+
 ### LAYOUT AND CONTENT
 
 content = html.Div(className="col d-flex flex-column h-100",
-children=[html.Main(className="row")])
+children=[html.Main(className="row")]) 
 
-app.layout = html.Div([dcc.Location(id="url"), sidebar_responsive, content])
+app.layout = html.Div([dcc.Location(id="url"), sidebar_responsive2, content])
 
 
 ### Callbacks
@@ -136,10 +180,12 @@ app.layout = html.Div([dcc.Location(id="url"), sidebar_responsive, content])
 def render_page_content(pathname):
     if pathname == "/":
         return home2.layout
-    elif pathname == "/national":
+    elif pathname == "/prediction":
         return national.layout
-    elif pathname == "/regional":
-        return  regional.layout
+    elif pathname == "/description":
+        return  national.layout
+
+##Enlaces no usados por ahora
     elif pathname == "/about":
         return about.layout
     elif pathname == "/graficas":
