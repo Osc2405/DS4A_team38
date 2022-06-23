@@ -65,14 +65,21 @@ class mapcol_departamentos:
 
         fig.update_layout(
             geo_scope='south america',
-            mapbox_style="carto-positron",
+            mapbox_style="carto-darkmatter",
             mapbox_zoom=4, 
             mapbox_center = {"lat": 6.88970868, "lon": -74.2973328},
             annotations=annotations,
-            height=400),
+            height=400,
+            font=dict(
+                color="white"
+            )),
 
         
         fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
+        fig.update_layout({
+          "plot_bgcolor": "#040d10",
+          "paper_bgcolor": "#040d10",
+        })
         
         return fig
 
@@ -127,14 +134,23 @@ class mapcol_departamentos:
 
         fig.update_layout(
             geo_scope='south america',
-            mapbox_style="carto-positron",
+            mapbox_style="carto-darkmatter",
             mapbox_zoom=6, 
             mapbox_center = {"lat": latitude, "lon": longitude},
             annotations=annotations,
-            height=400),
+            height=400,
+            plot_bgcolor= "#040d10",
+            paper_bgcolor= "#040d10",
+            font=dict(
+                color="white"
+            )),
 
         
         fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
+        fig.update_layout({
+          "plot_bgcolor": "#040d10",
+          "paper_bgcolor": "#040d10",
+        })
         
         return fig
 

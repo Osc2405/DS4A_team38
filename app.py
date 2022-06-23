@@ -1,7 +1,7 @@
 from sre_parse import State
 import dash
 import dash_bootstrap_components as dbc
-from dash import Input, Output, dcc, html,State
+from dash import Input, Output, dcc, html,State, callback
 import pathlib
 import plotly.express as px
 import pandas as pd
@@ -206,7 +206,7 @@ navbar = dbc.Navbar(
                     ),
                     dbc.NavLink(
                         [
-                            html.I(className="fas fa-calendar-alt me-2"),
+                            html.I(className="bi bi-graph-up me-2"),
                             html.Span("Predicción",className="text-white"),
                         ],
                         href="/prediction",
@@ -215,7 +215,7 @@ navbar = dbc.Navbar(
                     ),
                     dbc.NavLink(
                         [
-                            html.I(className="fas fa-envelope-open-text me-2"),
+                            html.I(className="fa-solid fa-chart-simple me-2"),
                             html.Span("Descripción",className="text-white"),
                         ],
                         href="/description",
@@ -363,63 +363,6 @@ def forestvs(year,variable):
 
 ## END CALLBACKS NATIONAL ##
 
-## START CALLBACKS DESCRIPTION ##
-
-@app.callback(
-    Output("indicador_barras","figure"),
-    Output("plot_area_contaminacion","figure"),
-    Output("plot_area_poblacion","figure"),
-    Output("text_year","children"),
-    Output("indicador_temperatura","children"),
-    Output("indicador_co2","children"),
-    Output("indicador_forest","children"),
-    Output("indicador_poblacion","children"),
-    [Input("year_slider_d","value")],
-    [Input("contamination_drop","value")]
-)
-def plot_barras(year,variable):
-    if not variable:
-        variables=["coal_consumption", "gas_consumption","oil_consumption", "renewables_consumption"]
-    else:
-        variables=variable
-    df_barras=df[(df["Year"]>=year[0]) & (df["Year"]<=year[1])]
-    fig = px.bar(df_barras, 
-             x = "Year",
-             y = variables,
-             template = 'plotly_dark'
-        )
-    fig2 = px.area(df_barras, 
-             x = "Year",
-             y = variables,
-             template = 'plotly_dark'
-        )
-
-    fig3 = px.area(df_barras, 
-             x = "Year",
-             y = ["Urban population", "Rural population"],
-             template = 'plotly_dark'
-        )
-
-    for figura in [fig,fig2,fig3]:
-        figura.update_layout(transition_duration=500)
-        figura.update_layout(showlegend=False)
-        figura.update_layout({
-          "plot_bgcolor": "#040d10",
-          "paper_bgcolor": "#040d10",
-        })
-    last_year=int(df_barras.iloc[-1]['Year'])
-    texto_year=f'Datos del año mas reciente ({last_year})'
-
-    #Indicadores
-    texto_temp="{:.2f} °C".format((df_barras.iloc[-1]["Temperature"]))
-    texto_co2="{:.2f} U".format((df_barras.iloc[-1]["co2"]))
-    texto_forest="{:.2f} U".format((df_barras.iloc[-1]["Forest area"]))
-    texto_poblacion="{:.2f} Millones".format((df_barras.iloc[-1]["population"])/1000000)
-    
-
-    return fig,fig2,fig3,texto_year,texto_temp,texto_co2,texto_forest,texto_poblacion
-
-## END CALLBACKS DESCRIPTION
 
 
 @app.callback(

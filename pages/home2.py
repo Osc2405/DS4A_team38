@@ -22,8 +22,8 @@ layout=html.Div( className="seccion_home",
                             html.H2(children="Algun texto o frease introductoria",className="text-white-50 mx-auto mt-2 mb-5"),
                             #html.A(className="btn btn-secondary mx-3  border border-rounded text-black", href="/prediction",children="Predicción de temperatura"),
                             #html.A(className="btn btn-secondary mx-3 border border-rounded text-black", href="/description",children="Ver datos hasta la fecha"),
-                            html.A(className="btn btn-secondary mx-3 border border-rounded text-black", href="/prediction",children=[dbc.NavLink(className="text-black",children="Predicción de temperatura", href="/prediction", active="exact"),]),
-                            html.A(className="btn btn-secondary mx-3 border border-rounded text-black", href="/description",children=[dbc.NavLink(className="text-black",children="Ver datos hasta la fecha", href="/description", active="exact"),]),
+                            html.A(className="btn btn-secondary mx-3 border border-rounded text-black my-2", href="/prediction",children=[dbc.NavLink(className="text-black",children="Predicción de temperatura", href="/prediction", active="exact"),]),
+                            html.A(className="btn btn-secondary mx-3 border border-rounded text-black my-2", href="/description",children=[dbc.NavLink(className="text-black",children="Ver datos hasta la fecha", href="/description", active="exact"),]),
 
                         ])
                     ])
@@ -53,9 +53,9 @@ layout=html.Div( className="seccion_home",
         html.Section(className="text-white text-center container",children=[
             html.H3(className="text-center pb-5",children="Conoce a nuestro equipo")
         ]),
-        html.Section(className="card-deck justify-content-around px-5 row text-white container" ,children=[
-            html.Div(className="col-xs-1 col-sm-1 col-md-3",children=[
-                html.Div(className="card card-person px-4 pt-4 pb-0", children=[
+        html.Section(className="card-deck justify-content-around px-5 row text-white" ,children=[
+            html.Div(className="col-xs-1 col-sm-1 col-md-3 d-flex justify-content-center",children=[
+                html.Div(className="card card-person px-4 pt-4 pb-0",style={"width": "16rem"} ,children=[
                     html.Img(src="../assets/img/elsa.jpeg", alt="",className="card-img-top image-person"),
                     html.Div(className="card-body",children=[
                         html.H5(className="card-title",children="Elsa Magnolia Quicazan Rubio"),
@@ -99,8 +99,8 @@ layout=html.Div( className="seccion_home",
                 ]),
                 
             ]),
-            html.Div(className="col-xs-1 col-sm-1 col-md-3",children=[
-                html.Div(className="card card-person px-4 pt-4 pb-0", children=[
+            html.Div(className="col-xs-1 col-sm-1 col-md-3 d-flex justify-content-center",children=[
+                html.Div(className="card card-person px-4 pt-4 pb-0 ",style={"width": "16rem"}, children=[
                     html.Img(src="../assets/img/gabriela.jpeg", alt="",className="card-img-top image-person"),
                     html.Div(className="card-body",children=[
                         html.H5(className="card-title",children="Gabriela Rincón Ariza"),
@@ -133,8 +133,8 @@ layout=html.Div( className="seccion_home",
                 
             ]),
             
-            html.Div(className="col-xs-1 col-sm-1 col-md-3",children=[
-                html.Div(className="card card-person px-4 pt-4 pb-0", children=[
+            html.Div(className="col-xs-1 col-sm-1 col-md-3 d-flex justify-content-center",children=[
+                html.Div(className="card card-person px-4 pt-4 pb-0",style={"width": "16rem"}, children=[
                     html.Img(src="../assets/img/oscar.jpeg", alt="",className="card-img-top image-person"),
                     html.Div(className="card-body",children=[
                         html.H5(className="card-title",children="Oscar Eduardo Rosero Ordoñez"),
@@ -181,7 +181,7 @@ layout=html.Div( className="seccion_home",
 
 
             html.Div(className="col-3",children=[
-                html.Div(className="card card-person px-4 pt-4 pb-0", children=[
+                html.Div(className="card card-person px-4 pt-4 pb-0",style={"width": "16rem"}, children=[
                     html.Img(src="https://eitrawmaterials.eu/wp-content/uploads/2016/09/person-icon.png", alt="",className="card-img-top image-person"),
                     html.Div(className="card-body",children=[
                         html.H5(className="card-title",children="Ana"),
@@ -220,7 +220,7 @@ layout=html.Div( className="seccion_home",
              
         html.Section(className="card-deck justify-content-around px-5 row text-white pt-3" ,children=[
             html.Div(className="col-3",children=[
-                html.Div(className="card card-person px-2 pt-4 pb-0", children=[
+                html.Div(className="card card-person px-2 pt-4 pb-0",style={"width": "16rem"}, children=[
                     html.Img(src="https://eitrawmaterials.eu/wp-content/uploads/2016/09/person-icon.png", alt="",className="card-img-top image-person"),
                     html.Div(className="card-body",children=[
                         html.H5(className="card-title",children="Luis"),
@@ -256,7 +256,7 @@ layout=html.Div( className="seccion_home",
                 ])
             ]),
             html.Div(className="col-3",children=[
-                html.Div(className="card card-person px-2 pt-4 pb-0", children=[
+                html.Div(className="card card-person px-2 pt-4 pb-0",style={"width": "16rem"}, children=[
                     html.Img(src="https://eitrawmaterials.eu/wp-content/uploads/2016/09/person-icon.png", alt="",className="card-img-top image-person"),
                     html.Div(className="card-body",children=[
                         html.H5(className="card-title",children="Juan Camilo"),
@@ -292,10 +292,10 @@ layout=html.Div( className="seccion_home",
                 ])
             ]),
             html.Div(className="col-3",children=[
-                html.Div(className="card card-person px-2 pt-4 pb-0", children=[
+                html.Div(className="card card-person px-2 pt-4 pb-0",style={"width": "16rem"}, children=[
                     html.Img(src="https://eitrawmaterials.eu/wp-content/uploads/2016/09/person-icon.png", alt="",className="card-img-top image-person"),
                     html.Div(className="card-body",children=[
-                        html.H5(className="card-title",children="Oscar"),
+                        html.H5(className="card-title",children="Andres"),
                         
                         html.Div(className="d-flex justify-content-center mt-2",children=[
                             html.Ul(className="list-social",children=[
