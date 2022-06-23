@@ -93,7 +93,7 @@
 
 .social-icon {
   height: 70px;
-  width: 70px;
+  width: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -135,6 +135,14 @@
   transform: scale(1.4);
 }
 
+.social-icon img {
+  transition: 0.4s all;
+}
+
+.social-icon:hover img {
+  transform: scale(1.4);
+}
+
 .list-social {
   list-style: none;
   display: flex;
@@ -154,4 +162,84 @@
 
 .image-person {
   border-radius: 50%;
+}
+
+.scholar-google {
+  filter: invert(96%) sepia(96%) saturate(0%) hue-rotate(149deg)
+    brightness(104%) contrast(107%);
+}
+
+.scholar-google:hover {
+  filter: invert(22%) sepia(22%) saturate(6873%) hue-rotate(222deg)
+    brightness(106%) contrast(82%);
+}
+
+.bioinspirada {
+  width: 50px !important;
+  height: 50px !important;
+}
+
+.bioinspirada:hover {
+  filter: invert(86%) sepia(17%) saturate(7488%) hue-rotate(326deg)
+    brightness(101%) contrast(101%);
+}
+
+.img__wrap {
+  position: relative;
+  width: 50px;
+}
+
+.img__description {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 3;
+  top: 100%;
+  left: 50%;
+  margin-left: -50px;
+}
+
+.img__description::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 40%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent black transparent;
+}
+
+.img__wrap:hover .img__description {
+  visibility: visible;
+}
+
+.rc-slider-track {
+  background-color: #2186f4;
+}
+
+.indicador {
+  background-color: #1f2940 !important;
+}
+
+.badge-soft-success {
+  color: #51cc98;
+  background-color: #002a18;
+}
+
+.Select-control {
+  background-color: #000000 !important;
+  border-color: rgb(63,63,63);
+  color: #A0AABA;
+}
+
+.Select-menu-outer {
+  background-color: #000000 !important;
+  border-color: rgb(63,63,63);
+  color: #A0AABA;
 }

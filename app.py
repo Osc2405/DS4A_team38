@@ -1,13 +1,18 @@
 from sre_parse import State
 import dash
 import dash_bootstrap_components as dbc
-from dash import Input, Output, dcc, html
+from dash import Input, Output, dcc, html,State
 import pathlib
 import plotly.express as px
 import pandas as pd
 
+# Df de las pruebas
+
 PATH = pathlib.Path(__file__).parent
 DATA_PATH = PATH.joinpath("datasets").resolve()
+
+df_finalCSV='https://raw.githubusercontent.com/ajrianop/projectDS4A/main/df_final.csv'
+df=pd.read_csv(df_finalCSV,encoding='unicode_escape')
 
 app = dash.Dash(
     external_stylesheets=[dbc.themes.BOOTSTRAP, dbc.icons.BOOTSTRAP,dbc.icons.FONT_AWESOME],
@@ -15,8 +20,11 @@ app = dash.Dash(
 )
 
 ## Import other pages
-from pages import national,home,regional,about,graficas,tabs_national,tabs_regional,home2
+from pages import national,home,regional,about,graficas,tabs_national,tabs_regional,home2, description
 from pages.elements import nat_forest,nat_temperature,reg_forest,reg_temperature
+
+
+PLOTLY_LOGO = "https://www.collinsdictionary.com/images/full/tree_267376982.jpg"
 
 # Style of the sidebar
 SIDEBAR_STYLE = {
@@ -60,66 +68,19 @@ sidebar = html.Div(
     style=SIDEBAR_STYLE,
 )
 
-sidebar_responsive=html.Div(className="container-fluid overflow-hidden",
-    children=[
-        html.Div(className="row vh-100 overflow-auto",
-        children=[
-            html.Div(className="col-12 col-sm-3 col-xl-2 px-sm-2 px-0 bg-black d-flex sticky-top",
-            children=[
-                html.Div(className="d-flex flex-sm-column flex-row flex-grow-1 align-items-center align-items-sm-start px-3 pt-4 text-white",
-                children=[
-                    dbc.NavLink(href="/", className="d-flex align-items-center pb-sm-3 mb-md-0 me-md-auto text-white text-decoration-none",
-                    children=[
-                        html.Img(src="https://www.collinsdictionary.com/images/full/tree_267376982.jpg", className="w-25 rounded-circle"),
-                        html.Span("ECO REST",className="d-none d-md-inline p-2")
-                        ]),
-                    html.Br(),
-                    dbc.Nav(className="nav nav-pills flex-sm-column flex-row flex-nowrap flex-shrink-1 flex-sm-grow-0 flex-grow-1 mb-sm-auto mb-0 justify-content-center align-items-center align-items-sm-start pt-5",id="menu",
-                    children=[
-                        dbc.NavLink(className="nav-item",href="/",active="exact",
-                        children=[
-                            html.I(className="fs-5 bi-house"),
-                            html.Span("Home",className="ms-1 d-none d-sm-inline") 
-                        ]),
-                        dbc.NavLink(className="nav-item",href="/prediction",active="exact",
-                        children=[
-                            html.I(className="fa-solid fa-temperature-low"),
-                            html.Span("Predicción",className="ms-1 d-none d-sm-inline") 
-                        ]),
-                        dbc.NavLink(className="nav-item",href="/description",active="exact",
-                        children=[
-                            html.I(className="fs-5 bi-table"),
-                            html.Span("Departamental",className="ms-1 d-none d-sm-inline") 
-                        ]),
-                        dbc.NavLink(className="nav-item",href="/about",active="exact",
-                        children=[
-                            html.I(className="fs-5 bi-people-fill"),
-                            html.Span("About",className="ms-1 d-none d-sm-inline") 
-                        ]),
-                        dbc.NavLink(className="nav-item",href="/graficas",active="exact",
-                        children=[
-                            html.I(className="fs-5 bi-people-fill"),
-                            html.Span("Graficas",className="ms-1 d-none d-sm-inline") 
-                        ]),
-                        dbc.NavLink(className="nav-item",href="/tabs_national",active="exact",
-                        children=[
-                            html.I(className="fs-5 bi-people-fill"),
-                            html.Span("National (Tabs)",className="ms-1 d-none d-sm-inline") 
-                        ]),
-                        dbc.NavLink(className="nav-item",href="/tabs_regional",active="exact",
-                        children=[
-                            html.I(className="fs-5 bi-people-fill"),
-                            html.Span("Regional (Tabs)",className="ms-1 d-none d-sm-inline") 
-                        ]),
-                        
-                    ])
-            ])
+
+sidebar_responsive_estasi= html.Nav(className="navbar navbar-inverse fixed-top",id="sidebar-wrapper", role="navigation",children=[
+    html.Ul(className="nav sidebar-nav",children=[
+        html.Div(className="sidebar-header",children=[
+            html.Div(className="sidebar-brand",children=[
+                html.A(href="/",children="ECO Rest")
+                ])
             ]),
-            html.Div(id="page-content",className="col d-flex flex-column h-100 nopadding")
-        ]
-        )
-    ]
-)
+        html.Li(html.A(href="/home",children="Home")),
+        html.Li(html.A(href="/prediction",children="Predicción")),
+        html.Li(html.A(href="/description",children="Descripción"))
+        ])
+    ])
 
 
 sidebar_responsive2=html.Div(className="container-fluid overflow-hidden",
@@ -166,12 +127,113 @@ sidebar_responsive2=html.Div(className="container-fluid overflow-hidden",
 
 
 
+
+sidebar = html.Div(
+    [
+        html.Div(
+            [
+                html.Img(src=PLOTLY_LOGO, style={"width": "3rem"}),
+                html.H2("ECO Rest",className="text-white"),
+            ],
+            className="sidebar-header",
+        ),
+        html.Hr(),
+        dbc.Nav(
+            [
+                dbc.NavLink(
+                    [html.I(className="fas fa-home me-2"), html.Span("Home")],
+                    href="/",
+                    active="exact",
+                ),
+                dbc.NavLink(
+                    [
+                        html.I(className="fas fa-calendar-alt me-2"),
+                        html.Span("Predicción"),
+                    ],
+                    href="/prediction",
+                    active="exact",
+                ),
+                dbc.NavLink(
+                    [
+                        html.I(className="fas fa-envelope-open-text me-2"),
+                        html.Span("Descripción"),
+                    ],
+                    href="/description",
+                    active="exact",
+                ),
+            ],
+            vertical=True,
+            pills=True,
+        ),
+    ],
+    className="sidebar",
+)
+
+navbar = dbc.Navbar(
+    dbc.Container(className="justify-content-between",children=
+        [
+            html.A(
+                # Use row and col to control vertical alignment of logo / brand
+                dbc.Row(
+                    [
+                        dbc.Col(html.Img(src=PLOTLY_LOGO, height="30px")),
+                        dbc.Col(dbc.NavbarBrand("ECO Rest", className="ms-2")),
+                    ],
+                    align="center",
+                    className="g-0",
+                ),
+                href="/",
+                style={"textDecoration": "none"},
+            ),
+            dbc.NavbarToggler(id="navbar-toggler", n_clicks=0),
+            dbc.Collapse(
+                id="navbar-collapse",
+                is_open=False,
+                navbar=True,
+                className="mr-auto",
+                children=[
+                    dbc.NavLink(
+                        [html.I(className="fas fa-home me-2"), html.Span("Home",className="text-white")],
+                        href="/",
+                        active="exact",
+                        className="text-white"
+                    ),
+                    dbc.NavLink(
+                        [
+                            html.I(className="fas fa-calendar-alt me-2"),
+                            html.Span("Predicción",className="text-white"),
+                        ],
+                        href="/prediction",
+                        active="exact",
+                        className="text-white"
+                    ),
+                    dbc.NavLink(
+                        [
+                            html.I(className="fas fa-envelope-open-text me-2"),
+                            html.Span("Descripción",className="text-white"),
+                        ],
+                        href="/description",
+                        active="exact",
+                        className="text-white"
+                    )]
+
+            ),
+        ]
+    ),
+    color="dark",
+    dark=True,
+)
+
+
+
+content = html.Div(id="page-content", className="content")
+
+app.layout = html.Div([dcc.Location(id="url"), navbar, content])
+
+
 ### LAYOUT AND CONTENT
 
-content = html.Div(className="col d-flex flex-column h-100",
-children=[html.Main(className="row")]) 
 
-app.layout = html.Div([dcc.Location(id="url"), sidebar_responsive2, content])
 
 
 ### Callbacks
@@ -183,7 +245,7 @@ def render_page_content(pathname):
     elif pathname == "/prediction":
         return national.layout
     elif pathname == "/description":
-        return  national.layout
+        return  description.layout
 
 ##Enlaces no usados por ahora
     elif pathname == "/about":
@@ -295,5 +357,77 @@ def forestvs(year,variable):
 
 ## END CALLBACKS NATIONAL ##
 
+## START CALLBACKS DESCRIPTION ##
+
+@app.callback(
+    Output("indicador_barras","figure"),
+    Output("plot_area_contaminacion","figure"),
+    Output("plot_area_poblacion","figure"),
+    Output("text_year","children"),
+    Output("indicador_temperatura","children"),
+    Output("indicador_co2","children"),
+    Output("indicador_forest","children"),
+    Output("indicador_poblacion","children"),
+    [Input("year_slider_d","value")],
+    [Input("contamination_drop","value")]
+)
+def plot_barras(year,variable):
+    if not variable:
+        variables=["coal_consumption", "gas_consumption","oil_consumption", "renewables_consumption"]
+    else:
+        variables=variable
+    df_barras=df[(df["Year"]>=year[0]) & (df["Year"]<=year[1])]
+    fig = px.bar(df_barras, 
+             x = "Year",
+             y = variables,
+             template = 'plotly_dark'
+        )
+    fig2 = px.area(df_barras, 
+             x = "Year",
+             y = variables,
+             template = 'plotly_dark'
+        )
+
+    fig3 = px.area(df_barras, 
+             x = "Year",
+             y = ["Urban population", "Rural population"],
+             template = 'plotly_dark'
+        )
+
+    for figura in [fig,fig2,fig3]:
+        figura.update_layout(transition_duration=500)
+        figura.update_layout(showlegend=False)
+        figura.update_layout({
+          "plot_bgcolor": "#040d10",
+          "paper_bgcolor": "#040d10",
+        })
+    last_year=int(df_barras.iloc[-1]['Year'])
+    texto_year=f'Datos del año mas reciente ({last_year})'
+
+    #Indicadores
+    texto_temp="{:.2f} °C".format((df_barras.iloc[-1]["Temperature"]))
+    texto_co2="{:.2f} U".format((df_barras.iloc[-1]["co2"]))
+    texto_forest="{:.2f} U".format((df_barras.iloc[-1]["Forest area"]))
+    texto_poblacion="{:.2f} Millones".format((df_barras.iloc[-1]["population"])/1000000)
+    
+
+    return fig,fig2,fig3,texto_year,texto_temp,texto_co2,texto_forest,texto_poblacion
+
+## END CALLBACKS DESCRIPTION
+
+
+@app.callback(
+    Output("navbar-collapse", "is_open"),
+    [Input("navbar-toggler", "n_clicks")],
+    [State("navbar-collapse", "is_open")],
+)
+def toggle_navbar_collapse(n, is_open):
+    if n:
+        return not is_open
+    return is_open
+
+
 if __name__ == "__main__":
     app.run_server(debug=True)
+
+

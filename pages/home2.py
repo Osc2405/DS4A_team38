@@ -50,35 +50,45 @@ layout=html.Div( className="seccion_home",
             ])
         ]),
         #Start about us section
-        html.Section(className="text-white text-center",children=[
+        html.Section(className="text-white text-center container",children=[
             html.H3(className="text-center pb-5",children="Conoce a nuestro equipo")
         ]),
-        html.Section(className="card-deck justify-content-around px-5 row text-white" ,children=[
-            html.Div(className="col-3",children=[
+        html.Section(className="card-deck justify-content-around px-5 row text-white container" ,children=[
+            html.Div(className="col-xs-1 col-sm-1 col-md-3",children=[
                 html.Div(className="card card-person px-4 pt-4 pb-0", children=[
-                    html.Img(src="https://eitrawmaterials.eu/wp-content/uploads/2016/09/person-icon.png", alt="",className="card-img-top image-person"),
+                    html.Img(src="../assets/img/elsa.jpeg", alt="",className="card-img-top image-person"),
                     html.Div(className="card-body",children=[
-                        html.H5(className="card-title",children="Elsa"),
-                        html.P(className="card-text",children="Titulo"),
+                        html.H5(className="card-title",children="Elsa Magnolia Quicazan Rubio"),
+                        
                         html.Div(className="d-flex justify-content-center mt-2",children=[
                             
-                            html.A(href="https://www.google.com", target="_blank",children=[
-                                html.Span(className="social-icon social-linkedin",children=[
-                                    html.I(className="bi bi-linkedin")
+                            html.A(className="mx-2 text-center",href="https://www.linkedin.com/in/elsaquicazanrubio/", target="_blank",children=[
+                                html.Div(className="img__wrap text-center",children=[
+                                    html.Span(className="social-icon social-linkedin text-center",children=[
+                                        html.I(className="bi bi-linkedin fa-lg text-center")
+                                    ]),
+                                    html.P(className="img__description",children="LinkedIn")
                                 ])
                             ]),
                         
-                            html.A(href="https://www.google.com", target="_blank",children=[
-                                html.Span(className="social-icon social-twitter",children=[
-                                    html.I(className="bi bi-twitter")
+                            html.A(className="mx-2 text-center",href="https://scholar.google.com/citations?hl=en&user=HIRj5dMAAAAJ&view_op=list_works&gmla=AJsN-F5jTRk_68bA_LuoApaP9QlGKHfEFsO7h5qZS-7RwSB6eyQHpj2-P4gGUiCWkLkrhGLfvM4Do6_b0MFRRJpe7BMWN9CQYDP6XiblZCQFOqguz5AKlRM", target="_blank",children=[
+                                html.Div(className="img__wrap text-center",children=[
+                                    html.Span(className="social-icon text-center",children=[
+                                        html.Img(className="scholar-google text-center", src="../assets/img/icons/icons8-google-scholar2.svg", alt="Google scholar")
+                                    ]),
+                                    html.P(className="img__description",children="Google Scholar")
                                 ])
                             ]),
                         
                         
-                            html.A(href="https://www.google.com", target="_blank",children=[
-                                html.Span(className="social-icon social-github",children=[
-                                    html.I(className="bi bi-github")
-                                ])
+                            html.A(className="mx-2 text-center",href="https://bioinspirada.com/", target="_blank",children=[
+                                html.Div(className="img__wrap text-center",children=[
+                                    html.Span(className="social-icon text-center",children=[
+                                        html.Img(className="bioinspirada w-50 text-center",src="../assets/img/icons/bioinspirada.png", alt="Personal Page")
+                                    ]),
+                                    html.P(className="img__description",children="Personal Page")
+                                ]),
+                                
                             ])
                             
                         
@@ -89,68 +99,32 @@ layout=html.Div( className="seccion_home",
                 ]),
                 
             ]),
-            html.Div(className="col-3",children=[
+            html.Div(className="col-xs-1 col-sm-1 col-md-3",children=[
                 html.Div(className="card card-person px-4 pt-4 pb-0", children=[
-                    html.Img(src="https://eitrawmaterials.eu/wp-content/uploads/2016/09/person-icon.png", alt="",className="card-img-top image-person"),
+                    html.Img(src="../assets/img/gabriela.jpeg", alt="",className="card-img-top image-person"),
                     html.Div(className="card-body",children=[
-                        html.H5(className="card-title",children="Gabriela"),
-                        html.P(className="card-text",children="Titulo"),
-                        html.Div(className="d-flex justify-content-center mt-2 card-body",children=[
-                            
-                            html.A(href="https://www.google.com", target="_blank",children=[
-                                html.Span(className="social-icon social-linkedin",children=[
-                                    html.I(className="bi bi-linkedin")
-                                ])
-                            ]),
-                            
-                            
-                            html.A(href="https://www.google.com", target="_blank",children=[
-                                html.Span(className="social-icon social-twitter",children=[
-                                    html.I(className="bi bi-twitter")
-                                ])
-                            ]),
-                            
-                            
-                            html.A(href="https://www.google.com", target="_blank",children=[
-                                html.Span(className="social-icon social-github",children=[
-                                    html.I(className="bi bi-github")
-                                ])
-                            ])
-                            
-                        ])
-                    ])
-                    
-                ])
-                    
-            ]),
-            html.Div(className="col-3",children=[
-                html.Div(className="card card-person px-4 pt-4 pb-0", children=[
-                    html.Img(src="https://eitrawmaterials.eu/wp-content/uploads/2016/09/person-icon.png", alt="",className="card-img-top image-person"),
-                    html.Div(className="card-body",children=[
-                        html.H5(className="card-title",children="Andres"),
-                        html.P(className="card-text",children="Titulo"),
+                        html.H5(className="card-title",children="Gabriela Rincón Ariza"),
+                        
                         html.Div(className="d-flex justify-content-center mt-2",children=[
                             
-                            html.A(href="https://www.google.com", target="_blank",children=[
-                                html.Span(className="social-icon social-linkedin",children=[
-                                    html.I(className="bi bi-linkedin")
+                            html.A(className="mx-2 text-center",href="https://www.linkedin.com/in/gabriela-rincon-ariza", target="_blank",children=[
+                                html.Div(className="img__wrap text-center",children=[
+                                    html.Span(className="social-icon social-linkedin text-center",children=[
+                                        html.I(className="bi bi-linkedin fa-lg text-center")
+                                    ]),
+                                    html.P(className="img__description",children="LinkedIn")
                                 ])
                             ]),
-                        
-                            html.A(href="https://www.google.com", target="_blank",children=[
-                                html.Span(className="social-icon social-twitter",children=[
-                                    html.I(className="bi bi-twitter")
+
+                            html.A(className="mx-2 text-center",href="https://github.com/GabrielaR-14", target="_blank",children=[
+                                html.Div(className="img__wrap text-center",children=[
+                                    html.Span(className="social-icon social-github text-center",children=[
+                                        html.I(className="bi bi-github fa-lg text-center")
+                                    ]),
+                                    html.P(className="img__description",children="Github")
                                 ])
                             ]),
-                        
-                        
-                            html.A(href="https://www.google.com", target="_blank",children=[
-                                html.Span(className="social-icon social-github",children=[
-                                    html.I(className="bi bi-github")
-                                ])
-                            ])
-                            
-                        
+                                      
                         ])
                         
                     ])
@@ -158,12 +132,60 @@ layout=html.Div( className="seccion_home",
                 ]),
                 
             ]),
+            
+            html.Div(className="col-xs-1 col-sm-1 col-md-3",children=[
+                html.Div(className="card card-person px-4 pt-4 pb-0", children=[
+                    html.Img(src="../assets/img/oscar.jpeg", alt="",className="card-img-top image-person"),
+                    html.Div(className="card-body",children=[
+                        html.H5(className="card-title",children="Oscar Eduardo Rosero Ordoñez"),
+                        
+                        html.Div(className="d-flex justify-content-center mt-2",children=[
+                            
+                            html.A(className="mx-2 text-center",href="https://www.linkedin.com/in/oscrosero24/", target="_blank",children=[
+                                html.Div(className="img__wrap text-center",children=[
+                                    html.Span(className="social-icon social-linkedin text-center",children=[
+                                        html.I(className="bi bi-linkedin fa-lg text-center")
+                                    ]),
+                                    html.P(className="img__description",children="LinkedIn")
+                                ])
+                            ]),
+
+                            html.A(className="mx-2 text-center",href="https://github.com/Osc2405", target="_blank",children=[
+                                html.Div(className="img__wrap text-center",children=[
+                                    html.Span(className="social-icon social-github text-center",children=[
+                                        html.I(className="bi bi-github fa-lg text-center")
+                                    ]),
+                                    html.P(className="img__description",children="Github")
+                                ])
+                            ]),
+
+                            html.A(className="mx-2 text-center",href="https://github.com/Osc2405", target="_blank",children=[
+                                html.Div(className="img__wrap text-center",children=[
+                                    html.Span(className="social-icon social-twitter text-center",children=[
+                                        html.I(className="bi bi-twitter fa-lg text-center")
+                                    ]),
+                                    html.P(className="img__description",children="Twitter")
+                                ])
+                            ]),
+                                      
+                        ])
+                        
+                    ])
+                    
+                ]),
+                
+            ]),
+
+
+
+
+
             html.Div(className="col-3",children=[
                 html.Div(className="card card-person px-4 pt-4 pb-0", children=[
                     html.Img(src="https://eitrawmaterials.eu/wp-content/uploads/2016/09/person-icon.png", alt="",className="card-img-top image-person"),
                     html.Div(className="card-body",children=[
                         html.H5(className="card-title",children="Ana"),
-                        html.P(className="card-text",children="Titulo"),
+                        
                         html.Div(className="d-flex justify-content-center mt-2",children=[
                             
                             html.A(href="https://www.google.com", target="_blank",children=[
@@ -202,7 +224,7 @@ layout=html.Div( className="seccion_home",
                     html.Img(src="https://eitrawmaterials.eu/wp-content/uploads/2016/09/person-icon.png", alt="",className="card-img-top image-person"),
                     html.Div(className="card-body",children=[
                         html.H5(className="card-title",children="Luis"),
-                        html.P(className="card-text",children="Titulo"),
+                        
                         html.Div(className="d-flex justify-content-center mt-2",children=[
                             html.Ul(className="list-social",children=[
                             html.Li(children=[
@@ -238,7 +260,7 @@ layout=html.Div( className="seccion_home",
                     html.Img(src="https://eitrawmaterials.eu/wp-content/uploads/2016/09/person-icon.png", alt="",className="card-img-top image-person"),
                     html.Div(className="card-body",children=[
                         html.H5(className="card-title",children="Juan Camilo"),
-                        html.P(className="card-text",children="Titulo"),
+                        
                         html.Div(className="d-flex justify-content-center mt-2",children=[
                             html.Ul(className="list-social",children=[
                             html.Li(children=[
@@ -274,7 +296,7 @@ layout=html.Div( className="seccion_home",
                     html.Img(src="https://eitrawmaterials.eu/wp-content/uploads/2016/09/person-icon.png", alt="",className="card-img-top image-person"),
                     html.Div(className="card-body",children=[
                         html.H5(className="card-title",children="Oscar"),
-                        html.P(className="card-text",children="Titulo"),
+                        
                         html.Div(className="d-flex justify-content-center mt-2",children=[
                             html.Ul(className="list-social",children=[
                             html.Li(children=[
