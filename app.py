@@ -6,6 +6,10 @@ import pathlib
 import plotly.express as px
 import pandas as pd
 
+
+from callbacks import register_callbacks
+
+
 # Df de las pruebas
 
 PATH = pathlib.Path(__file__).parent
@@ -16,8 +20,10 @@ df=pd.read_csv(df_finalCSV,encoding='unicode_escape')
 
 app = dash.Dash(
     external_stylesheets=[dbc.themes.BOOTSTRAP, dbc.icons.BOOTSTRAP,dbc.icons.FONT_AWESOME],
-    suppress_callback_exceptions=True
+    update_title='Cargando...', suppress_callback_exceptions=True 
 )
+
+app.config.suppress_callback_exceptions=True
 
 ## Import other pages
 from pages import national,home,regional,about,graficas,tabs_national,tabs_regional,home2, description
@@ -425,6 +431,13 @@ def toggle_navbar_collapse(n, is_open):
     if n:
         return not is_open
     return is_open
+
+
+#CALLBACKS GRAFICAS
+
+
+# Call to external function to register all callbacks
+register_callbacks(app)
 
 
 if __name__ == "__main__":
