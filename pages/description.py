@@ -193,8 +193,8 @@ def plot_barras(year,variable):
 
     #Indicadores
     texto_temp="{:.2f} °C".format((df_barras.iloc[-1]["Temperature"]))
-    texto_co2="{:.2f} U".format((df_barras.iloc[-1]["co2"]))
-    texto_forest="{:.2f} U".format((df_barras.iloc[-1]["Forest area"]))
+    texto_co2="{:.2f} KT".format((df_barras.iloc[-1]["co2"]))
+    texto_forest="{:.2f} Ha".format((df_barras.iloc[-1]["Forest area"]))
     texto_poblacion="{:.2f} Millones".format((df_barras.iloc[-1]["population"])/1000000)
     
 

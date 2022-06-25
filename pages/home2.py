@@ -180,34 +180,41 @@ layout=html.Div( className="seccion_home",
 
 
 
-            html.Div(className="col-3",children=[
-                html.Div(className="card card-person px-4 pt-4 pb-0",style={"width": "16rem"}, children=[
-                    html.Img(src="https://eitrawmaterials.eu/wp-content/uploads/2016/09/person-icon.png", alt="",className="card-img-top image-person"),
+            html.Div(className="col-xs-1 col-sm-1 col-md-3 d-flex justify-content-center",children=[
+                html.Div(className="card card-person px-4 pt-4 pb-0 ",style={"width": "16rem"}, children=[
+                    html.Img(src="../assets/img/andres.jpg", alt="",className="card-img-top image-person"),
                     html.Div(className="card-body",children=[
-                        html.H5(className="card-title",children="Ana"),
+                        html.H5(className="card-title",children="Andres Jhovany Riaño Pulido"),
                         
                         html.Div(className="d-flex justify-content-center mt-2",children=[
                             
-                            html.A(href="https://www.google.com", target="_blank",children=[
-                                html.Span(className="social-icon social-linkedin",children=[
-                                    html.I(className="bi bi-linkedin")
+                            html.A(className="mx-2 text-center",href="https://github.com/ajrianop", target="_blank",children=[
+                                html.Div(className="img__wrap text-center",children=[
+                                    html.Span(className="social-icon social-github text-center",children=[
+                                        html.I(className="bi bi-github fa-lg text-center")
+                                    ]),
+                                    html.P(className="img__description",children="Github")
                                 ])
                             ]),
-                        
-                            html.A(href="https://www.google.com", target="_blank",children=[
-                                html.Span(className="social-icon social-twitter",children=[
-                                    html.I(className="bi bi-twitter")
+
+                            html.A(className="mx-2 text-center",href="https://www.linkedin.com/in/andres-jhovany-riano-pulido-975994202/", target="_blank",children=[
+                                html.Div(className="img__wrap text-center",children=[
+                                    html.Span(className="social-icon social-linkedin text-center",children=[
+                                        html.I(className="bi bi-linkedin fa-lg text-center")
+                                    ]),
+                                    html.P(className="img__description",children="LinkedIn")
                                 ])
                             ]),
-                        
-                        
-                            html.A(href="https://www.google.com", target="_blank",children=[
-                                html.Span(className="social-icon social-github",children=[
-                                    html.I(className="bi bi-github")
+
+                            html.A(className="mx-2 text-center",href="https://scienti.minciencias.gov.co/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0000071210", target="_blank",children=[
+                                html.Div(className="img__wrap text-center",children=[
+                                    html.Span(className="social-icon social-github text-center",children=[
+                                        html.I(className="bi bi-file-earmark-person fa-lg text-center")
+                                    ]),
+                                    html.P(className="img__description",children="CV")
                                 ])
-                            ])
-                            
-                        
+                            ]),
+                                      
                         ])
                         
                     ])
