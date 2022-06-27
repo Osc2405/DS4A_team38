@@ -1,5 +1,5 @@
 import dash
-from dash import Input, Output, dcc, html,State, callback
+from dash import Input, Output, dcc, html,State, callback, callback_context
 import dash_bootstrap_components as dbc
 import pathlib
 
@@ -59,15 +59,11 @@ layout=html.Div(className="seccion_home px-4",
                 ],className="container", id="row_map")   
             ])
         ], className= "card"),
+        ##DROPDOWN
+        
+        ##END DROPDOWN
         
     ]
 )
 
-#CALLBACKS GRAFICAS
 
-@callback(
-    Output(component_id='my-output', component_property='children'),
-    Input(component_id='my-input', component_property='value')
-)
-def update_output_div(input_value):
-    return f'Output: {input_value}'
