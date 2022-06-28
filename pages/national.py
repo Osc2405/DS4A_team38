@@ -180,7 +180,7 @@ layout = html.Div(className="seccion_home px-4",
 
         ### slider
         html.Div(className="col-xs-12 col-sm-12 col-md-6 col-xl-6 text-center pt-3",children=[
-            html.P("slider para definir información compuesta", className="text-center"),
+            html.P("slider porcentajes de aumento", className="text-center"),
             dcc.Slider(
             id='my-slider_1',  # any name you'd like to give it
             marks={
