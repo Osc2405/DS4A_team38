@@ -22,6 +22,7 @@ app = dash.Dash(
     external_stylesheets=[dbc.themes.BOOTSTRAP, dbc.icons.BOOTSTRAP,dbc.icons.FONT_AWESOME],
     update_title='Cargando...', suppress_callback_exceptions=True 
 )
+server = app.server
 
 app.config.suppress_callback_exceptions=True
 
@@ -384,6 +385,4 @@ register_callbacks(app)
 
 
 if __name__ == "__main__":
-    app.run_server(debug=True)
-
-
+    app.run_server(debug=True, host="0.0.0.0", port=8080)
