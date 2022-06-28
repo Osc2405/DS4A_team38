@@ -44,7 +44,7 @@ layout = html.Div(className="seccion_home px-4",
     children=[
         html.Div(className=" p-3 m-2",children=[
             html.H1(
-            children="National page", className="me-md-3 me-xl-5 text-center"
+            children="Predicción temperatura", className="me-md-3 me-xl-5 text-center"
             ),
             html.P(id="parrafo", className="text-success text-center"),
         ]),
@@ -142,7 +142,109 @@ layout = html.Div(className="seccion_home px-4",
             ])
 
             # Final Container
-        ], fluid=True)
+        ], fluid=True),
+
+        ### slider
+        html.Div(className="col-xs-12 col-sm-12 col-md-6 col-xl-6 text-center pt-3",children=[
+            html.P("slider para definir información compuesta", className="text-center"),
+            dcc.RangeSlider(
+            id='my-range-slider_1',  # any name you'd like to give it
+            marks={
+                1996: '1996',     # key=position, value=what you see
+                2000: '2000',
+                2004: '2004',
+                2008: '2008',
+                2012: '2012',
+                2016: {'label': '2016', 'style': {'color': '#f50', 'font-weight': 'bold'}},
+                2018: '2018',
+            },
+            step=1,                # number of steps between values
+            min=1995,
+            max=2000,
+            # default value initially chosen
+            value=[1998, 2000],
+            dots=True,             # True, False - insert dots, only when step>1
+            allowCross=True,      # True,False - Manage handle crossover
+            disabled=False,        # True,False - disable handle
+            pushable=1,            # any number, or True with multiple handles
+            updatemode='mouseup',  # 'mouseup', 'drag' - update value method
+            included=True,         # True, False - highlight handle
+            vertical=False,        # True, False - vertical, horizontal slider
+            # hight of slider (pixels) when vertical=True
+            verticalHeight=900,
+            className='None',
+            tooltip={'always_visible': False,  # show current slider values
+                        'placement': 'bottom'},
+        ),
+        ]),
+
+        ### slider
+        html.Div(className="col-xs-12 col-sm-12 col-md-6 col-xl-6 text-center pt-3",children=[
+            html.P("slider porcentajes de aumento", className="text-center"),
+            dcc.Slider(
+            id='my-slider_1',  # any name you'd like to give it
+            marks={
+                0: '0 %',     # key=position, value=what you see
+                1: '1 %',
+                2: '2 %',
+                3: '3 %',
+                4: '4 %',
+                5: {'label': '5 % critical value', 'style': {'color': '#f50', 'font-weight': 'bold'}},
+            },
+            step=1,                # number of steps between values
+            min=0,
+            max=5,
+            # default value initially chosen
+            value=5,
+            dots=True,             # True, False - insert dots, only when step>1
+            disabled=False,        # True,False - disable handle
+            updatemode='mouseup',  # 'mouseup', 'drag' - update value method
+            included=True,         # True, False - highlight handle
+            vertical=False,        # True, False - vertical, horizontal slider
+            # hight of slider (pixels) when vertical=True
+            verticalHeight=900,
+            className='None',
+            tooltip={'always_visible': False,  # show current slider values
+                        'placement': 'bottom'},
+        ),
+        ]),
+
+
+        #Slider with only one option
+        html.Div(className="col-xs-12 col-sm-12 col-md-6 col-xl-6 text-center pt-3",children=[
+            html.P("slider porcentajes de aumento", className="text-center"),
+            dcc.RangeSlider(
+            id='my-range-slider_2',  # any name you'd like to give it
+            marks={
+                0: '0',     # key=position, value=what you see
+                1: '1',
+                2: '2',
+                3: '3',
+                4: '4',
+                5: {'label': '5 critical value', 'style': {'color': '#f50', 'font-weight': 'bold'}},
+            },
+            step=1,                # number of steps between values
+            min=0,
+            max=5,
+            # default value initially chosen percentage
+            value=1,
+            dots=True,             # True, False - insert dots, only when step>1
+            allowCross=True,      # True,False - Manage handle crossover
+            disabled=False,        # True,False - disable handle
+            pushable=1,            # any number, or True with multiple handles
+            updatemode='mouseup',  # 'mouseup', 'drag' - update value method
+            included=True,         # True, False - highlight handle
+            vertical=False,        # True, False - vertical, horizontal slider
+            # hight of slider (pixels) when vertical=True
+            verticalHeight=900,
+            className='None',
+            tooltip={'always_visible': False,  # show current slider values
+                        'placement': 'bottom'},
+        ),
+        ]),
+    
+
+
     ]
 )
 

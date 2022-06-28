@@ -1,5 +1,5 @@
 import dash
-from dash import Input, Output, dcc, html,State, callback
+from dash import Input, Output, dcc, html,State, callback, callback_context
 import dash_bootstrap_components as dbc
 import pathlib
 
@@ -53,21 +53,41 @@ layout=html.Div(className="seccion_home px-4",
                     mapa_colombia_departamentos.display()  
                 ],className="container", id="row_map")   
             ]),
-            dbc.Col([
-                html.Div([
-                    mapa_colombia_departamentos.display2(2.9986111111111, -75.304444444444)  
-                ],className="container", id="row_map")   
-            ])
         ], className= "card"),
+
+        ##DROPDOWN
+        html.Div(className="col-xs-12 col-sm-12 col-md-6 col-xl-6 pt-3",children=[
+            dcc.Dropdown(['AMAZONAS', 'ANTIOQUIA', 'ARAUCA', 'ATLANTICO', 'BOLIVAR',
+       'BOYACA', 'BUENAVENTURA', 'CALDAS', 'CAQUETA', 'CASANARE', 'CAUCA',
+       'CESAR', 'CHOCO', 'CORDOBA', 'CUNDINAMARCA', 'GUAINIA',
+       'LA GUAJIRA', 'GUAVIARE', 'HUILA', 'MAGDALENA', 'META', 'NARIÑO',
+       'NORTE DE SANTANDER', 'PUTUMAYO', 'QUINDIO', 'RISARALDA',
+       'ARCHIPIELAGO DE SAN ANDRES PROVIDENCIA Y SANTA CATALINA',
+       'SANTANDER', 'SUCRE', 'TOLIMA', 'VALLE DEL CAUCA', 'VAUPES',
+       'VICHADA'], 'Seleccione depto', id='demo-dropdown'),
+            html.Div(id='dd-output-container')
+        ]),
+        ##END DROPDOWN
+        ##MAP
+        html.Div(className="col-xs-12 col-sm-12 col-md-6 col-xl-6 text-center pt-3",children=[
+            mapa_colombia_departamentos.display2(2.9986111111111, -75.304444444444)
+        ]),
+        ##END MAP
+        ##MAP
+        html.Div(className="col-xs-12 col-sm-12 col-md-6 col-xl-6 text-center pt-3",children=[
+            mapa_colombia_departamentos.display2(12.594563,-81.712957)
+        ]),
+        ##END MAP
         
     ]
 )
 
-#CALLBACKS GRAFICAS
-
+## START CALLBACKS
 @callback(
-    Output(component_id='my-output', component_property='children'),
-    Input(component_id='my-input', component_property='value')
+    Output('dd-output-container', 'children'),
+    Input('demo-dropdown', 'value')
 )
-def update_output_div(input_value):
-    return f'Output: {input_value}'
+def update_output(value):
+    return f'You have selected {value}'
+
+
