@@ -101,7 +101,7 @@ layout=html.Div( className="seccion_home",
             ]),
             html.Div(className="col-xs-1 col-sm-1 col-md-3 d-flex justify-content-center",children=[
                 html.Div(className="card card-person px-4 pt-4 pb-0 ",style={"width": "16rem"}, children=[
-                    html.Img(src="../assets/img/gabriela.jpeg", alt="",className="card-img-top image-person"),
+                    html.Img(src=app.get_asset_url("../assets/img/gabriela.jpeg"), alt="",className="card-img-top image-person"),
                     html.Div(className="card-body",children=[
                         html.H5(className="card-title",children="Gabriela Rincón Ariza"),
                         
@@ -135,7 +135,7 @@ layout=html.Div( className="seccion_home",
             
             html.Div(className="col-xs-1 col-sm-1 col-md-3 d-flex justify-content-center",children=[
                 html.Div(className="card card-person px-4 pt-4 pb-0",style={"width": "16rem"}, children=[
-                    html.Img(src="../assets/img/oscar.jpeg", alt="",className="card-img-top image-person"),
+                    html.Img(src=app.get_asset_url("../assets/img/oscar.jpeg"), alt="",className="card-img-top image-person"),
                     html.Div(className="card-body",children=[
                         html.H5(className="card-title",children="Oscar Eduardo Rosero Ordoñez"),
                         
@@ -182,7 +182,7 @@ layout=html.Div( className="seccion_home",
 
             html.Div(className="col-xs-1 col-sm-1 col-md-3 d-flex justify-content-center",children=[
                 html.Div(className="card card-person px-4 pt-4 pb-0 ",style={"width": "16rem"}, children=[
-                    html.Img(src="../assets/img/andres.jpg", alt="",className="card-img-top image-person"),
+                    html.Img(src=app.get_asset_url("../assets/img/andres.jpg"), alt="",className="card-img-top image-person"),
                     html.Div(className="card-body",children=[
                         html.H5(className="card-title",children="Andres Jhovany Riaño Pulido"),
                         
