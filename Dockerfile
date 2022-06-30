@@ -14,4 +14,5 @@ COPY --chown=app:app . ./
 
 USER app
 
-CMD exec gunicorn --bind :80 --log-level info --workers 1 --threads 8 --timeout 0 app:server
+# CMD exec gunicorn --bind :80 --log-level info --workers 1 --threads 8 --timeout 0 app:server
+CMD python app.py
