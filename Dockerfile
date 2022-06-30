@@ -5,8 +5,13 @@ ENV PYTHONUNBUFFERED True
 ENV APP_HOME /app
 WORKDIR $APP_HOME
 
-COPY . ./
-
+ADD requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-CMD exec gunicorn --bind :$PORT --workers 1 --threads 8 --timeout 0 app:server
+RUN groupadd -r app && useradd -r -g app app
+
+COPY --chown=app:app . ./
+
+USER app
+
+CMD exec gunicorn --bind :80 --log-level info --workers 1 --threads 8 --timeout 0 app:server
