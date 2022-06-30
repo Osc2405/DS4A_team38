@@ -3,12 +3,130 @@ import dash
 from dash import dcc,html
 import dash_bootstrap_components as dbc
 import plotly.graph_objs as go
+import plotly.express as px
+import pandas as pd
 
 from app import app
 
 #Datos de ejemplo
 fig = go.Figure(data=[go.Scatter(x=[1, 2, 3], y=[4, 1, 2])])
 #fig.update_layout(plot_bgcolor='#ffffff',paper_bgcolor= "#21222d")  Esta linea permite modificar el color del fondo, pero queda horrible, aunque es un inicio
+
+
+# DF final# DF Final
+df_finalCSV='https://raw.githubusercontent.com/ajrianop/projectDS4A/main/df_final.csv'
+df=pd.read_csv(df_finalCSV,encoding='unicode_escape')
+
+# Grafica temperatura
+fig_temp=px.line(df,x=df["Year"],y=["Temperature"], template = 'plotly_dark',
+                  labels={
+                     "value": "Temperatura (Celcius)",
+                     "variable": ""
+                    },width=400, height=400,)
+fig_temp.update_traces(line=dict(color='#FF0000', width=5))
+
+# Set x-axis title and range
+fig_temp.update_xaxes(title_text="Año")
+fig_temp.update_xaxes(range=(1990,2020))
+
+# Set y-axes titles
+fig_temp.update_yaxes(title_text="Temperatura (Celcius)")
+
+# Leyenda arriba de gráfica
+fig_temp.update_layout(legend=dict(
+    orientation="h",
+    yanchor="bottom",
+    y=1.02,
+    xanchor="right",
+    x=1
+))
+
+# Letras en blanco y estilo de color de gráfica
+fig_temp.update_layout({
+  "plot_bgcolor": "#111111",
+  "paper_bgcolor": "#111111",
+  "font_color":"white",
+  "title_font_color":"white"
+})
+
+
+
+### Figura landcover
+fig_landcover = px.line(df, 
+             x = "Year",
+             y = ["Forest area", "Agricultural land"],
+             template = 'plotly_dark',
+             #title = 'Uso de tierra (Hectareas)',
+              width=400, height=400,
+              labels={"variable": ""
+                    }
+             )
+
+
+fig_landcover.update_layout(yaxis_range=[0,700000])
+
+# Leyenda arriba de gráfica
+fig_landcover.update_layout(legend=dict(
+    orientation="h",
+    yanchor="bottom",
+    y=1.02,
+    xanchor="right",
+    x=1
+))
+
+
+fig_landcover.update_traces(line_width=5)
+# Set x-axis title and range
+fig_landcover.update_xaxes(title_text="Año")
+fig_landcover.update_xaxes(range=(1990,2020))
+
+# Set y-axes titles
+fig_landcover.update_yaxes(title_text="Hectareas")
+
+# Letras en blanco y estilo de color de gráfica
+fig_landcover.update_layout({
+  "plot_bgcolor": "#111111",
+  "paper_bgcolor": "#111111",
+  "font_color":"white",
+  "title_font_color":"white"
+})
+
+
+### Figura poblacion
+fig_poblacion = px.bar(df, 
+             x = "Year",
+             y = ["Urban population", "Rural population"],
+             template = 'plotly_dark',
+             #title = 'Población', width=400, height=400, 
+             labels={"variable": ""
+                    }
+             )
+fig_poblacion.add_trace(
+    go.Scatter(x=df["Year"], y=df["population"], name="Población total",hoveron='points'),
+    
+)
+
+# Leyenda arriba de gráfica
+fig_poblacion.update_layout(legend=dict(
+    orientation="h",
+    yanchor="bottom",
+    y=1.02,
+    xanchor="right",
+    x=1
+))
+fig_poblacion.update_layout({
+    "plot_bgcolor": "#111111",
+    "paper_bgcolor": "#111111",
+    })
+
+# Set x-axis title and range
+fig_poblacion.update_xaxes(title_text="Año")
+fig_poblacion.update_xaxes(range=(1990,2020))
+
+# Set y-axes titles
+fig_poblacion.update_yaxes(title_text="Número de habitantes")
+
+
 
 ## Layout national
 layout=html.Div( className="seccion_home",
@@ -18,8 +136,8 @@ layout=html.Div( className="seccion_home",
                 html.Div(className="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center",children=[
                     html.Div(className="d-flex justify-content-center", children=[
                         html.Div(className="text-center",children=[
-                            html.H1(className="mx-auto my-0 text-uppercase", children="ECO Rest"),
-                            html.H2(children="Algun texto o frease introductoria",className="text-white-50 mx-auto mt-2 mb-5"),
+                            html.H1(className="mx-auto my-0 text-uppercase", children="ECO Temp"),
+                            html.H2(children="Team 30 - DS4A Colombia",className="text-white-50 mx-auto mt-2 mb-5"),
                             #html.A(className="btn btn-secondary mx-3  border border-rounded text-black", href="/prediction",children="Predicción de temperatura"),
                             #html.A(className="btn btn-secondary mx-3 border border-rounded text-black", href="/description",children="Ver datos hasta la fecha"),
                             html.A(className="btn btn-secondary mx-3 border border-rounded text-black my-2", href="/prediction",children=[dbc.NavLink(className="text-black",children="Predicción de temperatura", href="/prediction", active="exact"),]),
@@ -49,6 +167,28 @@ layout=html.Div( className="seccion_home",
                 ])
             ])
         ]),
+
+
+        # Section nuestro pais en datos
+        html.Section(className="seccion_datos py-3 text-white text-center pt-4 px-3 pt-lg-5",children=[
+            html.H2("Nuestro pais en datos",className="py-3"),
+            html.Div(className="row",children=[
+                html.Div(className="col-md-4 pais_datos",children=[
+                    html.H4("Temperatura",className="py-3"),
+                    dcc.Graph(figure=fig_temp)
+                ]),
+                html.Div(className="col-md-4 pais_datos",children=[
+                    html.H4("Bosques",className="py-3"),
+                    dcc.Graph(figure=fig_landcover)
+                ]),
+                html.Div(className="col-md-4 pais_datos",children=[
+                    html.H4("Poblacion",className="py-3"),
+                    dcc.Graph(figure=fig_poblacion)
+                ])
+            ])
+        ]),
+
+
         #Start about us section
         html.Section(className="text-white text-center container",children=[
             html.H3(className="text-center pb-5",children="Conoce a nuestro equipo")
@@ -224,135 +364,117 @@ layout=html.Div( className="seccion_home",
             ]),
                 
             ]),
-             
-        html.Section(className="card-deck justify-content-around px-5 row text-white pt-3" ,children=[
-            html.Div(className="col-3",children=[
-                html.Div(className="card card-person px-2 pt-4 pb-0",style={"width": "16rem"}, children=[
+        
+        html.Section(className="card-deck justify-content-around px-5 row text-white" ,children=[
+            html.Div(className="col-xs-1 col-sm-1 col-md-3 d-flex justify-content-center",children=[
+                html.Div(className="card card-person px-4 pt-4 pb-0",style={"width": "16rem"} ,children=[
+                    html.Img(src="../assets/img/ana.jpg", alt="",className="card-img-top image-person"),
+                    html.Div(className="card-body",children=[
+                        html.H5(className="card-title",children="Ana "),
+                        
+                        html.Div(className="d-flex justify-content-center mt-2",children=[
+                            
+                            html.A(className="mx-2 text-center",href="https://www.linkedin.com/in/elsaquicazanrubio/", target="_blank",children=[
+                                html.Div(className="img__wrap text-center",children=[
+                                    html.Span(className="social-icon social-linkedin text-center",children=[
+                                        html.I(className="bi bi-linkedin fa-lg text-center")
+                                    ]),
+                                    html.P(className="img__description",children="LinkedIn")
+                                ])
+                            ]),
+                        
+                                
+                            ])
+                            
+                        
+                        ])
+                        
+                    ])
+                    
+                ]),
+                
+            html.Div(className="col-xs-1 col-sm-1 col-md-3 d-flex justify-content-center",children=[
+                html.Div(className="card card-person px-4 pt-4 pb-0 ",style={"width": "16rem"}, children=[
                     html.Img(src="https://eitrawmaterials.eu/wp-content/uploads/2016/09/person-icon.png", alt="",className="card-img-top image-person"),
                     html.Div(className="card-body",children=[
                         html.H5(className="card-title",children="Luis"),
                         
                         html.Div(className="d-flex justify-content-center mt-2",children=[
-                            html.Ul(className="list-social",children=[
-                            html.Li(children=[
-                                html.A(href="https://www.google.com", target="_blank",children=[
-                                    html.Span(className="social-icon social-linkedin",children=[
-                                        html.I(className="bi bi-linkedin")
-                                    ])
+                            
+                            html.A(className="mx-2 text-center",href="https://www.linkedin.com/in/gabriela-rincon-ariza", target="_blank",children=[
+                                html.Div(className="img__wrap text-center",children=[
+                                    html.Span(className="social-icon social-linkedin text-center",children=[
+                                        html.I(className="bi bi-linkedin fa-lg text-center")
+                                    ]),
+                                    html.P(className="img__description",children="LinkedIn")
                                 ])
                             ]),
-                            html.Li(children=[
-                                html.A(href="https://www.google.com", target="_blank",children=[
-                                    html.Span(className="social-icon social-twitter",children=[
-                                        html.I(className="bi bi-twitter")
-                                    ])
+
+                            html.A(className="mx-2 text-center",href="https://github.com/GabrielaR-14", target="_blank",children=[
+                                html.Div(className="img__wrap text-center",children=[
+                                    html.Span(className="social-icon social-github text-center",children=[
+                                        html.I(className="bi bi-github fa-lg text-center")
+                                    ]),
+                                    html.P(className="img__description",children="Github")
                                 ])
                             ]),
-                            html.Li(children=[
-                                html.A(href="https://www.google.com", target="_blank",children=[
-                                    html.Span(className="social-icon social-github",children=[
-                                        html.I(className="bi bi-github")
-                                    ])
-                                ])
-                            ])
-                        ])
+                                      
                         ])
                         
                     ])
                     
-                ])
+                ]),
+                
             ]),
-            html.Div(className="col-3",children=[
-                html.Div(className="card card-person px-2 pt-4 pb-0",style={"width": "16rem"}, children=[
+            
+            html.Div(className="col-xs-1 col-sm-1 col-md-3 d-flex justify-content-center",children=[
+                html.Div(className="card card-person px-4 pt-4 pb-0",style={"width": "16rem"}, children=[
                     html.Img(src="https://eitrawmaterials.eu/wp-content/uploads/2016/09/person-icon.png", alt="",className="card-img-top image-person"),
                     html.Div(className="card-body",children=[
-                        html.H5(className="card-title",children="Juan Camilo"),
+                        html.H5(className="card-title",children="Juan"),
                         
                         html.Div(className="d-flex justify-content-center mt-2",children=[
-                            html.Ul(className="list-social",children=[
-                            html.Li(children=[
-                                html.A(href="https://www.google.com", target="_blank",children=[
-                                    html.Span(className="social-icon social-linkedin",children=[
-                                        html.I(className="bi bi-linkedin")
-                                    ])
+                            
+                            html.A(className="mx-2 text-center",href="https://www.linkedin.com/in/oscrosero24/", target="_blank",children=[
+                                html.Div(className="img__wrap text-center",children=[
+                                    html.Span(className="social-icon social-linkedin text-center",children=[
+                                        html.I(className="bi bi-linkedin fa-lg text-center")
+                                    ]),
+                                    html.P(className="img__description",children="LinkedIn")
                                 ])
                             ]),
-                            html.Li(children=[
-                                html.A(href="https://www.google.com", target="_blank",children=[
-                                    html.Span(className="social-icon social-twitter",children=[
-                                        html.I(className="bi bi-twitter")
-                                    ])
+
+                            html.A(className="mx-2 text-center",href="https://github.com/Osc2405", target="_blank",children=[
+                                html.Div(className="img__wrap text-center",children=[
+                                    html.Span(className="social-icon social-github text-center",children=[
+                                        html.I(className="bi bi-github fa-lg text-center")
+                                    ]),
+                                    html.P(className="img__description",children="Github")
                                 ])
                             ]),
-                            html.Li(children=[
-                                html.A(href="https://www.google.com", target="_blank",children=[
-                                    html.Span(className="social-icon social-github",children=[
-                                        html.I(className="bi bi-github")
-                                    ])
+
+                            html.A(className="mx-2 text-center",href="https://github.com/Osc2405", target="_blank",children=[
+                                html.Div(className="img__wrap text-center",children=[
+                                    html.Span(className="social-icon social-twitter text-center",children=[
+                                        html.I(className="bi bi-twitter fa-lg text-center")
+                                    ]),
+                                    html.P(className="img__description",children="Twitter")
                                 ])
-                            ])
-                        ])
+                            ]),
+                                      
                         ])
                         
                     ])
                     
-                ])
+                ]),
+                
+            ]),                
             ]),
-            html.Div(className="col-3",children=[
-                html.Div(className="card card-person px-2 pt-4 pb-0",style={"width": "16rem"}, children=[
-                    html.Img(src="https://eitrawmaterials.eu/wp-content/uploads/2016/09/person-icon.png", alt="",className="card-img-top image-person"),
-                    html.Div(className="card-body",children=[
-                        html.H5(className="card-title",children="Andres"),
-                        
-                        html.Div(className="d-flex justify-content-center mt-2",children=[
-                            html.Ul(className="list-social",children=[
-                            html.Li(children=[
-                                html.A(href="https://www.google.com", target="_blank",children=[
-                                    html.Span(className="social-icon social-linkedin",children=[
-                                        html.I(className="bi bi-linkedin")
-                                    ])
-                                ])
-                            ]),
-                            html.Li(children=[
-                                html.A(href="https://www.google.com", target="_blank",children=[
-                                    html.Span(className="social-icon social-twitter",children=[
-                                        html.I(className="bi bi-twitter")
-                                    ])
-                                ])
-                            ]),
-                            html.Li(children=[
-                                html.A(href="https://www.google.com", target="_blank",children=[
-                                    html.Span(className="social-icon social-github",children=[
-                                        html.I(className="bi bi-github")
-                                    ])
-                                ])
-                            ])
-                        ])
-                        ])
-                        
-                    ])
-                    
-                ])
-            ]),
-        ]),
+             
+        
         #End about us section
         html.Section(className="seccion_datos py-3 text-white text-center container pt-4 pt-lg-5",children=[
-            html.H2("Nuestro pais en datos",className="py-3"),
-            html.Div(className="row justify-content-between",children=[
-                html.Div(className="col",children=[
-                    html.H4("Temperatura",className="py-3"),
-                    dcc.Graph(figure=fig)
-                ]),
-                html.Div(className="col",children=[
-                    html.H4("Bosques",className="py-3"),
-                    dcc.Graph(figure=fig)
-                ]),
-                html.Div(className="col",children=[
-                    html.H4("Poblacion",className="py-3"),
-                    dcc.Graph(figure=fig)
-                ])
-            ]),
-            html.Div(className="text-center py-5",children=[
+                html.Div(className="text-center py-5",children=[
                 html.H2(children="Revisa nuestros datos",className="text-white mx-auto mt-2 mb-5"),
                 html.A(className="btn btn-secondary mx-3 border border-rounded text-black", href="/prediction",children=[dbc.NavLink(className="text-black",children="Predicción de temperatura", href="/prediction", active="exact"),]),
                 html.A(className="btn btn-secondary mx-3 border border-rounded text-black", href="/description",children=[dbc.NavLink(className="text-black",children="Ver datos hasta la fecha", href="/description", active="exact"),]),

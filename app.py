@@ -4,6 +4,7 @@ import dash_bootstrap_components as dbc
 from dash import Input, Output, dcc, html,State, callback
 import pathlib
 import plotly.express as px
+import plotly.graph_objects as go
 import pandas as pd
 
 
@@ -26,8 +27,9 @@ server = app.server
 
 app.config.suppress_callback_exceptions=True
 
+
 ## Import other pages
-from pages import national,home,regional,about,graficas,tabs_national,tabs_regional,home2, description
+from pages import national,home,regional,about,graficas,tabs_national,tabs_regional,home2, description,description_2
 from pages.elements import nat_forest,nat_temperature,reg_forest,reg_temperature
 
 
@@ -80,7 +82,7 @@ sidebar_responsive_estasi= html.Nav(className="navbar navbar-inverse fixed-top",
     html.Ul(className="nav sidebar-nav",children=[
         html.Div(className="sidebar-header",children=[
             html.Div(className="sidebar-brand",children=[
-                html.A(href="/",children="ECO Rest")
+                html.A(href="/",children="ECO Temp")
                 ])
             ]),
         html.Li(html.A(href="/home",children="Home")),
@@ -184,7 +186,7 @@ navbar = dbc.Navbar(
                 dbc.Row(
                     [
                         dbc.Col(html.Img(src=PLOTLY_LOGO, height="30px")),
-                        dbc.Col(dbc.NavbarBrand("ECO Rest", className="ms-2")),
+                        dbc.Col(dbc.NavbarBrand("ECO Temp", className="ms-2")),
                     ],
                     align="center",
                     className="g-0",
@@ -233,9 +235,10 @@ navbar = dbc.Navbar(
 
 
 
+
 content = html.Div(id="page-content", className="content")
 
-app.layout = html.Div([dcc.Location(id="url"), navbar, content])
+app.layout = html.Div([dcc.Location(id="url"), navbar,content])
 
 
 ### LAYOUT AND CONTENT
@@ -252,7 +255,7 @@ def render_page_content(pathname):
     elif pathname == "/prediction":
         return national.layout
     elif pathname == "/description":
-        return  description.layout
+        return  description_2.layout
 
 ##Enlaces no usados por ahora
     elif pathname == "/about":
