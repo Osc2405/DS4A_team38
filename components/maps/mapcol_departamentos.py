@@ -67,7 +67,7 @@ class mapcol_departamentos:
             geo_scope='south america',
             mapbox_style="carto-darkmatter",
             mapbox_zoom=4, 
-            mapbox_center = {"lat": 6.88970868, "lon": -74.2973328},
+            mapbox_center = {"lat": 3.958788, "lon": -73.608479},
             annotations=annotations,
             height=400,
             font=dict(
@@ -160,6 +160,75 @@ class mapcol_departamentos:
                 html.H4([self.map_title]),
                 html.Div([
                     dcc.Graph(figure=mapcol_departamentos.figura2(self,latitude, longitude), id=self.id)
+                ])
+                
+            ]
+        )
+        return layout
+
+    #plot according to latitude and longitude and year
+
+    @staticmethod
+    def figura3(self, latitude, longitude, year):
+        with open('datasets/jsonmaps/colombia.geo.json', encoding='utf-8') as json_file:
+            departamentos = json.load(json_file)
+        for i, each in enumerate(departamentos["features"]):
+            departamentos["features"][i]['id']=departamentos["features"][i]['properties']['DPTO']
+
+        mapa = go.Choroplethmapbox(
+            geojson=departamentos, 
+            locations=self.df.COD_DPTO, 
+            z=self.df[year],
+            colorscale="dense",
+            text=self.df.DEPARTAMENTO,
+            marker_opacity=0.9, 
+            marker_line_width=0.5,
+            colorbar_title = "COP",
+            )
+        annotations = [
+            dict(
+                showarrow=False,
+                align="right",
+                text="",
+                font=dict(color="#000000"),
+                bgcolor="#f9f9f9",
+                x=0.95,
+                y=0.95,
+            )
+        ]
+
+        fig = go.Figure(data=mapa)
+
+        
+
+        fig.update_layout(
+            geo_scope='south america',
+            mapbox_style="carto-darkmatter",
+            mapbox_zoom=6, 
+            mapbox_center = {"lat": latitude, "lon": longitude},
+            annotations=annotations,
+            height=400,
+            plot_bgcolor= "#040d10",
+            paper_bgcolor= "#040d10",
+            font=dict(
+                color="white"
+            )),
+
+        
+        fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
+        fig.update_layout({
+          "plot_bgcolor": "#040d10",
+          "paper_bgcolor": "#040d10",
+        })
+        
+        return fig
+
+    def display3(self, latitude, longitude, year):   
+        layout = html.Div(
+            [
+                html.H4([self.map_title]),
+                html.Div([
+                    dcc.Graph(figure=mapcol_departamentos.figura3(self,latitude, longitude,year), id=self.id)
                 ])
                 
             ]
