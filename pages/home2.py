@@ -11,7 +11,7 @@ fig = go.Figure(data=[go.Scatter(x=[1, 2, 3], y=[4, 1, 2])])
 #fig.update_layout(plot_bgcolor='#ffffff',paper_bgcolor= "#21222d")  Esta linea permite modificar el color del fondo, pero queda horrible, aunque es un inicio
 
 ## Layout national
-layout=html.Div( className="seccion_home",
+layout=html.Div( className="seccion_home container-fluid",
     children=[
         html.Header(
             className="masthead",children=[
