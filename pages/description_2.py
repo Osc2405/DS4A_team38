@@ -53,17 +53,18 @@ layout=html.Div(className="seccion_home px-4 pt-5",
     children=[
         html.H1(className="pt-4 text-center text-white pb-5",children="Seccion descriptiva"),
         html.Section(className="text-white row pb-5",id="filtros-mapa", children=[
-
+            html.H4(className="py-2 text-center",children="Filtros"),
             html.Div(className="col-xs-12 col-sm-12 col-md-6 col-xl-6 pt-3",children=[
-                html.H4(className="py-2 text-center",children="Filtros"),
                 html.H5(className="py-2",children="Selecciona el rango de años a observar:"),
                 dcc.RangeSlider(id="year_slider_d", min=df["Year"].min(), max=df["Year"].max(),step=1,value=[df["Year"].min(),df["Year"].max()],marks=None, className="pt-4 pb-5",tooltip={"placement": "bottom", "always_visible": True}),
+            ]),
+            html.Div(className="col-xs-12 col-sm-12 col-md-6 col-xl-6 pt-3",children=[
                 html.H5("Selecciona un departamento", className="pt-3 pb-2"),
                 dcc.Dropdown(id="departamentos_drop",multi=False, placeholder="Selecciona un departamento...", options=[{'label': x, 'value': x} for x in departamentos]),
             ]),
 
 
-            html.Div(className="col-xs-12 col-sm-12 col-md-6 col-xl-6 text-center pt-3", children=[
+            html.Div(className="col-xs-12 col-sm-12 col-md-4 col-xl-4 text-center pt-3", children=[
                 html.Div(className="seccion_home px-4",
                     children=[
                         html.Div(id='my-output',children=[
@@ -72,7 +73,27 @@ layout=html.Div(className="seccion_home px-4 pt-5",
                                 ],className="container", id="row_map") 
                         ])
                     ])
-                ])
+                ]),
+                html.Div(className="col-xs-12 col-sm-12 col-md-4 col-xl-4 text-center pt-3", children=[
+                html.Div(className="seccion_home px-4",
+                    children=[
+                        html.Div(id='my-output',children=[
+                            html.Div([
+                                    mapa_colombia_departamentos.display()  
+                                ],className="container", id="row_map") 
+                        ])
+                    ])
+                ]),
+                html.Div(className="col-xs-12 col-sm-12 col-md-4 col-xl-4 text-center pt-3", children=[
+                html.Div(className="seccion_home px-4",
+                    children=[
+                        html.Div(id='my-output',children=[
+                            html.Div([
+                                    mapa_colombia_departamentos.display()  
+                                ],className="container", id="row_map") 
+                        ])
+                    ])
+                ]),
             ]),
         html.Div(id="contenido")
     ]
