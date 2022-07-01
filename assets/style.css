@@ -1,3 +1,8 @@
+.header_img{
+  width: 100%;
+  padding: 0px;
+  margin: 0px
+}
 .masthead {
   position: relative;
   width: 100%;
@@ -76,6 +81,8 @@
 
 .seccion_home {
   background-color: #040d10 !important;
+  width: 100%;
+  padding-top: 3rem;
 }
 .seccion_datos {
   background-color: #040d10 !important;
@@ -86,7 +93,6 @@
 }
 
 .dash-graph {
-  background-color: #21222d !important;
   border: 1px !important;
   border-radius: 25% !important;
 }
@@ -242,4 +248,74 @@
   background-color: #000000 !important;
   border-color: rgb(63,63,63);
   color: #A0AABA;
+}
+
+.loader-7 .line {
+        width: 8px;
+        position: absolute;
+        border-radius: 5px;
+        bottom: 0;
+        background: -webkit-gradient(linear, left top, left bottom, from(#1ee95d), to(#5714ce));
+        background: -webkit-linear-gradient(top, #1ee95d, #5714ce);
+        background: -o-linear-gradient(top, #1ee95d, #5714ce);
+        background: linear-gradient(to bottom, #1ee95d, #5714ce);
+    }
+    
+    .loader-7 .line1 {
+        left: 0;
+        -webkit-animation: line-grow 0.5s ease alternate infinite;
+        animation: line-grow 0.5s ease alternate infinite;
+    }
+    
+    .loader-7 .line2 {
+        left: 20px;
+        -webkit-animation: line-grow 0.5s 0.2s ease alternate infinite;
+        animation: line-grow 0.5s 0.2s ease alternate infinite;
+    }
+    
+    .loader-7 .line3 {
+        left: 40px;
+        -webkit-animation: line-grow 0.5s 0.4s ease alternate infinite;
+        animation: line-grow 0.5s 0.4s ease alternate infinite;
+    }
+
+
+#energy_consumption{
+  height: 300px;
+}
+
+#population_graph{
+  height: 300px;
+}
+
+#gas_consumption{
+  height: 300px;
+}
+
+#land_cover{
+  height: 300px;
+}
+
+
+.pais_datos .js-plotly-plot .plotly, .js-plotly-plot .plotly div {
+  background-color: rgba(0, 0, 0, 0);;
+
+}
+
+
+
+#navbar{
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  z-index: 100;
+  background-color: #000000;
+}
+
+.content{
+  padding-top: 3rem;
+}
+
+.logo_navbar{
+  background-color: #FFF;
 }

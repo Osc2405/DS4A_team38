@@ -4,6 +4,7 @@ import dash_bootstrap_components as dbc
 import pathlib
 import pandas as pd
 import plotly.express as px
+import plotly.graph_objects as go
 
 from app import app
 
@@ -141,6 +142,35 @@ layout=html.Div(className="seccion_home px-4",
             ]),
         ]),
 
+        html.Section(className="pt-3 text-white",children=[
+            html.Div(className="row",children=[
+                html.Div(className="col-md-6",children=[
+                    html.Div(className="row",children=[
+                        dcc.Graph(id="energy_consumption",figure={})
+                        ]),
+                    html.Div(className="",children=[
+                        dcc.Graph(id="gas_consumption",figure={})
+                        ])
+                    ]),
+                html.Div(className="col-md-6",children=[
+
+                    ])
+            ]),
+            html.Div(className="row",children=[
+                html.Div(className="col-md-6",children=[
+                    html.Div(className="row",children=[
+                        dcc.Graph(id="population_graph",figure={})
+                        ]),
+                    html.Div(className="",children=[
+                        dcc.Graph(id="land_cover",figure={})
+                        ])
+                    ]),
+                html.Div(className="col-md-6",children=[
+
+                    ])
+                ])
+
+        ])
     ]
 )
 
@@ -155,6 +185,10 @@ layout=html.Div(className="seccion_home px-4",
     Output("indicador_co2","children"),
     Output("indicador_forest","children"),
     Output("indicador_poblacion","children"),
+    Output("energy_consumption","figure"),
+    Output("population_graph","figure"),
+    Output("gas_consumption","figure"),
+    Output("land_cover","figure"),
     [Input("year_slider_d","value")],
     [Input("contamination_drop","value")]
 )
@@ -197,8 +231,127 @@ def plot_barras(year,variable):
     texto_forest="{:.2f} Ha".format((df_barras.iloc[-1]["Forest area"]))
     texto_poblacion="{:.2f} Millones".format((df_barras.iloc[-1]["population"])/1000000)
     
+    ## Graficos seccion final
+    ## Energy cosumption
+    fig_energy = px.bar(df_barras, 
+             x = "Year",
+             y = ["coal_consumption", "gas_consumption","oil_consumption", "renewables_consumption"],
+             template = 'plotly_dark',
+             title = 'Consumo de energía', 
+             )
+    fig_energy.add_trace(
+        go.Scatter(x=df_barras["Year"], y=df_barras["primary_energy_consumption"], name="Consumo de energía primaria",hoveron='points'),
+    )
 
-    return fig,fig2,fig3,texto_year,texto_temp,texto_co2,texto_forest,texto_poblacion
+    fig_energy.update_layout(yaxis_range=[0,600])
+
+    # Set x-axis title
+    fig_energy.update_xaxes(title_text="Año")
+
+    # Set y-axes titles
+    fig_energy.update_yaxes(title_text="Consumo de energía (tWh)")
+
+    # Leyenda arriba de gráfica
+    
+
+    # Letras en blanco y estilo de color de gráfica
+    fig_energy.update_layout({
+      "plot_bgcolor": "#040d10",
+      "paper_bgcolor": "#040d10",
+      "font_color":"white",
+      "title_font_color":"white"
+    })
+
+    ##! Gas emissions ##
+
+    fig_gas = px.bar(df_barras, 
+             x = "Year",
+             y = ["co2", "methane", "nitrous_oxide"],
+             template = 'plotly_dark',
+             title = 'Emisión de gases efecto invernadero',  
+             )
+    fig_gas.add_trace(
+        go.Scatter(x=df_barras["Year"], y=df_barras["total_ghg"], name="Total Greenhouse Gasses",hoveron='points'),
+        
+    )
+
+    # Set x-axis title
+    fig_gas.update_xaxes(title_text="Año")
+
+    # Set y-axes titles
+    fig_gas.update_yaxes(title_text="Emisión de gases (Kilotoneladas)")
+
+    fig_gas.update_layout(yaxis_range=[0,300])
+
+    # Leyenda arriba de gráfica
+    
+
+    # Letras en blanco y estilo de color de gráfica
+    fig_gas.update_layout({
+      "plot_bgcolor": "#040d10",
+      "paper_bgcolor": "#040d10",
+      "font_color":"white",
+      "title_font_color":"white"
+    })
+
+    ##! Poblacion
+    fig_population = px.bar(df_barras, 
+             x = "Year",
+             y = ["Urban population", "Rural population"],
+             template = 'plotly_dark',
+             title = 'Población', 
+             )
+    fig_population.add_trace(
+        go.Scatter(x=df_barras["Year"], y=df_barras["population"], name="Población",hoveron='points'),
+        
+    )
+
+    # Leyenda arriba de gráfica
+    
+
+    # Set x-axis title
+    fig_population.update_xaxes(title_text="Año")
+
+    # Set y-axes titles
+    fig_population.update_yaxes(title_text="Número de habitantes")
+
+    # Letras en blanco y estilo de color de gráfica
+    fig_population.update_layout({
+      "plot_bgcolor": "#040d10",
+      "paper_bgcolor": "#040d10",
+      "font_color":"white",
+      "title_font_color":"white"
+    })
+
+    ##! Land cover
+
+    fig_landcover = px.line(df_barras, 
+             x = "Year",
+             y = ["Forest area", "Agricultural land"],
+             template = 'plotly_dark',
+             title = 'Uso de tierra (Hectareas)', 
+             )
+
+
+    fig_landcover.update_layout(yaxis_range=[0,700000])
+
+    # Leyenda arriba de gráfica
+    
+    # Letras en blanco y estilo de color de gráfica
+    fig_landcover.update_layout({
+      "plot_bgcolor": "#040d10",
+      "paper_bgcolor": "#040d10",
+      "font_color":"white",
+      "title_font_color":"white"
+    })
+
+    # Set x-axis title
+    fig_landcover.update_xaxes(title_text="Año")
+
+    # Set y-axes titles
+    fig_landcover.update_yaxes(title_text="Hectareas")
+
+    return fig,fig2,fig3,texto_year,texto_temp,texto_co2,texto_forest,texto_poblacion,fig_energy,fig_gas,fig_population,fig_landcover
 
 ## END CALLBACKS DESCRIPTION
 
