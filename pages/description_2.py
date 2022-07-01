@@ -49,7 +49,7 @@ cattle=df_data["Cattle"].iloc[-1]
 ## End Cambiar
 
 ## Layout national
-layout=html.Div(className="seccion_home px-4",
+layout=html.Div(className="seccion_home px-4 pt-5",
     children=[
         html.H1(className="pt-4 text-center text-white pb-5",children="Seccion descriptiva"),
         html.Section(className="text-white row pb-5",id="filtros-mapa", children=[

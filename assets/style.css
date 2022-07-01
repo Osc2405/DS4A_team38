@@ -1,3 +1,8 @@
+.header_img{
+  width: 100%;
+  padding: 0px;
+  margin: 0px
+}
 .masthead {
   position: relative;
   width: 100%;
@@ -76,6 +81,8 @@
 
 .seccion_home {
   background-color: #040d10 !important;
+  width: 100%;
+  padding-top: 3rem;
 }
 .seccion_datos {
   background-color: #040d10 !important;
@@ -293,4 +300,22 @@
 .pais_datos .js-plotly-plot .plotly, .js-plotly-plot .plotly div {
   background-color: rgba(0, 0, 0, 0);;
 
+}
+
+
+
+#navbar{
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  z-index: 100;
+  background-color: #000000;
+}
+
+.content{
+  padding-top: 3rem;
+}
+
+.logo_navbar{
+  background-color: #FFF;
 }

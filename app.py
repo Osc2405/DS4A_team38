@@ -29,11 +29,11 @@ app.config.suppress_callback_exceptions=True
 
 
 ## Import other pages
-from pages import national,home,regional,about,graficas,tabs_national,tabs_regional,home2, description,description_2
+from pages import prediction,home,regional,about,graficas,tabs_national,tabs_regional,home2, description,description_2
 from pages.elements import nat_forest,nat_temperature,reg_forest,reg_temperature
 
 
-PLOTLY_LOGO = "https://www.collinsdictionary.com/images/full/tree_267376982.jpg"
+PLOTLY_LOGO = "../assets/img/Logo.png"
 
 # Style of the sidebar
 SIDEBAR_STYLE = {
@@ -185,8 +185,8 @@ navbar = dbc.Navbar(
                 # Use row and col to control vertical alignment of logo / brand
                 dbc.Row(
                     [
-                        dbc.Col(html.Img(src=PLOTLY_LOGO, height="30px")),
-                        dbc.Col(dbc.NavbarBrand("ECO Temp", className="ms-2")),
+                        dbc.Col(html.Img(src=PLOTLY_LOGO, height="30px"),className="logo_navbar rounded-circle"),
+                        dbc.Col(dbc.NavbarBrand("ECO Temp", className="ms-2 text-white")),
                     ],
                     align="center",
                     className="g-0",
@@ -224,13 +224,22 @@ navbar = dbc.Navbar(
                         href="/description",
                         active="exact",
                         className="text-white"
+                    ),
+                    dbc.NavLink(
+                        [
+                            html.I(className="fa-solid fa-people-group me-2"),
+                            html.Span("About us",className="text-white"),
+                        ],
+                        href="/about",
+                        active="exact",
+                        className="text-white"
                     )]
 
             ),
         ]
     ),
     color="dark",
-    dark=True,
+    id="navbar"
 )
 
 
@@ -253,13 +262,13 @@ def render_page_content(pathname):
     if pathname == "/":
         return home2.layout
     elif pathname == "/prediction":
-        return national.layout
+        return prediction.layout
     elif pathname == "/description":
         return  description_2.layout
-
-##Enlaces no usados por ahora
     elif pathname == "/about":
         return about.layout
+
+    ##Enlaces no usados por ahora
     elif pathname == "/graficas":
         return graficas.layout
     elif pathname == "/tabs_national":
