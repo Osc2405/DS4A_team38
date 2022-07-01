@@ -20,21 +20,23 @@ df=pd.read_csv(df_finalCSV,encoding='unicode_escape')
 
 departament_temperature_CSV='https://raw.githubusercontent.com/ajrianop/projectDS4A/main/code_department_temp.csv'
 temp_department=pd.read_csv(departament_temperature_CSV,encoding='unicode_escape', dtype = {'COD_DPTO': str})
-#departamentosCSV='https://raw.githubusercontent.com/ajrianop/projectDS4A/main/department.csv'
-#departamentos=pd.read_csv(departamentosCSV,encoding='unicode_escape')
-#print(departamentos)
-#departamentos=departamentos.DEPARTAMENTO.unique()
+
 temp_department=temp_department.dropna(axis='rows')
+erase_years_df_temp=['1979', '1980', '1981', '1982', '1983', '1984', '1985', '1986', '1987', '1988', '1989', '2020']
+temp_department=temp_department.drop(columns=erase_years_df_temp, axis=1)
 departamentos=temp_department.DEPARTAMENTO.unique()
+
+erase_years_df_pib=['1980', '1981', '1982', '1983', '1984', '1985', '1986', '1987', '1988', '1989', '2020']
+
 #print(temp_department[temp_department['DEPARTAMENTO']=='CUNDINAMARCA']['latitude']),
 #print(temp_department[temp_department['DEPARTAMENTO']=='CUNDINAMARCA']['longitude']),
 LAT_CUN=temp_department[temp_department['DEPARTAMENTO']=='CUNDINAMARCA']['latitude']
 LON_CUN=temp_department[temp_department['DEPARTAMENTO']=='CUNDINAMARCA']['longitude']
-#print(LAT_CUN.iloc[-1])
-#print(LON_CUN.iloc[-1])
 #print(temp_department.columns[1:43])
 
-mapa_colombia_departamentos = mapcol_departamentos('Mapa de Departamentos Colombia', 'div_departamentos_fig',temp_department)
+mapa_colombia_departamentos = mapcol_departamentos('Mapa Temperatura Colombia', 'div_departamentos_fig',temp_department)
+mapa_colombia_departamentos_pib = mapcol_departamentos('Mapa PIB Colombia', 'div_departamentos_fig',temp_department)
+mapa_colombia_departamentos_def = mapcol_departamentos('Mapa Deforestación Colombia', 'div_departamentos_fig',temp_department)
 ############
 ############
 
@@ -71,8 +73,8 @@ layout=html.Div(
                     children=[
                         html.Div(id='my-output',children=[
                             html.Div([
-                                    #mapa_colombia_departamentos.display3(5.7489, -74.329597, '2000'),
-                                    mapa_colombia_departamentos.display3(LAT_CUN.iloc[-1], LON_CUN.iloc[-1], '2000'),
+                                    mapa_colombia_departamentos.display3(5.7489, -74.329597, '2000','Reds'),
+                                    #mapa_colombia_departamentos.display3(LAT_CUN.iloc[-1], LON_CUN.iloc[-1], '2000'),
                                     #mapa_colombia_departamentos.display3(12.594563,-81.712957, temp_department['1990'])
                                     #dcc.Graph(id="plot_temperature_map",figure={})
                                 ],className="container", id="row_map2") 
@@ -116,19 +118,27 @@ def update_map(selector_municipio,selector_year,nclicks):
         #return [nuevo_mapa],info_drop, texto_year
         return [nuevo_mapa], texto_year """
 @callback(
-    [Output("row_map2", 'children')],
+    Output("row_map2", 'children'),
     Output("info_dep","children"),
     #Output("last_year", "children"),
-    [Input("id_selector_municipio", "value")],
+    Input("id_selector_municipio", "value"),
     [Input("slider-updatemode", "value")]
 )
 
 def update_map(depart,years):
-    info_dep=f'Temperatura en {depart}, año {str(years[1])}'
-    LAT_CUN_DEP=temp_department[temp_department['DEPARTAMENTO']==depart]['latitude']
-    LON_CUN_DEP=temp_department[temp_department['DEPARTAMENTO']==depart]['longitude']
-    fig4=mapa_colombia_departamentos.display3(LAT_CUN_DEP.iloc[-1], LON_CUN_DEP.iloc[-1], str(years[1]))
-    return [fig4],info_dep
+    if not depart:
+        info_dep_temp=f'Temperatura en Colombia, año {str(years[1])}'
+        fig4=mapa_colombia_departamentos.display3(5.7489, -74.329597, str(years[1]),'Reds'),
+    else:
+        LAT_CUN_DEP=temp_department[temp_department['DEPARTAMENTO']==depart]['latitude']
+        LON_CUN_DEP=temp_department[temp_department['DEPARTAMENTO']==depart]['longitude']
+        LAT_CUN_DEP=float(LAT_CUN_DEP.iloc[0])
+        LON_CUN_DEP=float(LON_CUN_DEP.iloc[0])
+        info_dep_temp=f'Temperatura en {depart}, año {str(years[1])}'
+        fig4=mapa_colombia_departamentos.display3(LAT_CUN_DEP, LON_CUN_DEP, str(years[1], 'Reds'),'dense')
+        #fig4=mapa_colombia_departamentos.display3(5.7489, -74.329597, str(years[1]))
+    return fig4,info_dep_temp
+    #return info_dep #[fig4],info_dep
 
 
 ## END CALLBACKS DESCRIPTION

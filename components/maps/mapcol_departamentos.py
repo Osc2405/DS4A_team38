@@ -169,7 +169,7 @@ class mapcol_departamentos:
     #plot according to latitude and longitude and year
 
     @staticmethod
-    def figura3(self, latitude, longitude, year):
+    def figura3(self, latitude, longitude, year,color):
         with open('datasets/jsonmaps/colombia.geo.json', encoding='utf-8') as json_file:
             departamentos = json.load(json_file)
         for i, each in enumerate(departamentos["features"]):
@@ -179,7 +179,7 @@ class mapcol_departamentos:
             geojson=departamentos, 
             locations=self.df.COD_DPTO, 
             z=self.df[year],
-            colorscale="dense",
+            colorscale=color,
             text=self.df.DEPARTAMENTO,
             marker_opacity=0.9, 
             marker_line_width=0.5,
@@ -223,16 +223,15 @@ class mapcol_departamentos:
         
         return fig
 
-    def display3(self, latitude, longitude, year):   
+    def display3(self, latitude, longitude, year,color):   
         layout = html.Div(
             [
                 html.H4([self.map_title]),
                 html.Div([
-                    dcc.Graph(figure=mapcol_departamentos.figura3(self,latitude, longitude,year), id=self.id)
+                    dcc.Graph(figure=mapcol_departamentos.figura3(self,latitude, longitude,year,color), id=self.id)
                 ])
                 
             ]
         )
         return layout
-        
     

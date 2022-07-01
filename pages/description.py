@@ -67,8 +67,8 @@ layout=html.Div(className="seccion_home px-4",
                     children=[
                         html.Div(id='my-output',children=[
                             html.Div([
-                                    mapa_colombia_departamentos.display()  
-                                ],className="container", id="row_map") 
+                                    #mapa_colombia_departamentos.display()  
+                                ],className="container", id="row_map_temp") 
                         ])
                     ])
                 ])
@@ -150,6 +150,7 @@ layout=html.Div(className="seccion_home px-4",
     Output("indicador_barras","figure"),
     Output("plot_area_contaminacion","figure"),
     Output("plot_area_poblacion","figure"),
+    Output("row_map_temp", 'children'),
     Output("text_year","children"),
     Output("indicador_temperatura","children"),
     Output("indicador_co2","children"),
@@ -191,6 +192,10 @@ def plot_barras(year,variable):
     last_year=int(df_barras.iloc[-1]['Year'])
     texto_year=f'Datos del año mas reciente ({last_year})'
 
+    ###Mapa temperatura por departamentosCSV
+    fig4=mapa_colombia_departamentos.display()
+    ###Fin mapa temperatura por departamentosCSV
+
     #Indicadores
     texto_temp="{:.2f} °C".format((df_barras.iloc[-1]["Temperature"]))
     texto_co2="{:.2f} KT".format((df_barras.iloc[-1]["co2"]))
@@ -198,7 +203,7 @@ def plot_barras(year,variable):
     texto_poblacion="{:.2f} Millones".format((df_barras.iloc[-1]["population"])/1000000)
     
 
-    return fig,fig2,fig3,texto_year,texto_temp,texto_co2,texto_forest,texto_poblacion
+    return fig,fig2,fig3,fig4,texto_year,texto_temp,texto_co2,texto_forest,texto_poblacion
 
 ## END CALLBACKS DESCRIPTION
 
