@@ -84,6 +84,12 @@
   width: 100%;
   padding-top: 3rem;
 }
+
+.seccion_home1 {
+  background-color: #040d10 !important;
+  width: 100%;
+}
+
 .seccion_datos {
   background-color: #040d10 !important;
 }

@@ -6,9 +6,15 @@ import pathlib
 import plotly.express as px
 import plotly.graph_objects as go
 import pandas as pd
+import pickle
+import numpy as np
 
 
 from callbacks import register_callbacks
+
+path_model="pages/model.pkl"
+model = pickle.load(open(path_model, 'rb'))
+
 
 
 # Df de las pruebas

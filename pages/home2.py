@@ -129,7 +129,7 @@ fig_poblacion.update_yaxes(title_text="Número de habitantes")
 
 
 ## Layout national
-layout=html.Div( className="seccion_home",
+layout=html.Div( className="seccion_home1",
     children=[
     html.Div(className="header_img",children=[
         html.Header(
@@ -169,6 +169,25 @@ layout=html.Div( className="seccion_home",
                 ])
             ])
         ]),
+
+        html.Section(className="seccion_home container-fluid",children=[
+            html.Div(className="container pt-4 pt-lg-5 text-white",children=[
+                html.Div(className="row gx-0 mb-4 mb-lg-5 align-items-start pt-5 text-white justify-content-between",children=[
+                    html.Div(className="col-md-5 text-center",children=[
+                        html.Img(src="../assets/img/world.jpg",className="w-100 rounded-circle")
+                    ]),
+                    html.Div(className="col-5 text-white",children=[
+                        html.H4(children="Nuestro proyecto"),
+                        html.P(className="text-justify", children="Aqui hablaremos de la importancia del cuiaddo del ambiente, del peligro que implica el cambio climatico y como con nuestras acciones podemos mitigarlo hasta cierta medida."),
+                        html.P(className="text-justify",children="Este es cambio que depende de todos, sino nos morimos :)")
+                        
+                        ]),
+                    ])
+                ])
+        ]),
+
+
+
 
 
         # Section nuestro pais en datos
