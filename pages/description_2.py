@@ -19,6 +19,46 @@ from components.maps.mapcol_departamentos import mapcol_departamentos
 #datatest1=departments.to_json()
 #print(datatest)
 
+#INFORMACIÓN TEMPERATURA POR DEPARTAMENTOS_CSV
+df_finalCSV='https://raw.githubusercontent.com/ajrianop/projectDS4A/main/df_final.csv'
+df=pd.read_csv(df_finalCSV,encoding='unicode_escape')
+
+
+departament_temperature_CSV='https://raw.githubusercontent.com/ajrianop/projectDS4A/main/code_department_temp.csv'
+temp_department=pd.read_csv(departament_temperature_CSV,encoding='unicode_escape', dtype = {'COD_DPTO': str})
+departament_pib_CSV='https://raw.githubusercontent.com/ajrianop/projectDS4A/main/code_department_pib.csv'
+pib_department=pd.read_csv(departament_pib_CSV,encoding='unicode_escape', dtype = {'COD_DPTO': str})
+departament_def_CSV='https://raw.githubusercontent.com/ajrianop/projectDS4A/main/code_department_def.csv'
+def_department=pd.read_csv(departament_def_CSV,encoding='unicode_escape', dtype = {'COD_DPTO': str})
+#def_department=pd.read_csv(departament_def_CSV,encoding='unicode_escape', dtype = {'COD_DPTO': str,"1990": float,"1991": float,"1992": float,"1993": float,"1994": float,"1995": float,"1996": float,"1997": float,"1998": float,"1999": float,"2000": float,"2001": float,"2002": float,"2003": float,"2004": float,"2005": float,"2006": float,"2007": float,"2008": float,"2009": float,"2010": float,"2011": float,"2012": float,"2013": float,"2014": float,"2015": float,"2016": float,"2017": float,"2018": float,"2019": float})
+
+temp_department=temp_department.dropna(axis='rows')
+erase_years_df_temp=['1979', '1980', '1981', '1982', '1983', '1984', '1985', '1986', '1987', '1988', '1989', '2020']
+temp_department=temp_department.drop(columns=erase_years_df_temp, axis=1)
+departamentos=temp_department.DEPARTAMENTO.unique()
+
+erase_years_df_pib=['1980', '1981', '1982', '1983', '1984', '1985', '1986', '1987', '1988', '1989', '2020']
+
+pib_department=pib_department.dropna(axis='rows')
+
+for i in range(1990,2013):
+    l=str(i)
+    def_department[l]=def_department[l].str.replace(',','.').astype(float)
+print(def_department.info())
+
+#print(temp_department[temp_department['DEPARTAMENTO']=='CUNDINAMARCA']['latitude']),
+#print(temp_department[temp_department['DEPARTAMENTO']=='CUNDINAMARCA']['longitude']),
+LAT_CUN=temp_department[temp_department['DEPARTAMENTO']=='CUNDINAMARCA']['latitude']
+LON_CUN=temp_department[temp_department['DEPARTAMENTO']=='CUNDINAMARCA']['longitude']
+#print(temp_department.columns[1:43])
+
+mapa_colombia_departamentos_temp = mapcol_departamentos('Mapa Temperatura Colombia', 'div_departamentos_fig',temp_department)
+mapa_colombia_departamentos_pib = mapcol_departamentos('Mapa PIB Colombia', 'div_departamentos_fig',pib_department)
+mapa_colombia_departamentos_def = mapcol_departamentos('Mapa Deforestación Colombia', 'div_departamentos_fig',def_department)
+############
+
+
+'''
 datatest ={"COD_DPTO":{"0":"05","1":"08","2":"11","3":"13","4":"15","5":"17","6":"18","7":"19","8":"20","9":"23","10":"25","11":"27","12":"41","13":"44","14":"47","15":"50","16":"52","17":"54","18":"63","19":"66","20":"68","21":"70","22":"73","23":"76","24":"81","25":"85","26":"86","27":"91","28":"94","29":"95","30":"97","31":"99","32":"88"},"DEPARTAMENTO":{"0":"ANTIOQUIA","1":"ATLANTICO","2":"SANTAFE DE BOGOTA D.C","3":"BOLIVAR","4":"BOYACA","5":"CALDAS","6":"CAQUETA","7":"CAUCA","8":"CESAR","9":"CORDOBA","10":"CUNDINAMARCA","11":"CHOCO","12":"HUILA","13":"LA GUAJIRA","14":"MAGDALENA","15":"META","16":"NARI\\u00d1O","17":"NORTE DE SANTANDER","18":"QUINDIO","19":"RISARALDA","20":"SANTANDER","21":"SUCRE","22":"TOLIMA","23":"VALLE DEL CAUCA","24":"ARAUCA","25":"CASANARE","26":"PUTUMAYO","27":"AMAZONAS","28":"GUAINIA","29":"GUAVIARE","30":"VAUPES","31":"VICHADA","32":"ARCHIPIELAGO DE SAN ANDRES PROVIDENCIA Y SANTA CATALINA"},"COUNT":{"0":525,"1":1193,"2":1518,"3":1839,"4":1541,"5":1676,"6":1864,"7":1096,"8":1652,"9":1131,"10":819,"11":1061,"12":1972,"13":1045,"14":739,"15":1057,"16":1269,"17":1708,"18":1948,"19":1525,"20":1743,"21":1441,"22":802,"23":1960,"24":792,"25":994,"26":1637,"27":682,"28":1352,"29":1173,"30":1115,"31":1151,"32":1758},"latitude":{"0":8.6192998894,"1":10.3612003326,"2":4.7951002121,"3":10.4236001975,"4":7.0275001523,"5":5.7526998521,"6":2.4978001119,"7":2.9751138688,"8":10.8562469488,"9":9.4230003359,"10":5.7488999368,"11":8.2716999057,"12":3.2739000325,"13":12.4235000614,"14":11.3276996617,"15":4.4449000365,"16":2.5773999689,"17":9.1339998247,"18":4.6946001053,"19":5.4751377105,"20":8.1150255208,"21":9.8849000932,"22":5.2814002036,"23":4.9735999108,"24":7.0592999452,"25":6.2479000086,"26":1.3164000513,"27":0.1186000023,"28":3.8605000963,"29":2.8375000958,"30":1.9852999444,"31":6.2795000082,"32":12.5945628115},"longitude":{"0":-76.3072967522,"1":-74.8705978394,"2":-74.0229034424,"3":-75.1595001224,"4":-72.2129974372,"5":-74.6949996949,"6":-74.6925964365,"7":-78.2116241452,"8":-73.2823181155,"9":-75.8195037842,"10":-74.3295974737,"11":-77.0213012688,"12":-74.6360015871,"13":-71.6212005615,"14":-74.0917968755,"15":-71.0799026493,"16":-77.9835968017,"17":-73.0177993776,"18":-75.6720962525,"19":-75.886505127,"20":-73.8001403806,"21":-75.4831008914,"22":-74.8399963373,"23":-76.0838012692,"24":-70.6986999517,"25":-70.17250061,"26":-76.5781021113,"27":-71.3863983161,"28":-67.687797549,"29":-71.2646026619,"30":-70.112998962,"31":-67.7968978901,"32":-81.7129569648}}
 
 df_maptest = pd.DataFrame.from_dict(datatest)  
@@ -27,7 +67,7 @@ mapa_colombia_departamentos = mapcol_departamentos('Mapa Departamentos Colombia'
 departamentosCSV='https://raw.githubusercontent.com/ajrianop/projectDS4A/main/department.csv'
 departamentos=pd.read_csv(departamentosCSV,encoding='unicode_escape')
 departamentos=departamentos.DEPARTAMENTO.unique()
-
+'''
 # Cambiar
 # Hay que cambiar esto para usar los datasets del github
 PATH = pathlib.Path(__file__).parent
@@ -69,30 +109,41 @@ layout=html.Div(className="seccion_home px-4 pt-5",
                     children=[
                         html.Div(id='my-output',children=[
                             html.Div([
-                                    mapa_colombia_departamentos.display()  
-                                ],className="container", id="row_map") 
+                                    mapa_colombia_departamentos_temp.display()  
+                                ],className="container", id="row_map_temp") 
                         ])
-                    ])
+                    ]),
+                    html.Div(className="d-flex flex-column justify-content-around",children=[
+                        #html.H3("Info_drop", className="text-center text-black", id="Info_drop"),
+                        html.H3("Temperatura departamento", className="text-center text-white", id="info_dep_temp"),
+                    ]),
                 ]),
                 html.Div(className="col-xs-12 col-sm-12 col-md-4 col-xl-4 text-center pt-3", children=[
                 html.Div(className="seccion_home px-4",
                     children=[
                         html.Div(id='my-output',children=[
                             html.Div([
-                                    mapa_colombia_departamentos.display()  
-                                ],className="container", id="row_map") 
+                                    mapa_colombia_departamentos_pib.display()  
+                                ],className="container", id="row_map_pib") 
                         ])
-                    ])
+                    ]),
+                    html.Div(className="d-flex flex-column justify-content-around",children=[
+                        html.H3("PIB departamento", className="text-center text-white", id="info_dep_pib"),
+                    ]),
                 ]),
                 html.Div(className="col-xs-12 col-sm-12 col-md-4 col-xl-4 text-center pt-3", children=[
                 html.Div(className="seccion_home px-4",
                     children=[
                         html.Div(id='my-output',children=[
                             html.Div([
-                                    mapa_colombia_departamentos.display()  
-                                ],className="container", id="row_map") 
+                                    mapa_colombia_departamentos_def.display()  
+                                ],className="container", id="row_map_def") 
                         ])
-                    ])
+                    ]),
+                    html.Div(className="d-flex flex-column justify-content-around",children=[
+                        #html.H3("Info_drop", className="text-center text-black", id="Info_drop"),
+                        html.H3("Deforestación departamento", className="text-center text-white", id="info_dep_def"),
+                    ]),
                 ]),
             ]),
         html.Div(id="contenido")
@@ -383,9 +434,11 @@ def cambio_contenido(value,year):
 
             ])
     else:
+        #CREAR GRÁFICA
         layout_content=html.Div(className="text-center text-white", children=[
+            #INFO DEPARTAMENTAL
             html.H3(className="text-center text-white",children=value)])
-    
+        
     return layout_content
 
 @callback(Output("indicador_barras","fig"),
@@ -412,3 +465,80 @@ def drop_updater(variable,year):
     })
 
     return fig
+
+#callback TEMPERATURA
+@callback(
+    Output("row_map_temp", 'children'),
+    #Output("row_map_pib", 'children'),
+    Output("info_dep_temp","children"),
+    #Output("last_year", "children"),
+    Input("departamentos_drop", "value"),
+    [Input("year_slider_d", "value")]
+)
+
+def update_map(depart,years):
+    if not depart:
+        info_dep_temp=f'Temperatura en Colombia, año {str(years[1])}'
+        #fig4=mapa_colombia_departamentos.display2(5.7489, -74.329597, str(years[1]),'Reds'),
+        fig4=mapa_colombia_departamentos_temp.display2(3.958788, -73.608479,str(years[1]),'Reds'),
+        #fig5=mapa_colombia_departamentos_pib.display2(3.958788, -73.608479,str(years[1]),'dense'),
+    else:
+        LAT_CUN_DEP=temp_department[temp_department['DEPARTAMENTO']==depart]['latitude']
+        LON_CUN_DEP=temp_department[temp_department['DEPARTAMENTO']==depart]['longitude']
+        LAT_CUN_DEP=float(LAT_CUN_DEP.iloc[0])
+        LON_CUN_DEP=float(LON_CUN_DEP.iloc[0])
+        info_dep_temp=f'Temperatura en {depart}, año {str(years[1])}'
+        fig4=mapa_colombia_departamentos_temp.display3(LAT_CUN_DEP, LON_CUN_DEP, str(years[1]), 'Reds')
+        #fig4=mapa_colombia_departamentos.display3(5.7489, -74.329597, str(years[1]))
+        #fig5={}
+        #fig5=mapa_colombia_departamentos_pib.display3(LAT_CUN_DEP, LON_CUN_DEP, str(years[1]), 'Reds')
+    return fig4,info_dep_temp
+    #return fig4,fig5,info_dep_temp
+    #return info_dep #[fig4],info_dep
+
+#callback PIB
+@callback(
+Output("row_map_pib", 'children'),
+Output("info_dep_pib","children"),
+Input("departamentos_drop", "value"),
+[Input("year_slider_d", "value")]
+)
+
+def update_map(depart,years):
+    if not depart:
+        info_dep_pib=f'PIB en Colombia, año {str(years[1])}'
+        fig5=mapa_colombia_departamentos_pib.display2(3.958788, -73.608479,str(years[1]),'dense'),
+    else:
+        LAT_CUN_DEP=pib_department[pib_department.iloc[:,0]==depart]['latitude']
+        LON_CUN_DEP=pib_department[pib_department.iloc[:,0]==depart]['longitude']
+        LAT_CUN_DEP=float(LAT_CUN_DEP.iloc[0])
+        LON_CUN_DEP=float(LON_CUN_DEP.iloc[0])
+        info_dep_pib=f'PIB en {depart}, año {str(years[1])}'
+        fig5=mapa_colombia_departamentos_pib.display3(LAT_CUN_DEP, LON_CUN_DEP, str(years[1]), 'dense')
+    #return fig4,info_dep_temp
+    return fig5,info_dep_pib
+
+#callback PIB
+@callback(
+Output("row_map_def", 'children'),
+Output("info_dep_def","children"),
+Input("departamentos_drop", "value"),
+[Input("year_slider_d", "value")]
+)
+
+def update_map(depart,years):
+    if not depart:
+        info_dep_def=f'Deforestación en Colombia, año {str(years[1])}'
+        fig6=mapa_colombia_departamentos_def.display2(3.958788, -73.608479,str(years[1]),'aggrnyl'),
+    else:
+        LAT_CUN_DEP=def_department[def_department['DEPARTAMENTO']==depart]['latitude']
+        LON_CUN_DEP=def_department[def_department['DEPARTAMENTO']==depart]['longitude']
+        LAT_CUN_DEP=float(LAT_CUN_DEP.iloc[0])
+        LON_CUN_DEP=float(LON_CUN_DEP.iloc[0])
+        info_dep_def=f'Deforestación en {depart}, año {str(years[1])}'
+        fig6=mapa_colombia_departamentos_def.display3(LAT_CUN_DEP, LON_CUN_DEP, str(years[1]), 'aggrnyl')
+    return fig6,info_dep_def
+
+#Figuras regional 
+
+## END CALLBACKS DESCRIPTION
