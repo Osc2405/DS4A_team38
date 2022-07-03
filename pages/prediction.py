@@ -285,7 +285,7 @@ def plot_prediction(value):
     fig_fosil2.add_scattergl(x=new_x, y=new_X_futuro[variables[1]], line={'color': color_pred},name="Prediccion")
     fig_fosil2.add_scattergl(x=new_X_train.index.values, y=new_X_train[variables[1]].tolist(), line={'color': 'red'},name="Original")
     fig_fosil2.update_xaxes(showgrid=True, gridwidth=1, gridcolor='gray',linewidth=1, linecolor='white',title_text='Año')
-    fig_fosil2.update_yaxes(showgrid=True, gridwidth=1, gridcolor='gray',linewidth=1, linecolor='white',title_text="TwH")
+    fig_fosil2.update_yaxes(showgrid=True, gridwidth=1, gridcolor='gray',linewidth=1, linecolor='white',title_text="TWh")
     fig_fosil2.update_layout(title_text='Consumo de combustible fosil', title_x=0.5)
 
 
@@ -293,7 +293,7 @@ def plot_prediction(value):
     fig_fosil.add_scattergl(x=new_x, y=new_X_futuro[variables[2]], line={'color': color_pred},name="Prediccion")
     fig_fosil.add_scattergl(x=new_X_train.index.values, y=new_X_train[variables[2]].tolist(), line={'color': 'red'},name="Original")
     fig_fosil.update_xaxes(showgrid=True, gridwidth=1, gridcolor='gray',linewidth=1, linecolor='white',title_text='Año')
-    fig_fosil.update_yaxes(showgrid=True, gridwidth=1, gridcolor='gray',linewidth=1, linecolor='white',title_text="TwW")
+    fig_fosil.update_yaxes(showgrid=True, gridwidth=1, gridcolor='gray',linewidth=1, linecolor='white',title_text="TWh")
     fig_fosil.update_layout(title_text='Consumo de E. renovables', title_x=0.5)
     #fig_fosil.update_yaxes(range=[100,1800], dtick=1)
 
@@ -315,8 +315,8 @@ def plot_prediction(value):
 
 
     # Para eliminar la B de billones de plotly
-    new_X_train[variables[5]]=new_X_train[variables[5]].apply(lambda x: x/1000000)
-    new_X_futuro[variables[5]]=new_X_futuro[variables[5]].apply(lambda x: x/1000000)
+    new_X_train[variables[5]]=new_X_train[variables[5]].apply(lambda x: x/1000)
+    new_X_futuro[variables[5]]=new_X_futuro[variables[5]].apply(lambda x: x/1000)
 
     fig_population=go.Figure()
     fig_population.add_scattergl(x=new_x, y=new_X_futuro[variables[5]], line={'color': color_pred},name="Prediccion")
