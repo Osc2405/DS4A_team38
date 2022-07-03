@@ -99,14 +99,18 @@ layout = html.Div(className="seccion_home px-4 pt-5 pb-5",
                 dcc.Graph(id="coal_plot",figure={})
                 ]),
             html.Div(className="col-md-4",children=[
-                dcc.Graph(id="fosil_plot",figure={})
+                dcc.Graph(id="fosil2_plot",figure={})
                 ]),
             html.Div(className="col-md-4",children=[
-                dcc.Graph(id="gas_plot",figure={})
+                dcc.Graph(id="fosil_plot",figure={})
                 ]),
+
             ]),
 
         html.Section(className="row justify-content-around",children=[
+            html.Div(className="col-md-4",children=[
+                dcc.Graph(id="gas_plot",figure={})
+                ]),
             html.Div(className="col-4",children=[
                 dcc.Graph(id="oil_plot",figure={})
                 ]),
@@ -128,6 +132,7 @@ layout = html.Div(className="seccion_home px-4 pt-5 pb-5",
     Output("text_prediction","children"),
     Output("loading-output-1","children"),
     Output("coal_plot","figure"),
+    Output("fosil2_plot","figure"),
     Output("fosil_plot","figure"),
     Output("gas_plot","figure"),
     Output("oil_plot","figure"),
@@ -135,16 +140,22 @@ layout = html.Div(className="seccion_home px-4 pt-5 pb-5",
     Input("slider1","value")
     )
 def plot_prediction(value):
-    path_model="pages/model.pkl"
+    path_model="pages/model_BR.pkl"
     model = pickle.load(open(path_model, 'rb'))
     X_test=pd.read_csv("datasets/X_test.csv")
     X_train=pd.read_csv("datasets/X_train.csv")
     df_final=pd.read_csv("datasets/df_final.csv")
     X_test=X_test.iloc[:,1:]
-    variables=["coal_consumption","fossil_fuel_consumption",'gas_consumption','oil_consumption','population']
-    X_test=X_test[variables]
-    X_train=X_train[variables]
-    df_final=df_final[variables]
+    #variables=["coal_consumption","fossil_fuel_consumption",'gas_consumption','oil_consumption','population']
+    variables=["Forest area","fossil_fuel_consumption","renewables_consumption","population","total_ghg","gdp"]
+    #X_test=X_test[variables]
+    #X_train=X_train[variables]
+    #df_final=df_final[variables]
+    print(X_test.columns)
+    X_train=X_train.iloc[:,1:]
+    print(X_train.columns)
+    print(df_final.columns)
+
 
     y_train=pd.read_csv("datasets/y_train.csv")
     y_train=y_train.iloc[:,1:]
@@ -184,6 +195,7 @@ def plot_prediction(value):
     for i in X_futuro.columns:
       X_futuro[i]=X_futuro[i]+np.random.normal(0,0.1*X_futuro[i].std(),X_futuro[i].shape)
 
+    print(X_futuro.columns)
     pred=model.predict(X_futuro)
 
     # Se crea una copia de los dataframes usados
@@ -246,46 +258,59 @@ def plot_prediction(value):
     altura=400
 
     fig_coal=go.Figure()
-    fig_coal.add_scattergl(x=new_x, y=new_X_futuro["coal_consumption"], line={'color': color_pred},name="Prediccion")
-    fig_coal.add_scattergl(x=new_X_train.index.values, y=new_X_train["coal_consumption"].tolist(), line={'color': 'red'},name="Original")
+    fig_coal.add_scattergl(x=new_x, y=new_X_futuro[variables[0]], line={'color': color_pred},name="Prediccion")
+    fig_coal.add_scattergl(x=new_X_train.index.values, y=new_X_train[variables[0]].tolist(), line={'color': 'red'},name="Original")
     fig_coal.update_xaxes(showgrid=True, gridwidth=1, gridcolor='gray',linewidth=1, linecolor='white',title_text='Año')
-    fig_coal.update_yaxes(showgrid=True, gridwidth=1, gridcolor='gray',linewidth=1, linecolor='white',title_text="Consumo (kT)")
-    fig_coal.update_layout(title_text='Consumo de carbon', title_x=0.5)
+    fig_coal.update_yaxes(showgrid=True, gridwidth=1, gridcolor='gray',linewidth=1, linecolor='white',title_text="Kilometros cuadrados")
+    fig_coal.update_layout(title_text='Area de bosque', title_x=0.5)
     #fig_coal.update_yaxes(range=[450,600], dtick=1)
 
+    fig_fosil2=go.Figure()
+    fig_fosil2.add_scattergl(x=new_x, y=new_X_futuro[variables[1]], line={'color': color_pred},name="Prediccion")
+    fig_fosil2.add_scattergl(x=new_X_train.index.values, y=new_X_train[variables[1]].tolist(), line={'color': 'red'},name="Original")
+    fig_fosil2.update_xaxes(showgrid=True, gridwidth=1, gridcolor='gray',linewidth=1, linecolor='white',title_text='Año')
+    fig_fosil2.update_yaxes(showgrid=True, gridwidth=1, gridcolor='gray',linewidth=1, linecolor='white',title_text="TwH")
+    fig_fosil2.update_layout(title_text='Consumo de combustible fosil', title_x=0.5)
+
+
     fig_fosil=go.Figure()
-    fig_fosil.add_scattergl(x=new_x, y=new_X_futuro["fossil_fuel_consumption"], line={'color': color_pred},name="Prediccion")
-    fig_fosil.add_scattergl(x=new_X_train.index.values, y=new_X_train["fossil_fuel_consumption"].tolist(), line={'color': 'red'},name="Original")
+    fig_fosil.add_scattergl(x=new_x, y=new_X_futuro[variables[2]], line={'color': color_pred},name="Prediccion")
+    fig_fosil.add_scattergl(x=new_X_train.index.values, y=new_X_train[variables[2]].tolist(), line={'color': 'red'},name="Original")
     fig_fosil.update_xaxes(showgrid=True, gridwidth=1, gridcolor='gray',linewidth=1, linecolor='white',title_text='Año')
-    fig_fosil.update_yaxes(showgrid=True, gridwidth=1, gridcolor='gray',linewidth=1, linecolor='white',title_text="Consumo (kT)")
-    fig_fosil.update_layout(title_text='Consumo de combustible fosil', title_x=0.5)
+    fig_fosil.update_yaxes(showgrid=True, gridwidth=1, gridcolor='gray',linewidth=1, linecolor='white',title_text="TwW")
+    fig_fosil.update_layout(title_text='Consumo de E. renovables', title_x=0.5)
     #fig_fosil.update_yaxes(range=[100,1800], dtick=1)
 
     fig_gas=go.Figure()
-    fig_gas.add_scattergl(x=new_x, y=new_X_futuro["gas_consumption"], line={'color': color_pred},name="Prediccion")
-    fig_gas.add_scattergl(x=new_X_train.index.values, y=new_X_train["gas_consumption"].tolist(), line={'color': 'red'},name="Original")
+    fig_gas.add_scattergl(x=new_x, y=new_X_futuro[variables[3]], line={'color': color_pred},name="Prediccion")
+    fig_gas.add_scattergl(x=new_X_train.index.values, y=new_X_train[variables[3]].tolist(), line={'color': 'red'},name="Original")
     fig_gas.update_xaxes(showgrid=True, gridwidth=1, gridcolor='gray',linewidth=1, linecolor='white',title_text='Año')
-    fig_gas.update_yaxes(showgrid=True, gridwidth=1, gridcolor='gray',linewidth=1, linecolor='white',title_text="Consumo (kT)")
-    fig_gas.update_layout(title_text='Consumo de gas', title_x=0.5)
+    fig_gas.update_yaxes(showgrid=True, gridwidth=1, gridcolor='gray',linewidth=1, linecolor='white',title_text="# de habitantes")
+    fig_gas.update_layout(title_text='Poblacion', title_x=0.5)
     #fig_gas.update_yaxes(range=[30,740], dtick=1)
 
     fig_oil=go.Figure()
-    fig_oil.add_scattergl(x=new_x, y=new_X_futuro["oil_consumption"], line={'color': color_pred},name="Prediccion")
-    fig_oil.add_scattergl(x=new_X_train.index.values, y=new_X_train["oil_consumption"].tolist(), line={'color': 'red'},name="Original")
+    fig_oil.add_scattergl(x=new_x, y=new_X_futuro[variables[4]], line={'color': color_pred},name="Prediccion")
+    fig_oil.add_scattergl(x=new_X_train.index.values, y=new_X_train[variables[4]].tolist(), line={'color': 'red'},name="Original")
     fig_oil.update_xaxes(showgrid=True, gridwidth=1, gridcolor='gray',linewidth=1, linecolor='white',title_text='Año')
     fig_oil.update_yaxes(showgrid=True, gridwidth=1, gridcolor='gray',linewidth=1, linecolor='white',title_text="Consumo (kT)")
-    fig_oil.update_layout(title_text='Consumo de aceite', title_x=0.5)
+    fig_oil.update_layout(title_text='Gases de efecto invernadero', title_x=0.5)
     #fig_oil.update_yaxes(range=[110,720], dtick=1)
 
+
+    # Para eliminar la B de billones de plotly
+    new_X_train[variables[5]]=new_X_train[variables[5]].apply(lambda x: x/1000)
+    new_X_futuro[variables[5]]=new_X_futuro[variables[5]].apply(lambda x: x/1000)
+
     fig_population=go.Figure()
-    fig_population.add_scattergl(x=new_x, y=new_X_futuro["population"], line={'color': color_pred},name="Prediccion")
-    fig_population.add_scattergl(x=new_X_train.index.values, y=new_X_train["population"].tolist(), line={'color': 'red'},name="Original")
+    fig_population.add_scattergl(x=new_x, y=new_X_futuro[variables[5]], line={'color': color_pred},name="Prediccion")
+    fig_population.add_scattergl(x=new_X_train.index.values, y=new_X_train[variables[5]].tolist(), line={'color': 'red'},name="Original")
     fig_population.update_xaxes(showgrid=True, gridwidth=1, gridcolor='gray',linewidth=1, linecolor='white',title_text='Año')
-    fig_population.update_yaxes(showgrid=True, gridwidth=1, gridcolor='gray',linewidth=1, linecolor='white',title_text="Personas")
-    fig_population.update_layout(title_text='Poblacion', title_x=0.5)
+    fig_population.update_yaxes(showgrid=True, gridwidth=1, gridcolor='gray',linewidth=1, linecolor='white',title_text="Miles de millones")
+    fig_population.update_layout(title_text='PIB', title_x=0.5)
     #fig_population.update_yaxes(range=[30000000,160000000], dtick=1)
 
-    for figura in [fig_coal,fig_fosil,fig_gas,fig_oil,fig_population]:
+    for figura in [fig_coal,fig_fosil2,fig_fosil,fig_gas,fig_oil,fig_population]:
         figura.update_layout({
           "plot_bgcolor": "#040d10",
           "paper_bgcolor": "#040d10",
@@ -295,5 +320,5 @@ def plot_prediction(value):
         figura.update_traces(line_width=5)
 
 
-    return fig,texto,texto_loader,fig_coal,fig_fosil,fig_gas,fig_oil,fig_population
+    return fig,texto,texto_loader,fig_coal,fig_fosil2,fig_fosil,fig_gas,fig_oil,fig_population
 
