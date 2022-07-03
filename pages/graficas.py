@@ -70,12 +70,12 @@ layout=html.Div(className="seccion_home px-4",
         ##END DROPDOWN
         ##MAP
         html.Div(className="col-xs-12 col-sm-12 col-md-6 col-xl-6 text-center pt-3",children=[
-            mapa_colombia_departamentos.display2(2.9986111111111, -75.304444444444)
+            {}#mapa_colombia_departamentos.display2(2.8986111111111, -75.304444444444,'1990', 'Reds')
         ]),
         ##END MAP
         ##MAP
         html.Div(className="col-xs-12 col-sm-12 col-md-6 col-xl-6 text-center pt-3",children=[
-            mapa_colombia_departamentos.display2(12.594563,-81.712957)
+            {}#mapa_colombia_departamentos.display2(12.594563,-81.712957, '1990','Reds')
         ]),
         ##END MAP
         
