@@ -4,6 +4,7 @@ import dash_bootstrap_components as dbc
 import pathlib
 import pandas as pd
 import plotly.express as px
+from plotly.subplots import make_subplots
 import plotly.graph_objects as go
 
 from app import app
@@ -22,29 +23,45 @@ from components.maps.mapcol_departamentos import mapcol_departamentos
 #INFORMACIÓN TEMPERATURA POR DEPARTAMENTOS_CSV
 df_finalCSV='https://raw.githubusercontent.com/ajrianop/projectDS4A/main/df_final.csv'
 df=pd.read_csv(df_finalCSV,encoding='unicode_escape')
-
-
+# Convert landcover from "Hecta (100)" hectares to just hectares
+df['Forest area'] = df['Forest area']*100
+df['Agricultural land'] = df['Agricultural land']*100
+#Datos departamento
+#TEMPERATURA
 departament_temperature_CSV='https://raw.githubusercontent.com/ajrianop/projectDS4A/main/code_department_temp.csv'
 temp_department=pd.read_csv(departament_temperature_CSV,encoding='unicode_escape', dtype = {'COD_DPTO': str})
+#PIB
 departament_pib_CSV='https://raw.githubusercontent.com/ajrianop/projectDS4A/main/code_department_pib.csv'
 pib_department=pd.read_csv(departament_pib_CSV,encoding='unicode_escape', dtype = {'COD_DPTO': str})
+#DEFORESTACIÓN
 departament_def_CSV='https://raw.githubusercontent.com/ajrianop/projectDS4A/main/code_department_def.csv'
 def_department=pd.read_csv(departament_def_CSV,encoding='unicode_escape', dtype = {'COD_DPTO': str})
-#def_department=pd.read_csv(departament_def_CSV,encoding='unicode_escape', dtype = {'COD_DPTO': str,"1990": float,"1991": float,"1992": float,"1993": float,"1994": float,"1995": float,"1996": float,"1997": float,"1998": float,"1999": float,"2000": float,"2001": float,"2002": float,"2003": float,"2004": float,"2005": float,"2006": float,"2007": float,"2008": float,"2009": float,"2010": float,"2011": float,"2012": float,"2013": float,"2014": float,"2015": float,"2016": float,"2017": float,"2018": float,"2019": float})
 
+#DATA CLEANING DE TEMPERATURA DEPARTAMENTO
 temp_department=temp_department.dropna(axis='rows')
 erase_years_df_temp=['1979', '1980', '1981', '1982', '1983', '1984', '1985', '1986', '1987', '1988', '1989', '2020']
 temp_department=temp_department.drop(columns=erase_years_df_temp, axis=1)
 departamentos=temp_department.DEPARTAMENTO.unique()
 
-erase_years_df_pib=['1980', '1981', '1982', '1983', '1984', '1985', '1986', '1987', '1988', '1989', '2020']
+#DATA CLEANING DE PIB
+'''pib_department=pib_department.dropna(axis='rows')
+pib_department=pib_department[pib_department['0']!='ARAUCA']
+pib_department=pib_department[pib_department['0']!='GUAVIARE']
+pib_department=pib_department[pib_department['0']!='AMAZONAS']
+pib_department=pib_department[pib_department['0']!='CASANARE']
+pib_department=pib_department[pib_department['0']!='GUAINIA']
+pib_department=pib_department[pib_department['0']!='VICHADA']
+pib_department=pib_department[pib_department['0']!='VAUPES']
+pib_department=pib_department[pib_department['0']!='PUTUMAYO']
+pib_department=pib_department[pib_department['0']!='ARCHIPIELAGO DE SAN ANDRES PROVIDENCIA Y SANTA CATALINA']'''
 
-pib_department=pib_department.dropna(axis='rows')
+#print(pib_department['0']!='SANTAFE DE BOGOTA D.C')
 
+#DATA CLEANING DE DEFORESTACION
 for i in range(1990,2013):
     l=str(i)
     def_department[l]=def_department[l].str.replace(',','.').astype(float)
-print(def_department.info())
+#print(def_department.info())
 
 #print(temp_department[temp_department['DEPARTAMENTO']=='CUNDINAMARCA']['latitude']),
 #print(temp_department[temp_department['DEPARTAMENTO']=='CUNDINAMARCA']['longitude']),
@@ -214,8 +231,6 @@ def cambio_contenido(value,year):
         # Set y-axes titles
         fig_energy.update_yaxes(title_text="Consumo de energía (tWh)")
 
-        # Leyenda arriba de gráfica
-        
 
         # Letras en blanco y estilo de color de gráfica
         fig_energy.update_layout({
@@ -224,6 +239,15 @@ def cambio_contenido(value,year):
           "font_color":"white",
           "title_font_color":"white"
         })
+
+        # Leyenda arriba de gráfica
+        fig_energy.update_layout(legend=dict(
+        orientation="h",
+        yanchor="bottom",
+        y=1.02,
+        xanchor="right",
+        x=1
+        ))
 
         ##! Gas emissions ##
 
@@ -247,7 +271,13 @@ def cambio_contenido(value,year):
         fig_gas.update_layout(yaxis_range=[0,300])
 
         # Leyenda arriba de gráfica
-        
+        fig_gas.update_layout(legend=dict(
+        orientation="h",
+        yanchor="bottom",
+        y=1.02,
+        xanchor="right",
+        x=1
+        ))
 
         # Letras en blanco y estilo de color de gráfica
         fig_gas.update_layout({
@@ -257,23 +287,30 @@ def cambio_contenido(value,year):
           "title_font_color":"white"
         })
 
-        ##! Poblacion
-        fig_population = px.bar(df_barras, 
-                 x = "Year",
-                 y = ["Urban population", "Rural population"],
-                 template = 'plotly_dark',
-                 title = 'Población', 
-                 )
+        ##! PLOTLY Population
+        fig_population = px.bar(df, 
+                    x = "Year",
+                    y = ["Urban population", "Rural population"],
+                    template = 'plotly_dark',
+                    title = 'Población', 
+                    )
         fig_population.add_trace(
-            go.Scatter(x=df_barras["Year"], y=df_barras["population"], name="Población",hoveron='points'),
+            go.Scatter(x=df["Year"], y=df["population"], name="Población",hoveron='points'),
             
         )
 
         # Leyenda arriba de gráfica
-        
+        fig_population.update_layout(legend=dict(
+            orientation="h",
+            yanchor="bottom",
+            y=1.02,
+            xanchor="right",
+            x=1
+        ))
 
-        # Set x-axis title
+        # Set x-axis title and range
         fig_population.update_xaxes(title_text="Año")
+        fig_population.update_xaxes(range=(1990,2020))
 
         # Set y-axes titles
         fig_population.update_yaxes(title_text="Número de habitantes")
@@ -299,7 +336,14 @@ def cambio_contenido(value,year):
         fig_landcover.update_layout(yaxis_range=[0,700000])
 
         # Leyenda arriba de gráfica
-        
+        fig.update_layout(legend=dict(
+        orientation="h",
+        yanchor="bottom",
+        y=1.02,
+        xanchor="right",
+        x=1
+        ))
+
         # Letras en blanco y estilo de color de gráfica
         fig_landcover.update_layout({
           "plot_bgcolor": "#040d10",
@@ -307,6 +351,7 @@ def cambio_contenido(value,year):
           "font_color":"white",
           "title_font_color":"white"
         })
+        fig_landcover.update_traces(line_width=5)
 
         # Set x-axis title
         fig_landcover.update_xaxes(title_text="Año")
@@ -314,8 +359,149 @@ def cambio_contenido(value,year):
         # Set y-axes titles
         fig_landcover.update_yaxes(title_text="Hectareas")
 
+        ##! Cattle and Agricultural Methane emissions
+        # Create figure with secondary y-axis
+        fig_cattle_methane = make_subplots(specs=[[{"secondary_y": True}]])
+
+        # Add traces
+        fig_cattle_methane.add_trace(
+            go.Scatter(x=df_barras["Year"], y=df_barras["Cattle"], name="Ganado bovino"),
+            secondary_y=False,
+        )
+
+        fig_cattle_methane.add_trace(
+            go.Scatter(x=df_barras["Year"], y=df_barras["Agricultural methane emissions kT"], name="Emisiones metano agricultura"),
+            secondary_y=True, 
+        )
 
 
+
+        # Set x-axis title and range
+        fig_cattle_methane.update_xaxes(title_text="Año")
+        #fig_cattle_methane.update_xaxes(range=(1990,2020))
+
+        # Set y-axes titles
+        fig_cattle_methane.update_yaxes(title_text="Ganado bovino (número de cabezas)", secondary_y=False)
+        fig_cattle_methane.update_yaxes(title_text="Emisiones metano agricultura (kiloTons)", secondary_y=True)
+
+        # Leyenda arriba de gráfica
+        fig_cattle_methane.update_layout(legend=dict(
+            orientation="h",
+            yanchor="bottom",
+            y=1.02,
+            xanchor="right",
+            x=1),
+            #width=400, 
+            #height=400,
+        )
+        # Letras en blanco y estilo de color de gráfica
+        fig_cattle_methane.update_layout({
+        "plot_bgcolor": "rgba(0, 0, 0, 0)",
+        "paper_bgcolor": "rgba(0, 0, 0, 0)",
+        "font_color":"white",
+        "title_font_color":"white"
+        })
+
+        fig_cattle_methane.update_layout(template="plotly_dark")
+        fig_cattle_methane.update_traces(line_width=5)
+
+        ##! PLOTY GDP and rural population
+        #Create figure with secondary y-axis
+        fig_gdp_rural_pop = make_subplots(specs=[[{"secondary_y": True}]])
+
+        # Add traces
+        fig_gdp_rural_pop.add_trace(
+            go.Scatter(x=df_barras["Year"], y=df_barras["gdp"], name="Producto Interno Bruto (PIB)"),
+            secondary_y=False,
+        )
+
+        fig_gdp_rural_pop.add_trace(
+            go.Scatter(x=df_barras["Year"], y=df_barras["Rural population"], name="Población rural"),
+            secondary_y=True,
+        )
+
+        # Add figure title
+        fig_gdp_rural_pop.update_layout(
+            title_text="Producto Interno Bruto y Población rural"
+        )
+
+        # Set x-axis title and range
+        fig_gdp_rural_pop.update_xaxes(title_text="Año")
+        #fig_gdp_rural_pop.update_xaxes(range=(1990,2020))
+
+        # Set y-axes titles
+        fig_gdp_rural_pop.update_yaxes(title_text="Población rural (número de habitantes)", secondary_y=False)
+        fig_gdp_rural_pop.update_yaxes(title_text="PIB (miles de millones de pesos)", secondary_y=True)
+
+        # Leyenda arriba de gráfica
+        fig_gdp_rural_pop.update_layout(legend=dict(
+            orientation="h",
+            yanchor="bottom",
+            y=1.02,
+            xanchor="right",
+            x=1
+        ))
+
+        # Letras en blanco y estilo de color de gráfica
+        fig_gdp_rural_pop.update_layout({
+        "plot_bgcolor": "rgba(0, 0, 0, 0)",
+        "paper_bgcolor": "rgba(0, 0, 0, 0)",
+        "font_color":"white",
+        "title_font_color":"white"
+        })
+        fig_gdp_rural_pop.update_traces(line_width=5)
+        fig_gdp_rural_pop.update_layout(template="plotly_dark")
+
+        ##! PLOTY GDP and CO2
+        # #Create figure with secondary y-axis
+        fig_gdp_co2 = make_subplots(specs=[[{"secondary_y": True}]])
+
+        # Add traces
+        fig_gdp_co2.add_trace(
+            go.Scatter(x=df_barras["Year"], y=df_barras["gdp"], name="Producto Interno Bruto (PIB)"),
+            secondary_y=False,
+        )
+
+        fig_gdp_co2.add_trace(
+            go.Scatter(x=df_barras["Year"], y=df_barras["co2"], name="Emisiones de CO2"),
+            secondary_y=True,
+        )
+
+        # Add figure title
+        fig_gdp_co2.update_layout(
+            title_text="Producto Interno Bruto y Emisiones de CO2"
+        )
+
+        # Set x-axis title and range
+        fig_gdp_co2.update_xaxes(title_text="Año")
+        #fig_gdp_co2.update_xaxes(range=(1990,2020))
+
+        # Set y-axes titles
+        fig_gdp_co2.update_yaxes(title_text="PIB (miles de millones de pesos)", secondary_y=False)
+        fig_gdp_co2.update_yaxes(title_text="Emisiones de CO2 (Kilotoneladas)", secondary_y=True)
+
+        # Leyenda arriba de gráfica
+        fig_gdp_co2.update_layout(legend=dict(
+            orientation="h",
+            yanchor="bottom",
+            y=1.02,
+            xanchor="right",
+            x=1
+        ))
+
+        # Letras en blanco y estilo de color de gráfica
+        fig_gdp_co2.update_layout({
+        "plot_bgcolor": "rgba(0, 0, 0, 0)",
+        "paper_bgcolor": "rgba(0, 0, 0, 0)",
+        "font_color":"white",
+        "title_font_color":"white"
+        })
+        fig_gdp_co2.update_traces(line_width=5)
+        fig_gdp_co2.update_layout(template="plotly_dark")
+
+        ##!
+
+        ##! 
 
         layout_content=html.Div(children=[
             # Indicadores
@@ -390,46 +576,71 @@ def cambio_contenido(value,year):
             html.Section(className="pt-3 text-white text-justify",children=[
                 #Fila 1
                 html.Div(className="row pb-5",children=[
-                    html.Div(className="col-md-6",children=[
+                    html.Div(className="col-md-8",children=[
                         dcc.Graph(id="energy_consumption",figure=fig_energy)
                         ]),
-                    html.Div(className="col-md-5",children=[
-                        html.P(className="",children="A través de los años en Colombia el consumo de energía aumenta. La fuente de energía que más se consume es el petróleo. En 1990 esta era la fuente principal de energía, porque representaba más del 50% del consumo de energía primaria (Una fuente de energía primaria es toda forma de energía disponible en la naturaleza antes de ser convertida o transformada. Tomado de Wikipedia). Para 2019, el petróleo representa menos de la tercera parte de la energía consumida, sin embargo la cantidad neta que se consume es casi el doble de lo que se consumía en 1990. La fuente de energía que ha tenido un mayor crecimiento es el gas, dada la gasificación de servicios importantes, principalmente servicios públicos. Esta gasificación a la fecha, 2022, sigue teniendo incentivos gubernamentales por lo que se espera siga creciendo. El consumo de energía continuará aumentando en el tiempo, dado el crecimiento de población, la migración de la población de lo rural a lo urbano, entre otros factores.")
+                    html.Div(className="col-md-3",children=[
+                        html.P(className="", style={'color': 'white', 'fontSize': 20},children="En Colombia, el petróleo es la fuente de energía que más se consume. Y a pesar de que ha pasado de ser alrededor del 50% del consumo en 1990 a alrededor del 30% en 2019, su cantidad neta se ha casi duplicado. El gas es la fuente de energía con mayor crecimiento, dada la gasificación de servicios importantes, principalmente servicios públicos, que sigue teniendo incentivos gubernamentales. ")
                         ]),
                     
                     ]),
                 #Fila 2
                 html.Div(className="row pb-5",children=[
-                    html.Div(className="col-md-6",children=[
+                    html.Div(className="col-md-8",children=[
                         dcc.Graph(id="gas_consumption",figure=fig_gas)
                         ]),
 
-                    html.Div(className="col-md-5",children=[
-                        html.P(className="",children="La población colombiana ha crecido en un 152% desde 1990 hasta 2019. Pero este crecimiento se ha debido principalmente al aumento de la población en las ciudades. En 1990 la población rural representaba un 30.51% y la urbana un 69.48%. Para 2019 la población rural disminuyo a un 18.90% mientras que la urbana representaba un 81.10%. Este es un fenómeno especial dentro de los pronósticos mundiales, donde se espera que a 2050 la población urbana alcance un 68%. Colombia ya había sobrepasado este pronóstico en 1990, y esto se puede explicar por la situación social del país donde el conflicto armado y la disminución de políticas de fomento para el campo, entre otros, han propiciado la migración del campo a la ciudad. El crecimiento rápido y no planeado de ciudades aumenta la producción de gases de efecto invernadero, las islas de calor generadas por grandes áreas construidas, entre otros.")
+                    html.Div(className="col-md-3",children=[
+                        html.P(className="",style={'color': 'white', 'fontSize': 20},children="La población colombiana ha crecido en un 152% desde 1990 hasta 2019 y el crecimiento urbano ha sido más pronunciado que el rural. Actualmente el 81% de la población vive en las ciudades, lo que sobrepasa los estimados mundiales de 68% de la población mundial viviendo en ciudades para el 2050. Esto se debe en parte a los desplazamientos forzados causados por el conflicto armado del país.")
                         ]),
                     
                     ]),
                 #Fila 3
                 html.Div(className="row pb-5",children=[
-                    html.Div(className="col-md-6",children=[
+                    html.Div(className="col-md-8",children=[
                         dcc.Graph(id="population_graph",figure=fig_population)
                         ]),
-                    html.Div(className="col-md-5",children=[
-                        html.P(className="",children="Así como el consumo de energía aumenta a través de los años, también lo hace la emisión de gases de efecto invernadero, como el dióxido de carbono (CO2), Metano (CH4), Óxido nitroso (N2O), Hidrofluorocarbonos (HFC), Hexafluoruro de azufre (SF6) y Perfluorocarbonos (PFC). Estos gases contribuyen a aumentar la temperatura del planeta, porque absorben y envían radiación infrarroja desde la superficie terrestre. Además, permanecen en la atmósfera durante años, décadas o incluso siglos. Se producen en muchas actividades humanas como actividades industriales, transporte, producción agrícola, deforestación, disposición de desechos sólidos y líquidos, conversión de páramos y humedales en tierras de cultivo o actividades mineras, entre otras (www.siac.gov.co). Hasta la fecha máxima de los datos de este estudio, 2019, el gas que más se emite es el dióxido de carbono, seguido por el metano y el óxido nitroso. ")
+                    html.Div(className="col-md-3",children=[
+                        html.P(className="",style={'color': 'white', 'fontSize': 20},children="La emisión de gases de efecto invernadero, como el dióxido de carbono (CO2), Metano (CH4), Óxido nitroso (N2O), Hidrofluorocarbonos (HFC), Hexafluoruro de azufre (SF6) y Perfluorocarbonos (PFC) aumenta a través del tiempo. Estos gases contribuyen a aumentar la temperatura del planeta, porque absorben y envían radiación infrarroja desde la superficie terrestre. Además, permanecen en la atmósfera durante años, décadas o incluso siglos.")
                         ]),
                     
                     ]),
                 #Fila 4
                 html.Div(className="row pb-5",children=[
-                    html.Div(className="col-md-6",children=[
+                    html.Div(className="col-md-8",children=[
                         dcc.Graph(id="land_cover",figure=fig_landcover)
                         ]),
-                    html.Div(className="col-md-5",children=[
-                        html.P(className="",children="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
+                    html.Div(className="col-md-3",children=[
+                        html.P(className="",style={'color': 'white', 'fontSize': 20},children="En Colombia, la deforestación sucede a una tasa casi constante, mientras que las tierras usadas para la agricultura crecen y decrecen de forma escalonada. Cuando la cobertura de tierra usada para la agricultura decrece, esto puede indicar que su uso cambió, no necesariamente que se reforestó porque en dado caso, veríamos algún tipo de aumento en la curva de cobertura de bosque.")
                         ]),
-                    
-                    
-                    ])
+                    ]),
+                #Fila 5
+                html.Div(className="row pb-5",children=[
+                    html.Div(className="col-md-8",children=[
+                        dcc.Graph(id="cattle_methane",figure=fig_cattle_methane)
+                        ]),
+                    html.Div(className="col-md-3",children=[
+                        html.P(className="",style={'color': 'white', 'fontSize': 20},children="Las emisiones de metano provenientes de la agricultura y el número de cabezas de ganado siguen una tendencia similar en el tiempo. Esto se puede deber a que el gas metano es uno de los productos de la digestión del ganado y por tanto entre más ganado se incrementan las emisiones de este gas. Algunos estudios se enfocan en determinar el efecto del gas metano proveniente de las vacas como parte de los gases de efecto invernadero.")
+                        ]),
+                    ]),
+                #Fila 6
+                html.Div(className="row pb-5",children=[
+                    html.Div(className="col-md-8",children=[
+                        dcc.Graph(id="gdp_rural_pop",figure=fig_gdp_rural_pop)
+                        ]),
+                    html.Div(className="col-md-3",children=[
+                        html.P(className="",style={'color': 'white', 'fontSize': 20},children="FALTA GRAFICA Es interesante ver la tendencia del Producto Interno Bruto (PIB) a lo largo de los años y en este caso, su relación con el número de habitantes del campo. Entre 1990 y 1999 hubo un ligero incremento en la población rural. A partir de 1999, año en el que hubo una grave crisis económica, esta población empezó de nuevo a reducirse muy posiblemente debido a la migración a las ciudades donde encontraban mayores posibilidades laborales.")
+                        ]),
+                    ]),
+                #Fila 7
+                html.Div(className="row pb-5",children=[
+                    html.Div(className="col-md-8",children=[
+                        dcc.Graph(id="gdp_co2",figure=fig_gdp_co2)
+                        ]),
+                    html.Div(className="col-md-3",children=[
+                        html.P(className="",style={'color': 'white', 'fontSize': 20},children="En éstas gráficas se observa la relación entre el Producto Interno Bruto (PIB) y variables de consumo de energía, emisiones de gases de efecto invernadero, número de habitantes y cubierta o uso de la tierra.")
+                        ]),
+                    ]),
                 ])
 
             ])
@@ -437,7 +648,16 @@ def cambio_contenido(value,year):
         #CREAR GRÁFICA
         layout_content=html.Div(className="text-center text-white", children=[
             #INFO DEPARTAMENTAL
-            html.H3(className="text-center text-white",children=value)])
+            html.Section(className="container text-white pb-5",children=[
+                html.H3(className="text-center text-white",children=value),
+                #html.Div(className="col-md-6",children=[
+                        #dcc.Graph(id="energy_consumption",figure=fig_energy)
+                        #]),
+                html.Div(className="col-md-5",children=[
+                    html.P(className="",children="Podemos observar que el cambio de temperatura tiene una relación directamente proporcional con respecto al crecimiento del PIB y la deforestación en Colombia.")
+                        ]),
+            ]),
+            ]),
         
     return layout_content
 
@@ -480,7 +700,7 @@ def update_map(depart,years):
     if not depart:
         info_dep_temp=f'Temperatura en Colombia, año {str(years[1])}'
         #fig4=mapa_colombia_departamentos.display2(5.7489, -74.329597, str(years[1]),'Reds'),
-        fig4=mapa_colombia_departamentos_temp.display2(3.958788, -73.608479,str(years[1]),'Reds'),
+        fig4=mapa_colombia_departamentos_temp.display2(3.958788, -73.608479,str(years[1]),'turbo'),#'RdBu_r')#,'Reds'),
         #fig5=mapa_colombia_departamentos_pib.display2(3.958788, -73.608479,str(years[1]),'dense'),
     else:
         LAT_CUN_DEP=temp_department[temp_department['DEPARTAMENTO']==depart]['latitude']
@@ -488,13 +708,8 @@ def update_map(depart,years):
         LAT_CUN_DEP=float(LAT_CUN_DEP.iloc[0])
         LON_CUN_DEP=float(LON_CUN_DEP.iloc[0])
         info_dep_temp=f'Temperatura en {depart}, año {str(years[1])}'
-        fig4=mapa_colombia_departamentos_temp.display3(LAT_CUN_DEP, LON_CUN_DEP, str(years[1]), 'Reds')
-        #fig4=mapa_colombia_departamentos.display3(5.7489, -74.329597, str(years[1]))
-        #fig5={}
-        #fig5=mapa_colombia_departamentos_pib.display3(LAT_CUN_DEP, LON_CUN_DEP, str(years[1]), 'Reds')
+        fig4=mapa_colombia_departamentos_temp.display3(LAT_CUN_DEP, LON_CUN_DEP, str(years[1]),'turbo'),#'RdBu_r')# 'Reds')
     return fig4,info_dep_temp
-    #return fig4,fig5,info_dep_temp
-    #return info_dep #[fig4],info_dep
 
 #callback PIB
 @callback(
@@ -506,16 +721,15 @@ Input("departamentos_drop", "value"),
 
 def update_map(depart,years):
     if not depart:
-        info_dep_pib=f'PIB en Colombia, año {str(years[1])}'
-        fig5=mapa_colombia_departamentos_pib.display2(3.958788, -73.608479,str(years[1]),'dense'),
+        info_dep_pib=f'PIB en Colombia, año {str(years[1])}.\n (*) En negro estan los departamentos con información faltante.'
+        fig5=mapa_colombia_departamentos_pib.display2(3.958788, -73.608479,str(years[1]),'turbo'),#'hot_r'),
     else:
         LAT_CUN_DEP=pib_department[pib_department.iloc[:,0]==depart]['latitude']
         LON_CUN_DEP=pib_department[pib_department.iloc[:,0]==depart]['longitude']
         LAT_CUN_DEP=float(LAT_CUN_DEP.iloc[0])
         LON_CUN_DEP=float(LON_CUN_DEP.iloc[0])
         info_dep_pib=f'PIB en {depart}, año {str(years[1])}'
-        fig5=mapa_colombia_departamentos_pib.display3(LAT_CUN_DEP, LON_CUN_DEP, str(years[1]), 'dense')
-    #return fig4,info_dep_temp
+        fig5=mapa_colombia_departamentos_pib.display3(LAT_CUN_DEP, LON_CUN_DEP, str(years[1]), 'turbo'),#'hot_r')
     return fig5,info_dep_pib
 
 #callback PIB
@@ -529,16 +743,20 @@ Input("departamentos_drop", "value"),
 def update_map(depart,years):
     if not depart:
         info_dep_def=f'Deforestación en Colombia, año {str(years[1])}'
-        fig6=mapa_colombia_departamentos_def.display2(3.958788, -73.608479,str(years[1]),'aggrnyl'),
+        fig6=mapa_colombia_departamentos_def.display2(3.958788, -73.608479,str(years[1]),'turbo'),#'aggrnyl'),
     else:
         LAT_CUN_DEP=def_department[def_department['DEPARTAMENTO']==depart]['latitude']
         LON_CUN_DEP=def_department[def_department['DEPARTAMENTO']==depart]['longitude']
         LAT_CUN_DEP=float(LAT_CUN_DEP.iloc[0])
         LON_CUN_DEP=float(LON_CUN_DEP.iloc[0])
         info_dep_def=f'Deforestación en {depart}, año {str(years[1])}'
-        fig6=mapa_colombia_departamentos_def.display3(LAT_CUN_DEP, LON_CUN_DEP, str(years[1]), 'aggrnyl')
+        fig6=mapa_colombia_departamentos_def.display3(LAT_CUN_DEP, LON_CUN_DEP, str(years[1]),'turbo'),#'aggrnyl')
     return fig6,info_dep_def
 
+
+
 #Figuras regional 
+
+
 
 ## END CALLBACKS DESCRIPTION
