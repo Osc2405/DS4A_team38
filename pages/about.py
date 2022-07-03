@@ -5,8 +5,28 @@ import dash_bootstrap_components as dbc
 from app import app
 
 ## Layout national
-layout=html.Div(
+layout=html.Div(className="",
     children=[
+        html.Div(className="pt-5"),
+        html.Div(className="row seccion_home pt-5 pt-3 justify-content-around primera_parte",children=[
+            html.Div(className="col-md-6",children=[
+                html.H3(className="text-white text-center",children="Nuestro proyecto"),
+                html.P(className="text-justify text-white",children=["ECO Temp nace en el programa "," ",html.A("DS4A-Colombia",href="https://www.correlation-one.com/data-science-for-all-colombia", className="enlace")," "," por parte del equipo 38 de la sexta cohorte. El objetivo es generar un proyecto que pueda impactar de forma positiva, pero a la vez que permita usar todos los conocimientos adquiridos durante el ciclo de formación. "]),
+                html.Div(className="row",children=[
+                    html.Div(className="brand-item col",children=[
+                        html.Img(src="assets/img/correlation_one.jpg", className="brand_img")
+                        ]),
+                    html.Div(className="brand-item col",children=[
+                        html.Img(src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Logo_MINTIC.svg/2560px-Logo_MINTIC.svg.png", className="brand_img")
+                        ]),
+                ]),
+                ]),
+            html.Div(className="col-md-4",children=[
+                html.Div(className="row",children=[
+                    html.Img(src="assets/img/Logo_with_text2.png",className="w-50")
+                ]),
+                ]),
+            ]),
         #Start about us section
         html.Div(className="seccion_home pt-5 pt-3",children=[
             html.Section(className="text-white text-center container-fluid seccion_home",children=[

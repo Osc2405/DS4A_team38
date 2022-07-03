@@ -32,7 +32,7 @@ layout = html.Div(
         html.H1(
             children="Home page", className="text-center text-success , mb-4"
         ),
-
+        # Section nuestro pais en datos
         dbc.Container([
 
             # First row
@@ -72,6 +72,8 @@ layout = html.Div(
                             ]),
                         ]),
                     ]),
+
+
 
                 ])
             ], color="secondary", outline=True, inverse=True),
@@ -126,3 +128,5 @@ layout = html.Div(
 #         # Button has never been clicked
 #         return False
 #     return not is_in
+
+

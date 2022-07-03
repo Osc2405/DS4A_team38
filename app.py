@@ -191,7 +191,7 @@ navbar = dbc.Navbar(
                 # Use row and col to control vertical alignment of logo / brand
                 dbc.Row(
                     [
-                        dbc.Col(html.Img(src=PLOTLY_LOGO, height="30px"),className="logo_navbar rounded-circle"),
+                        dbc.Col(html.Img(src=PLOTLY_LOGO, height="30px"),className="logo_navbar rounded-circle text-center"),
                         dbc.Col(dbc.NavbarBrand("ECO Temp", className="ms-2 text-white")),
                     ],
                     align="center",

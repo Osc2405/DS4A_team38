@@ -82,7 +82,6 @@
 .seccion_home {
   background-color: #040d10 !important;
   width: 100%;
-  padding-top: 3rem;
 }
 
 .seccion_home1 {
@@ -294,6 +293,10 @@
   height: 300px;
 }
 
+#population_graph2{
+  height: 400px;
+}
+
 #gas_consumption{
   height: 300px;
 }
@@ -324,4 +327,67 @@
 
 .logo_navbar{
   background-color: #FFF;
+  width: 25px;
+}
+
+.enlace{
+  color: #2aa8ab;
+}
+
+.titulo{
+  color: #FFF;
+}
+
+.primera_parte{
+  top: 50px;
+}
+
+
+.box {
+  float: left;
+  height: 20px;
+  width: 20px;
+  border: 1px solid black;
+  clear: both;
+}
+
+.box_temperature{
+  background-color: #ff0000;
+}
+
+.box_forest{
+  background-color: #636efa;
+}
+
+.box_agriculture{
+  background-color: #ef553b;
+}
+
+.box_rural_population{
+  background-color: #ef553b;
+}
+
+.box_urban_population{
+  background-color: #636efa;
+}
+
+
+
+.p_nopadding{
+  padding-bottom: 0!important;
+  margin-bottom: 0!important;
+  margin-right: 50px;
+}
+
+.p_nopadding2{
+  padding-bottom: 0!important;
+  margin-bottom: 0!important;
+}
+
+.brand-item {
+  text-align: center;
+}
+.brand_img{
+  max-width: 100%;
+  height: 75px;
 }
