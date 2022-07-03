@@ -69,22 +69,77 @@ LAT_CUN=temp_department[temp_department['DEPARTAMENTO']=='CUNDINAMARCA']['latitu
 LON_CUN=temp_department[temp_department['DEPARTAMENTO']=='CUNDINAMARCA']['longitude']
 #print(temp_department.columns[1:43])
 
+#FILTROS PARA LA PARTE DEPARTAMENTAL
+#DF TEMPERATURA
+temp_department.columns
+df_temp_dep01=temp_department[['Departamento', '1990', '1991', '1992', '1993', '1994',
+       '1995', '1996', '1997', '1998', '1999', '2000', '2001', '2002', '2003',
+       '2004', '2005', '2006', '2007', '2008', '2009', '2010', '2011', '2012',
+       '2013', '2014', '2015', '2016', '2017', '2018', '2019']]
+df_temp_dep01=df_temp_dep01.set_index('Departamento')
+df_temp_dep01.index.names=['']
+df_temp_dep2=df_temp_dep01.T
+
+#DF DEP
+def_department.columns
+def_dep=def_department[['DEPARTAMENTO', '1990', '1991', '1992', '1993', '1994', '1995', '1996', '1997', '1998', '1999', '2000', '2001', '2002', '2003', '2004',
+       '2005', '2006', '2007', '2008', '2009', '2010', '2011', '2012', '2013','2014', '2015', '2016', '2017', '2018', '2019', '2020']]
+def_dep=def_dep.set_index('DEPARTAMENTO')
+def_dep
+def_dep.index.names=['']
+def_dep2=def_dep.T
+
+#DF PIB
+pib_department.columns
+df_pib_dep01=pib_department[['DEPARTAMENTO', '1990', '1991', '1992', '1993', '1994',
+       '1995', '1996', '1997', '1998', '1999', '2000', '2001', '2002', '2003',
+       '2004', '2005', '2006', '2007', '2008', '2009', '2010', '2011', '2012',
+       '2013', '2014', '2015', '2016', '2017', '2018', '2019']]
+df_pib_dep01=df_pib_dep01.set_index('DEPARTAMENTO')
+df_pib_dep01.index.names=['']
+df_pib_dep2=df_pib_dep01.T
+
+##FIN INFORMACIÓN PARTE DEPARTAMENTAL
+
+
 mapa_colombia_departamentos_temp = mapcol_departamentos('Mapa Temperatura Colombia', 'div_departamentos_fig',temp_department)
 mapa_colombia_departamentos_pib = mapcol_departamentos('Mapa PIB Colombia', 'div_departamentos_fig',pib_department)
 mapa_colombia_departamentos_def = mapcol_departamentos('Mapa Deforestación Colombia', 'div_departamentos_fig',def_department)
 ############
 
+###CODIGO DE LAS GRAFICAS DE DROPDOWN
+###
+###
+'''  CODIGO DE LA GRAFICAS CON DROPDOWN
+            ## Espacio para variable importante con texto un solo grafico
+            html.Section(className="pt-5 text-white",children=[
+                html.Div(className="row",children=[
+                    html.Div(className="col-xl-4 col-md-4 col",children=[
+                        html.H5(className="",children="Variable importante 1"),
+                        html.P(className="text-justify",children="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."),
+                        dcc.Dropdown(id="contamination_drop",multi=True, placeholder="Selecciona un gas de efecto infernadero...", options=[{'label': x, 'value': x} for x in ["coal_consumption", "gas_consumption","oil_consumption", "renewables_consumption"]]),
+                    ]),
+                    html.Div(className="col text-center",children=[
+                        dcc.Graph(id="indicador_barras",figure=fig)
+                    ])
+                ])
+            ]),
 
+            ## Area dos graficas solas
+            html.Section(className="pt-3 text-white",children=[
+                html.Div(className="row",children=[
+                    html.Div(className="col text-center",children=[
+                        dcc.Graph(id="plot_area_contaminacion",figure=fig2)
+                    ]),
+                    html.Div(className="col text-center",children=[
+                        dcc.Graph(id="plot_area_poblacion",figure=fig3)
+                    ])
+                ]),
+            ]),
 '''
-datatest ={"COD_DPTO":{"0":"05","1":"08","2":"11","3":"13","4":"15","5":"17","6":"18","7":"19","8":"20","9":"23","10":"25","11":"27","12":"41","13":"44","14":"47","15":"50","16":"52","17":"54","18":"63","19":"66","20":"68","21":"70","22":"73","23":"76","24":"81","25":"85","26":"86","27":"91","28":"94","29":"95","30":"97","31":"99","32":"88"},"DEPARTAMENTO":{"0":"ANTIOQUIA","1":"ATLANTICO","2":"SANTAFE DE BOGOTA D.C","3":"BOLIVAR","4":"BOYACA","5":"CALDAS","6":"CAQUETA","7":"CAUCA","8":"CESAR","9":"CORDOBA","10":"CUNDINAMARCA","11":"CHOCO","12":"HUILA","13":"LA GUAJIRA","14":"MAGDALENA","15":"META","16":"NARI\\u00d1O","17":"NORTE DE SANTANDER","18":"QUINDIO","19":"RISARALDA","20":"SANTANDER","21":"SUCRE","22":"TOLIMA","23":"VALLE DEL CAUCA","24":"ARAUCA","25":"CASANARE","26":"PUTUMAYO","27":"AMAZONAS","28":"GUAINIA","29":"GUAVIARE","30":"VAUPES","31":"VICHADA","32":"ARCHIPIELAGO DE SAN ANDRES PROVIDENCIA Y SANTA CATALINA"},"COUNT":{"0":525,"1":1193,"2":1518,"3":1839,"4":1541,"5":1676,"6":1864,"7":1096,"8":1652,"9":1131,"10":819,"11":1061,"12":1972,"13":1045,"14":739,"15":1057,"16":1269,"17":1708,"18":1948,"19":1525,"20":1743,"21":1441,"22":802,"23":1960,"24":792,"25":994,"26":1637,"27":682,"28":1352,"29":1173,"30":1115,"31":1151,"32":1758},"latitude":{"0":8.6192998894,"1":10.3612003326,"2":4.7951002121,"3":10.4236001975,"4":7.0275001523,"5":5.7526998521,"6":2.4978001119,"7":2.9751138688,"8":10.8562469488,"9":9.4230003359,"10":5.7488999368,"11":8.2716999057,"12":3.2739000325,"13":12.4235000614,"14":11.3276996617,"15":4.4449000365,"16":2.5773999689,"17":9.1339998247,"18":4.6946001053,"19":5.4751377105,"20":8.1150255208,"21":9.8849000932,"22":5.2814002036,"23":4.9735999108,"24":7.0592999452,"25":6.2479000086,"26":1.3164000513,"27":0.1186000023,"28":3.8605000963,"29":2.8375000958,"30":1.9852999444,"31":6.2795000082,"32":12.5945628115},"longitude":{"0":-76.3072967522,"1":-74.8705978394,"2":-74.0229034424,"3":-75.1595001224,"4":-72.2129974372,"5":-74.6949996949,"6":-74.6925964365,"7":-78.2116241452,"8":-73.2823181155,"9":-75.8195037842,"10":-74.3295974737,"11":-77.0213012688,"12":-74.6360015871,"13":-71.6212005615,"14":-74.0917968755,"15":-71.0799026493,"16":-77.9835968017,"17":-73.0177993776,"18":-75.6720962525,"19":-75.886505127,"20":-73.8001403806,"21":-75.4831008914,"22":-74.8399963373,"23":-76.0838012692,"24":-70.6986999517,"25":-70.17250061,"26":-76.5781021113,"27":-71.3863983161,"28":-67.687797549,"29":-71.2646026619,"30":-70.112998962,"31":-67.7968978901,"32":-81.7129569648}}
 
-df_maptest = pd.DataFrame.from_dict(datatest)  
-mapa_colombia_departamentos = mapcol_departamentos('Mapa Departamentos Colombia', 'div_municipios_fig2',df_maptest)
-
-departamentosCSV='https://raw.githubusercontent.com/ajrianop/projectDS4A/main/department.csv'
-departamentos=pd.read_csv(departamentosCSV,encoding='unicode_escape')
-departamentos=departamentos.DEPARTAMENTO.unique()
-'''
+####
+####
 # Cambiar
 # Hay que cambiar esto para usar los datasets del github
 PATH = pathlib.Path(__file__).parent
@@ -178,7 +233,7 @@ def cambio_contenido(value,year):
     if not value:
         variables=["coal_consumption", "gas_consumption","oil_consumption", "renewables_consumption"]
         df_barras=df[(df["Year"]>=year[0]) & (df["Year"]<=year[1])]
-        fig = px.bar(df_barras, 
+        ''' fig = px.bar(df_barras, 
                  x = "Year",
                  y = variables,
                  template = 'plotly_dark'
@@ -202,6 +257,7 @@ def cambio_contenido(value,year):
               "plot_bgcolor": "#040d10",
               "paper_bgcolor": "#040d10",
             })
+        '''   
         last_year=int(df_barras.iloc[-1]['Year'])
         texto_year=f'Datos del año mas reciente ({last_year})'
 
@@ -288,14 +344,14 @@ def cambio_contenido(value,year):
         })
 
         ##! PLOTLY Population
-        fig_population = px.bar(df, 
+        fig_population = px.bar(df_barras, 
                     x = "Year",
                     y = ["Urban population", "Rural population"],
                     template = 'plotly_dark',
                     title = 'Población', 
                     )
         fig_population.add_trace(
-            go.Scatter(x=df["Year"], y=df["population"], name="Población",hoveron='points'),
+            go.Scatter(x=df_barras["Year"], y=df_barras["population"], name="Población",hoveron='points'),
             
         )
 
@@ -310,7 +366,7 @@ def cambio_contenido(value,year):
 
         # Set x-axis title and range
         fig_population.update_xaxes(title_text="Año")
-        fig_population.update_xaxes(range=(1990,2020))
+        #fig_population.update_xaxes(range=(1990,2020))
 
         # Set y-axes titles
         fig_population.update_yaxes(title_text="Número de habitantes")
@@ -336,7 +392,7 @@ def cambio_contenido(value,year):
         fig_landcover.update_layout(yaxis_range=[0,700000])
 
         # Leyenda arriba de gráfica
-        fig.update_layout(legend=dict(
+        fig_landcover.update_layout(legend=dict(
         orientation="h",
         yanchor="bottom",
         y=1.02,
@@ -544,32 +600,8 @@ def cambio_contenido(value,year):
                 ]),
                 ]),
             ]),
-
-            ## Espacio para variable importante con texto un solo grafico
-            html.Section(className="pt-5 text-white",children=[
-                html.Div(className="row",children=[
-                    html.Div(className="col-xl-4 col-md-4 col",children=[
-                        html.H5(className="",children="Variable importante 1"),
-                        html.P(className="text-justify",children="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."),
-                        dcc.Dropdown(id="contamination_drop",multi=True, placeholder="Selecciona un gas de efecto infernadero...", options=[{'label': x, 'value': x} for x in ["coal_consumption", "gas_consumption","oil_consumption", "renewables_consumption"]]),
-                    ]),
-                    html.Div(className="col text-center",children=[
-                        dcc.Graph(id="indicador_barras",figure=fig)
-                    ])
-                ])
-            ]),
-
-            ## Area dos graficas solas
-            html.Section(className="pt-3 text-white",children=[
-                html.Div(className="row",children=[
-                    html.Div(className="col text-center",children=[
-                        dcc.Graph(id="plot_area_contaminacion",figure=fig2)
-                    ]),
-                    html.Div(className="col text-center",children=[
-                        dcc.Graph(id="plot_area_poblacion",figure=fig3)
-                    ])
-                ]),
-            ]),
+            ###### CODIGO DE LA GRAFICAS CON DROPDOWN
+            ###### PARA HACER DESPUES
 
             
             ## Area graficas con texto
@@ -591,7 +623,7 @@ def cambio_contenido(value,year):
                         ]),
 
                     html.Div(className="col-md-3",children=[
-                        html.P(className="",style={'color': 'white', 'fontSize': 20},children="La población colombiana ha crecido en un 152% desde 1990 hasta 2019 y el crecimiento urbano ha sido más pronunciado que el rural. Actualmente el 81% de la población vive en las ciudades, lo que sobrepasa los estimados mundiales de 68% de la población mundial viviendo en ciudades para el 2050. Esto se debe en parte a los desplazamientos forzados causados por el conflicto armado del país.")
+                        html.P(className="",style={'color': 'white', 'fontSize': 20},children="La emisión de gases de efecto invernadero, como el dióxido de carbono (CO2), Metano (CH4), Óxido nitroso (N2O), Hidrofluorocarbonos (HFC), Hexafluoruro de azufre (SF6) y Perfluorocarbonos (PFC) aumenta a través del tiempo. Estos gases contribuyen a aumentar la temperatura del planeta, porque absorben y envían radiación infrarroja desde la superficie terrestre. Además, permanecen en la atmósfera durante años, décadas o incluso siglos.")
                         ]),
                     
                     ]),
@@ -601,7 +633,7 @@ def cambio_contenido(value,year):
                         dcc.Graph(id="population_graph",figure=fig_population)
                         ]),
                     html.Div(className="col-md-3",children=[
-                        html.P(className="",style={'color': 'white', 'fontSize': 20},children="La emisión de gases de efecto invernadero, como el dióxido de carbono (CO2), Metano (CH4), Óxido nitroso (N2O), Hidrofluorocarbonos (HFC), Hexafluoruro de azufre (SF6) y Perfluorocarbonos (PFC) aumenta a través del tiempo. Estos gases contribuyen a aumentar la temperatura del planeta, porque absorben y envían radiación infrarroja desde la superficie terrestre. Además, permanecen en la atmósfera durante años, décadas o incluso siglos.")
+                        html.P(className="",style={'color': 'white', 'fontSize': 20},children="La población colombiana ha crecido en un 152% desde 1990 hasta 2019 y el crecimiento urbano ha sido más pronunciado que el rural. Actualmente el 81% de la población vive en las ciudades, lo que sobrepasa los estimados mundiales de 68% de la población mundial viviendo en ciudades para el 2050. Esto se debe en parte a los desplazamientos forzados causados por el conflicto armado del país.")
                         ]),
                     
                     ]),
@@ -629,7 +661,7 @@ def cambio_contenido(value,year):
                         dcc.Graph(id="gdp_rural_pop",figure=fig_gdp_rural_pop)
                         ]),
                     html.Div(className="col-md-3",children=[
-                        html.P(className="",style={'color': 'white', 'fontSize': 20},children="FALTA GRAFICA Es interesante ver la tendencia del Producto Interno Bruto (PIB) a lo largo de los años y en este caso, su relación con el número de habitantes del campo. Entre 1990 y 1999 hubo un ligero incremento en la población rural. A partir de 1999, año en el que hubo una grave crisis económica, esta población empezó de nuevo a reducirse muy posiblemente debido a la migración a las ciudades donde encontraban mayores posibilidades laborales.")
+                        html.P(className="",style={'color': 'white', 'fontSize': 20},children="Es interesante ver la tendencia del Producto Interno Bruto (PIB) a lo largo de los años y en este caso, su relación con el número de habitantes del campo. Entre 1990 y 1999 hubo un ligero incremento en la población rural. A partir de 1999, año en el que hubo una grave crisis económica, esta población empezó de nuevo a reducirse muy posiblemente debido a la migración a las ciudades donde encontraban mayores posibilidades laborales.")
                         ]),
                     ]),
                 #Fila 7
@@ -645,23 +677,43 @@ def cambio_contenido(value,year):
 
             ])
     else:
-        #CREAR GRÁFICA
+        #CREACIÓN GRAFICA DEPARTAMENTAL ESTATICAS
+
         layout_content=html.Div(className="text-center text-white", children=[
             #INFO DEPARTAMENTAL
-            html.Section(className="container text-white pb-5",children=[
-                html.H3(className="text-center text-white",children=value),
-                #html.Div(className="col-md-6",children=[
-                        #dcc.Graph(id="energy_consumption",figure=fig_energy)
-                        #]),
-                html.Div(className="col-md-5",children=[
-                    html.P(className="",children="Podemos observar que el cambio de temperatura tiene una relación directamente proporcional con respecto al crecimiento del PIB y la deforestación en Colombia.")
+            html.H3(className="text-center text-white",children=value),
+            #corregir
+            #html.Section(className="text-white row pb-5",id="filtros-mapa", children=[
+            html.Section(className="text-white row text-center pb-5",id="tabla_vs_temp", children=[
+                #lolo
+                html.Div(className="col-xs-12 col-sm-12 col-md-6 col-xl-6 text-center pt-3", children=[
+                    html.Div(id='my-output',children=[
+                            dcc.Graph(id="fig_dep_temp_vs_pib",figure={}) 
                         ]),
+                    html.Div(className="",id="info_dep_temp_vs_pib",style={'color': 'white', 'fontSize': 18}),
+                    #html.Div(className="d-flex flex-column justify-content-around",children=[
+                    #    html.H3("Temperatura vs PIB", className="text-center text-white", id="info_dep_temp_vs_pib"),
+                    #]),
+                ]),
+
+                html.Div(className="col-xs-12 col-sm-12 col-md-6 col-xl-6 text-center pt-3", children=[
+                    html.Div(id='my-output',children=[
+                            dcc.Graph(id="fig_dep_temp_vs_def",figure={}) 
+                        ]),
+                    html.Div(id="info_dep_temp_vs_def",style={'color': 'white', 'fontSize': 18}),
+                    #html.Div(className="d-flex flex-column justify-content-around",children=[
+                    #    html.H3("Temperatura vs deforestación", className="text-center text-white", id="info_dep_temp_vs_def"),
+                    #]),
+                ]),
             ]),
+            
+            #FIN INFO DEPARTAMENTAL
             ]),
         
     return layout_content
-
-@callback(Output("indicador_barras","fig"),
+#####CALLBACK DROPDOWN ELIMINADOS
+'''
+#@callback(Output("indicador_barras","fig"),
     [Input("contamination_drop","value")],
     [Input("year_slider_d","value")]
     )
@@ -685,7 +737,7 @@ def drop_updater(variable,year):
     })
 
     return fig
-
+'''
 #callback TEMPERATURA
 @callback(
     Output("row_map_temp", 'children'),
@@ -757,6 +809,131 @@ def update_map(depart,years):
 
 #Figuras regional 
 
+#Figura Temperatura vs PIB
+@callback(
+Output("fig_dep_temp_vs_pib", 'figure'),
+Output("info_dep_temp_vs_pib","children"),
+Input("departamentos_drop", "value"),
+[Input("year_slider_d", "value")]
+)
+
+def update_map(depart,years):
+    if not depart:
+        info_dep_pib=f'La información para este departamento presenta problemas debido a que esta descrita con otra lista amplia, revisión de año {str(years[1])}.'
+        fig_temp_vs_pib={}
+    else:
+        ##! TEMPERATURE and PIB
+        #Create figure with secondary y-axis
+        fig_temp_vs_pib = make_subplots(specs=[[{"secondary_y": True}]])
+        fig_temp_vs_pib.add_trace(
+            go.Scatter(x=df_temp_dep2.index.values, y=df_temp_dep2[depart], name="Temperatura",line_color='#FF0000'),
+            secondary_y=False,
+        )
+        fig_temp_vs_pib.add_trace(
+            go.Scatter(x=df_pib_dep2.index.values, y=df_pib_dep2[depart], name="PIB", line_color= '#00ff00'),
+            secondary_y=True,
+        )
+        # Add figure title
+        fig_temp_vs_pib.update_layout(
+            title_text="Temperatura vs PIB", width=600, height=400,
+            )
+        # Set x-axis title and range
+        #fig.update_xaxes(title_text="Año")
+        #fig.update_xaxes(range=(1990,2020))
+
+        # Set y-axes titles
+        fig_temp_vs_pib.update_yaxes(title_text="Temperatura (Grados Celsius)", secondary_y=False)
+        fig_temp_vs_pib.update_yaxes(title_text="PIB (miles de millones)", secondary_y=True)
+
+        # Leyenda arriba de gráfica
+        fig_temp_vs_pib.update_layout(legend=dict(
+            orientation="h",
+            yanchor="bottom",
+            y=1.02,
+            xanchor="right",
+            x=1
+        ))
+        fig_temp_vs_pib.update_traces(line_width=5)
+        fig_temp_vs_pib.update_layout(template="plotly_dark")
+
+        info_dep_pib=f'Temperatura vs PIB en {depart}, hasta año {str(years[1])}'
+
+    return fig_temp_vs_pib,info_dep_pib
+
+####
+#Figura Temperatura vs PIB
+@callback(
+Output("fig_dep_temp_vs_def", 'figure'),
+Output("info_dep_temp_vs_def","children"),
+Input("departamentos_drop", "value"),
+[Input("year_slider_d", "value")]
+)
+
+def update_map(depart,years):
+    if not depart:
+        info_dep_def=f'La información para este departamento presenta problemas debido a que esta descrita con otra lista amplia, revisión de año {str(years[1])}.'
+        fig_temp_vs_def={}
+    else:
+        ##! TEMPERATURE and DEFORESTATION
+        fig_temp_vs_def = make_subplots(specs=[[{"secondary_y": True}]])
+        fig_temp_vs_def.add_trace(
+            go.Scatter(x=df_temp_dep2.index.values, y=df_temp_dep2[depart], name="Temperatura",line_color='#FF0000'),
+            secondary_y=False,
+        )
+        fig_temp_vs_def.add_trace(
+            go.Scatter(x=def_dep2.index.values, y=def_dep2[depart], name="Deforestación", line_color= '#00ff00'),
+            secondary_y=True,
+        )
+        # Add figure title
+        fig_temp_vs_def.update_layout(
+            title_text="Temperatura vs Deforestación", width=600, height=400,
+            )
+        # Set x-axis title and range
+        #fig.update_xaxes(title_text="Año")
+        #fig_temp_vs_def.update_xaxes(range=(years[0],years[1]))
+
+        # Set y-axes titles
+        fig_temp_vs_def.update_yaxes(title_text="Temperatura (Grados Celsius)", secondary_y=False)
+        fig_temp_vs_def.update_yaxes(title_text="Hectáreas", secondary_y=True)
+
+        # Leyenda arriba de gráfica
+        fig_temp_vs_def.update_layout(legend=dict(
+            orientation="h",
+            yanchor="bottom",
+            y=1.02,
+            xanchor="right",
+            x=1
+        ))
+        fig_temp_vs_def.update_traces(line_width=5)
+        fig_temp_vs_def.update_layout(template="plotly_dark")
+        # Set x-axis title and range
+        #fig.update_xaxes(title_text="Año")
+        #fig.update_xaxes(range=(1990,2020))
+
+        # Set y-axes titles
+        fig_temp_vs_def.update_yaxes(title_text="Temperatura (Grados Celsius)", secondary_y=False)
+        fig_temp_vs_def.update_yaxes(title_text="Hectáreas (ha)", secondary_y=True)
+
+        # Leyenda arriba de gráfica
+        fig_temp_vs_def.update_layout(legend=dict(
+            orientation="h",
+            yanchor="bottom",
+            y=1.02,
+            xanchor="right",
+            x=1
+        ))
+
+        fig_temp_vs_def.update_traces(line_width=5)
+        fig_temp_vs_def.update_layout(template="plotly_dark")
+
+
+        info_dep_def=f'Temperatura vs Deforestación en {depart}, hasta año {str(years[1])}'
+
+    return fig_temp_vs_def,info_dep_def
+
+
+    ####
+    ####
 
 
 ## END CALLBACKS DESCRIPTION
