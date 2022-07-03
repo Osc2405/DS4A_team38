@@ -131,26 +131,35 @@ layout = html.Div(className="seccion_home px-4 pt-5 pb-5",
     Output("plot_prediction","figure"),
     Output("text_prediction","children"),
     Output("loading-output-1","children"),
+    ## Cambiar estas variables, mirar el orden de la fila variables mas que los nombres
     Output("coal_plot","figure"),
     Output("fosil2_plot","figure"),
     Output("fosil_plot","figure"),
     Output("gas_plot","figure"),
     Output("oil_plot","figure"),
     Output("population_plot","figure"),
+    ##
     Input("slider1","value")
     )
 def plot_prediction(value):
-    path_model="pages/model_BR.pkl"
+    #Ruta del modelo
+    path_model="pages/model_BR6.pkl"
     model = pickle.load(open(path_model, 'rb'))
+
+
     X_test=pd.read_csv("datasets/X_test.csv")
     X_train=pd.read_csv("datasets/X_train.csv")
     df_final=pd.read_csv("datasets/df_final.csv")
     X_test=X_test.iloc[:,1:]
     #variables=["coal_consumption","fossil_fuel_consumption",'gas_consumption','oil_consumption','population']
+    
+    ## Colocar variables del modelo final en el orden de X_test
     variables=["Forest area","fossil_fuel_consumption","renewables_consumption","population","total_ghg","gdp"]
     #X_test=X_test[variables]
     #X_train=X_train[variables]
     #df_final=df_final[variables]
+
+    ## Buscar y eliminar "Unnamed: 0"
     print(X_test.columns)
     X_train=X_train.iloc[:,1:]
     print(X_train.columns)
@@ -162,14 +171,17 @@ def plot_prediction(value):
     dict_aumento2={}
     if value==0:
         for k in dict_aumento.keys():
+            #Normal
             dict_aumento2[k]=2
             color_pred="#636efa"
     elif value==-1:
         for k in dict_aumento.keys():
+            #Malo
             dict_aumento2[k]=7
             color_pred="#ff9b34"
     else:
         for k in dict_aumento.keys():
+            #Bueno
             dict_aumento2[k]=0.05
             color_pred="#73ec84"
 
@@ -257,11 +269,15 @@ def plot_prediction(value):
     new_X_train.index=X_train.index
     altura=400
 
+
+    ## 
     fig_coal=go.Figure()
     fig_coal.add_scattergl(x=new_x, y=new_X_futuro[variables[0]], line={'color': color_pred},name="Prediccion")
     fig_coal.add_scattergl(x=new_X_train.index.values, y=new_X_train[variables[0]].tolist(), line={'color': 'red'},name="Original")
     fig_coal.update_xaxes(showgrid=True, gridwidth=1, gridcolor='gray',linewidth=1, linecolor='white',title_text='Año')
+    # Titulo del eje Y
     fig_coal.update_yaxes(showgrid=True, gridwidth=1, gridcolor='gray',linewidth=1, linecolor='white',title_text="Kilometros cuadrados")
+    #Cambiar nombre
     fig_coal.update_layout(title_text='Area de bosque', title_x=0.5)
     #fig_coal.update_yaxes(range=[450,600], dtick=1)
 
@@ -299,8 +315,8 @@ def plot_prediction(value):
 
 
     # Para eliminar la B de billones de plotly
-    new_X_train[variables[5]]=new_X_train[variables[5]].apply(lambda x: x/1000)
-    new_X_futuro[variables[5]]=new_X_futuro[variables[5]].apply(lambda x: x/1000)
+    new_X_train[variables[5]]=new_X_train[variables[5]].apply(lambda x: x/1000000)
+    new_X_futuro[variables[5]]=new_X_futuro[variables[5]].apply(lambda x: x/1000000)
 
     fig_population=go.Figure()
     fig_population.add_scattergl(x=new_x, y=new_X_futuro[variables[5]], line={'color': color_pred},name="Prediccion")
