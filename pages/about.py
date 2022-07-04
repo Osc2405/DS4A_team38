@@ -58,14 +58,6 @@ layout=html.Div(className="",
                                     ])
                                 ]),
                             
-                                html.A(className="mx-2 text-center",href="https://scholar.google.com/citations?hl=en&user=HIRj5dMAAAAJ&view_op=list_works&gmla=AJsN-F5jTRk_68bA_LuoApaP9QlGKHfEFsO7h5qZS-7RwSB6eyQHpj2-P4gGUiCWkLkrhGLfvM4Do6_b0MFRRJpe7BMWN9CQYDP6XiblZCQFOqguz5AKlRM", target="_blank",children=[
-                                    html.Div(className="img__wrap text-center",children=[
-                                        html.Span(className="social-icon text-center",children=[
-                                            html.Img(className="scholar-google text-center", src="../assets/img/icons/icons8-google-scholar2.svg", alt="Google scholar")
-                                        ]),
-                                        html.P(className="img__description",children="Google Scholar")
-                                    ])
-                                ]),
                             
                             
                                 html.A(className="mx-2 text-center",href="https://bioinspirada.com/", target="_blank",children=[
@@ -146,7 +138,7 @@ layout=html.Div(className="",
                                     ])
                                 ]),
 
-                                html.A(className="mx-2 text-center",href="https://github.com/Osc2405", target="_blank",children=[
+                                html.A(className="mx-2 text-center",href="https://twitter.com/Oscrosero24", target="_blank",children=[
                                     html.Div(className="img__wrap text-center",children=[
                                         html.Span(className="social-icon social-twitter text-center",children=[
                                             html.I(className="bi bi-twitter fa-lg text-center")
@@ -223,7 +215,7 @@ layout=html.Div(className="",
                         
                         html.Div(className="d-flex justify-content-center mt-2",children=[
                             
-                            html.A(className="mx-2 text-center",href="https://www.linkedin.com/in/elsaquicazanrubio/", target="_blank",children=[
+                            html.A(className="mx-2 text-center",href="https://www.linkedin.com/in/ana-maria-cruz-pacheco-964149205/", target="_blank",children=[
                                 html.Div(className="img__wrap text-center",children=[
                                     html.Span(className="social-icon social-linkedin text-center",children=[
                                         html.I(className="bi bi-linkedin fa-lg text-center")
@@ -231,14 +223,6 @@ layout=html.Div(className="",
                                     html.P(className="img__description",children="LinkedIn")
                                 ])
                             ]),
-                            html.A(className="mx-2 text-center",href="https://scienti.minciencias.gov.co/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0000071210", target="_blank",children=[
-                                    html.Div(className="img__wrap text-center",children=[
-                                        html.Span(className="social-icon social-github text-center",children=[
-                                            html.I(className="bi bi-file-earmark-person fa-lg text-center")
-                                        ]),
-                                        html.P(className="img__description",children="CV")
-                                    ])
-                                ]),
                         
                                 
                             ])
