@@ -5,7 +5,6 @@ seaborn
 Flask
 gunicorn
 scikit-learn
-pickle
 numpy
 matplotlib
 plotly
