@@ -24,10 +24,10 @@ DATA_PATH = PATH.joinpath("datasets").resolve()
 
 df_finalCSV='https://raw.githubusercontent.com/ajrianop/projectDS4A/main/df_final.csv'
 df=pd.read_csv(df_finalCSV,encoding='unicode_escape')
-
+#suppress_callback_exceptions gives us the debug marker in the layout. 
 app = dash.Dash(
     external_stylesheets=[dbc.themes.BOOTSTRAP, dbc.icons.BOOTSTRAP,dbc.icons.FONT_AWESOME],
-    update_title='Cargando...', suppress_callback_exceptions=True 
+    update_title='Cargando...', suppress_callback_exceptions=False
 )
 server = app.server
 

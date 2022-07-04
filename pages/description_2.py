@@ -163,7 +163,7 @@ cattle=df_data["Cattle"].iloc[-1]
 ## Layout national
 layout=html.Div(className="seccion_home px-4 pt-5",
     children=[
-        html.H1(className="pt-4 text-center text-white pb-5",children="Seccion descriptiva"),
+        html.H1(className="pt-4 text-center text-white pb-5",children="Sección descriptiva"),
         html.Section(className="text-white row pb-5",id="filtros-mapa", children=[
             html.H4(className="py-2 text-center",children="Filtros"),
             html.Div(className="col-xs-12 col-sm-12 col-md-6 col-xl-6 pt-3",children=[
@@ -690,7 +690,7 @@ def cambio_contenido(value,year):
                     html.Div(id='my-output',children=[
                             dcc.Graph(id="fig_dep_temp_vs_pib",figure={}) 
                         ]),
-                    html.Div(className="",id="info_dep_temp_vs_pib",style={'color': 'white', 'fontSize': 18}),
+                    #html.Div(className="",id="info_dep_temp_vs_pib",style={'color': 'white', 'fontSize': 18}),
                     #html.Div(className="d-flex flex-column justify-content-around",children=[
                     #    html.H3("Temperatura vs PIB", className="text-center text-white", id="info_dep_temp_vs_pib"),
                     #]),
@@ -700,7 +700,7 @@ def cambio_contenido(value,year):
                     html.Div(id='my-output',children=[
                             dcc.Graph(id="fig_dep_temp_vs_def",figure={}) 
                         ]),
-                    html.Div(id="info_dep_temp_vs_def",style={'color': 'white', 'fontSize': 18}),
+                    #html.Div(id="info_dep_temp_vs_def",style={'color': 'white', 'fontSize': 18}),
                     #html.Div(className="d-flex flex-column justify-content-around",children=[
                     #    html.H3("Temperatura vs deforestación", className="text-center text-white", id="info_dep_temp_vs_def"),
                     #]),
@@ -773,7 +773,7 @@ Input("departamentos_drop", "value"),
 
 def update_map(depart,years):
     if not depart:
-        info_dep_pib=f'PIB en Colombia, año {str(years[1])}.\n (*) En negro estan los departamentos con información faltante.'
+        info_dep_pib=f'PIB en Colombia, año {str(years[1])}.'#\n (*) En negro estan los departamentos con información faltante.'
         fig5=mapa_colombia_departamentos_pib.display2(3.958788, -73.608479,str(years[1]),'turbo'),#'hot_r'),
     else:
         LAT_CUN_DEP=pib_department[pib_department.iloc[:,0]==depart]['latitude']
@@ -812,7 +812,7 @@ def update_map(depart,years):
 #Figura Temperatura vs PIB
 @callback(
 Output("fig_dep_temp_vs_pib", 'figure'),
-Output("info_dep_temp_vs_pib","children"),
+#Output("info_dep_temp_vs_pib","children"),
 Input("departamentos_drop", "value"),
 [Input("year_slider_d", "value")]
 )
@@ -842,8 +842,9 @@ def update_map(depart,years):
         #fig.update_xaxes(range=(1990,2020))
 
         # Set y-axes titles
-        fig_temp_vs_pib.update_yaxes(title_text="Temperatura (Grados Celsius)", secondary_y=False)
-        fig_temp_vs_pib.update_yaxes(title_text="PIB (miles de millones)", secondary_y=True)
+        # Set y-axes titles
+        fig_temp_vs_pib.update_yaxes(title_text="PIB (miles de millones de pesos)", secondary_y=False)
+        fig_temp_vs_pib.update_yaxes(title_text="Población rural (número de habitantes)", secondary_y=True)
 
         # Leyenda arriba de gráfica
         fig_temp_vs_pib.update_layout(legend=dict(
@@ -858,13 +859,13 @@ def update_map(depart,years):
 
         info_dep_pib=f'Temperatura vs PIB en {depart}, hasta año {str(years[1])}'
 
-    return fig_temp_vs_pib,info_dep_pib
+    return fig_temp_vs_pib#,info_dep_pib
 
 ####
 #Figura Temperatura vs PIB
 @callback(
 Output("fig_dep_temp_vs_def", 'figure'),
-Output("info_dep_temp_vs_def","children"),
+#Output("info_dep_temp_vs_def","children"),
 Input("departamentos_drop", "value"),
 [Input("year_slider_d", "value")]
 )
@@ -929,7 +930,7 @@ def update_map(depart,years):
 
         info_dep_def=f'Temperatura vs Deforestación en {depart}, hasta año {str(years[1])}'
 
-    return fig_temp_vs_def,info_dep_def
+    return fig_temp_vs_def#,info_dep_def
 
 
     ####
