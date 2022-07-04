@@ -126,7 +126,7 @@ fig_poblacion.update_yaxes(title_text="Número de habitantes")
 
 
 ## Layout national
-layout=html.Div( className="seccion_home1",
+layout=html.Div( className="seccion_home container-fluid",
     children=[
     html.Div(className="header_img",children=[
         html.Header(
