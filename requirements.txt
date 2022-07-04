@@ -4,3 +4,8 @@ dash-bootstrap-components
 seaborn
 Flask
 gunicorn
+scikit-learn
+pickle
+numpy
+matplotlib
+plotly
