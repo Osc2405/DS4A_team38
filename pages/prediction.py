@@ -119,10 +119,10 @@ layout = html.Div(className="seccion_home px-4 pt-5 pb-5",
                 ]),
             ]),
 
-        html.Section(className="row",children=[
-            html.H3("Explicacion del modelo usado", className="text-center text-white"),
-            html.P(className="pt-3",children="    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
-            ])
+        #html.Section(className="row",children=[
+        #    html.H3("Explicacion del modelo usado", className="text-center text-white"),
+        #    html.P(className="pt-3",children="    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
+        #    ])
     ]
 )
 
@@ -160,10 +160,7 @@ def plot_prediction(value):
     #df_final=df_final[variables]
 
     ## Buscar y eliminar "Unnamed: 0"
-    print(X_test.columns)
     X_train=X_train.iloc[:,1:]
-    print(X_train.columns)
-    print(df_final.columns)
 
 
     y_train=pd.read_csv("datasets/y_train.csv")
@@ -207,7 +204,6 @@ def plot_prediction(value):
     for i in X_futuro.columns:
       X_futuro[i]=X_futuro[i]+np.random.normal(0,0.1*X_futuro[i].std(),X_futuro[i].shape)
 
-    print(X_futuro.columns)
     pred=model.predict(X_futuro)
 
     # Se crea una copia de los dataframes usados

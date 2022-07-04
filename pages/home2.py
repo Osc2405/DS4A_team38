@@ -160,9 +160,11 @@ layout=html.Div( className="seccion_home1",
                         html.P(className="text-justify", children=["El cambio climático es una amenaza cada vez mayor para la vida en la tierra. Consiste en cambios a largo plazo de la temperatura y los patrones climáticos. La temperatura está influenciada por las emisiones de gases de efecto invernadero, consumo de energía, deforestación, crecimiento poblacional y PIB, principalmente. La posibilidad de un aumento de temperatura por encima del límite establecido como objetivo (2 grados centígrados) nos lleva a los efectos más peligrosos del cambio climático."]),
                         html.P(className="text-justify",children="Colombia no está exenta de estos efectos negativos, a pesar de la alta biodiversidad y riqueza de recursos naturales. Así pues, es importante entender el comportamiento de la temperatura en nuestro país a través del tiempo, su relación con las emisiones de gases de efecto invernadero y las demás variables que se ha comprobado influencian la temperatura. Esto nos permite cambiar hábitos y tomar decisiones acordes a las particularidades geográficas, sociales, y económicas de nuestro país."),
                         html.P(className="text-justify",children="Por esta razón nace EcoTemp, una herramienta que tomando información de las principales entidades nacionales:"),
-                        html.P(className="text-justify",children="- Predice la temperatura promedio a nivel nacional dando tres posibles escenarios futuros."),
-                        html.P(className="text-justify",children="- Describe a nivel nacional el comportamiento anual de los distintos factores que condicionan la variación de la temperatura."),
-                        html.P(className="text-justify",children="- Y presenta datos históricos a nivel departamental de temperatura, deforestación y PIB mediante gráficos interactivos.")
+                        html.Ul(className="list_home",children=[
+                            html.Li(className="text-justify list_item",children="Predice la temperatura promedio a nivel nacional dando tres posibles escenarios futuros."),
+                            html.Li(className="text-justify list_item",children="Describe a nivel nacional el comportamiento anual de los distintos factores que condicionan la variación de la temperatura."),
+                            html.Li(className="text-justify list_item",children="Y presenta datos históricos a nivel departamental de temperatura, deforestación y PIB mediante gráficos interactivos.")
+                            ]),
                         
                         ]),
                     ])

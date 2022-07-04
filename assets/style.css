@@ -391,3 +391,11 @@
   max-width: 100%;
   height: 75px;
 }
+
+.list_home{
+  padding-left: 15px;
+}
+
+.list_item{
+  padding-bottom: 5px;
+}
