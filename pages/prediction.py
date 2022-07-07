@@ -13,7 +13,7 @@ import plotly.graph_objects as go
 
 from app import app
 
-##Diccionario
+## Percentage Increase Dictionary of Variables
 dict_aumento={
     "Urban population": 2,
     "Rural population": 2,
@@ -44,6 +44,7 @@ dict_aumento={
 }
 df_final=pd.read_csv("datasets/df_final.csv")
 
+# Functions to denormalize data
 def rev_min_max_func(scaled_val):
     max_val = 24.584000000000003
     min_val = 23.12900000000002
@@ -57,13 +58,7 @@ def rev_min_max_func_variable(scaled_val,variable):
     return og_val
 
 
-
-
-
-
-
-
-# Layout national
+# Layout Prediction page
 layout = html.Div(className="seccion_home px-4 pt-5 pb-5",
     children=[
         html.Div(className="row text-center text-white pb-3 pt-2",children=[
@@ -118,48 +113,38 @@ layout = html.Div(className="seccion_home px-4 pt-5 pb-5",
                 dcc.Graph(id="population_plot",figure={})
                 ]),
             ]),
-
-        #html.Section(className="row",children=[
-        #    html.H3("Explicacion del modelo usado", className="text-center text-white"),
-        #    html.P(className="pt-3",children="    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
-        #    ])
     ]
 )
 
 
+# Callbacks
 @callback(
     Output("plot_prediction","figure"),
     Output("text_prediction","children"),
     Output("loading-output-1","children"),
-    ## Cambiar estas variables, mirar el orden de la fila variables mas que los nombres
     Output("coal_plot","figure"),
     Output("fosil2_plot","figure"),
     Output("fosil_plot","figure"),
     Output("gas_plot","figure"),
     Output("oil_plot","figure"),
     Output("population_plot","figure"),
-    ##
     Input("slider1","value")
     )
 def plot_prediction(value):
-    #Ruta del modelo
+    # Load model
     path_model="pages/model_BR6.pkl"
     model = pickle.load(open(path_model, 'rb'))
 
-
+    # Read datasets
     X_test=pd.read_csv("datasets/X_test.csv")
     X_train=pd.read_csv("datasets/X_train.csv")
     df_final=pd.read_csv("datasets/df_final.csv")
     X_test=X_test.iloc[:,1:]
-    #variables=["coal_consumption","fossil_fuel_consumption",'gas_consumption','oil_consumption','population']
     
-    ## Colocar variables del modelo final en el orden de X_test
+    # Variables used in the model
     variables=["Forest area","fossil_fuel_consumption","renewables_consumption","population","total_ghg","gdp"]
-    #X_test=X_test[variables]
-    #X_train=X_train[variables]
-    #df_final=df_final[variables]
 
-    ## Buscar y eliminar "Unnamed: 0"
+    # If the variable "Unnamed: 0" exists
     X_train=X_train.iloc[:,1:]
 
 
@@ -168,24 +153,24 @@ def plot_prediction(value):
     dict_aumento2={}
     if value==0:
         for k in dict_aumento.keys():
-            #Normal
+            # Normal scenario
             dict_aumento2[k]=2
             color_pred="#636efa"
     elif value==-1:
         for k in dict_aumento.keys():
-            #Malo
+            # Bad scenario
             dict_aumento2[k]=7
             color_pred="#ff9b34"
     else:
         for k in dict_aumento.keys():
-            #Bueno
+            # Good scenario
             dict_aumento2[k]=0.05
             color_pred="#73ec84"
 
-    # Año hasta donde se quiere hacer la prediccion
+    # Year to predict
     year=2040
 
-    # Creacion de una lista donde cada nuevo valor es el anterior aumentado el porcentaje dado en dict_aumento
+    # Creation of a list where each new value is the previous one increased by the percentage given in dict_increase
     lista=[]
     for i in range (year-2019):
       row=[]
@@ -196,23 +181,22 @@ def plot_prediction(value):
           row.append(lista[i-1][j]*(1+dict_aumento2[X_test.columns[j]]/100))
       lista.append(row)
 
-    # Se convierte la lista en un dataframe y se agrega al dataframe de prueba X_test en una nueva variable llamada X_futuro
     X_futuro = X_test.append(pd.DataFrame(lista, columns=X_test.columns))
     X_futuro.index = np.arange(2016,2041,1)
 
-    # Se le agrega un ruido gausiano a los datos equivalente a un 10% de la desviacion estandar de cada columna
+    # Add random noise to the input variables
     for i in X_futuro.columns:
       X_futuro[i]=X_futuro[i]+np.random.normal(0,0.1*X_futuro[i].std(),X_futuro[i].shape)
 
     pred=model.predict(X_futuro)
 
-    # Se crea una copia de los dataframes usados
+    # Copy the used dataframes
     new_df=pred.copy()
     new_y=y_train.copy()
     new_X_futuro=X_futuro.copy()
     new_X_train=X_train.copy()
 
-    # Desnormalizacion de los datos
+    # Denormalize the data
     for i in range(len(new_df)):
         new_df[i] = rev_min_max_func(pred[i])
     for i in range(len(new_y)):
@@ -227,25 +211,23 @@ def plot_prediction(value):
             new_X_train.iloc[i,j] = rev_min_max_func_variable(new_X_train.iloc[i,j],new_X_train.columns[j])
 
 
-    # Generacion del grafico
+    # Change index values 
     new_x=[x for x in range (2016,2016+len(new_df))]
-
-
     new_y.index=range(1990,2016,1)
     otro_df=pd.DataFrame(new_df,index=new_x)
     final_y=pd.concat([new_y, otro_df])
 
+    # Prediction plot creation
     fig = go.Figure()
-    # Full line
-    
     fig.add_scattergl(x=new_x, y=new_df, line={'color': color_pred},name="Prediccion")
 
+    # Add original data
     xs=[]
     for i in range(1990,2016,1):
         xs.append(i)
-    # Above threshhgold
     fig.add_scattergl(x=new_y.index.values, y=new_y.Temperature.tolist(), line={'color': 'red'},name="Original")    
 
+    # Update chart
     fig.update_layout({
           "plot_bgcolor": "#040d10",
           "paper_bgcolor": "#040d10",
@@ -263,19 +245,15 @@ def plot_prediction(value):
 
     X_train.index=new_y.index.values
     new_X_train.index=X_train.index
-    altura=400
 
 
-    ## 
+    # Creation of the graphs of the input variables
     fig_coal=go.Figure()
     fig_coal.add_scattergl(x=new_x, y=new_X_futuro[variables[0]], line={'color': color_pred},name="Prediccion")
     fig_coal.add_scattergl(x=new_X_train.index.values, y=new_X_train[variables[0]].tolist(), line={'color': 'red'},name="Original")
     fig_coal.update_xaxes(showgrid=True, gridwidth=1, gridcolor='gray',linewidth=1, linecolor='white',title_text='Año')
-    # Titulo del eje Y
     fig_coal.update_yaxes(showgrid=True, gridwidth=1, gridcolor='gray',linewidth=1, linecolor='white',title_text="Kilometros cuadrados")
-    #Cambiar nombre
     fig_coal.update_layout(title_text='Area de bosque', title_x=0.5)
-    #fig_coal.update_yaxes(range=[450,600], dtick=1)
 
     fig_fosil2=go.Figure()
     fig_fosil2.add_scattergl(x=new_x, y=new_X_futuro[variables[1]], line={'color': color_pred},name="Prediccion")
@@ -291,7 +269,6 @@ def plot_prediction(value):
     fig_fosil.update_xaxes(showgrid=True, gridwidth=1, gridcolor='gray',linewidth=1, linecolor='white',title_text='Año')
     fig_fosil.update_yaxes(showgrid=True, gridwidth=1, gridcolor='gray',linewidth=1, linecolor='white',title_text="TWh")
     fig_fosil.update_layout(title_text='Consumo de E. renovables', title_x=0.5)
-    #fig_fosil.update_yaxes(range=[100,1800], dtick=1)
 
     fig_gas=go.Figure()
     fig_gas.add_scattergl(x=new_x, y=new_X_futuro[variables[3]], line={'color': color_pred},name="Prediccion")
@@ -299,7 +276,6 @@ def plot_prediction(value):
     fig_gas.update_xaxes(showgrid=True, gridwidth=1, gridcolor='gray',linewidth=1, linecolor='white',title_text='Año')
     fig_gas.update_yaxes(showgrid=True, gridwidth=1, gridcolor='gray',linewidth=1, linecolor='white',title_text="# de habitantes")
     fig_gas.update_layout(title_text='Poblacion', title_x=0.5)
-    #fig_gas.update_yaxes(range=[30,740], dtick=1)
 
     fig_oil=go.Figure()
     fig_oil.add_scattergl(x=new_x, y=new_X_futuro[variables[4]], line={'color': color_pred},name="Prediccion")
@@ -307,10 +283,9 @@ def plot_prediction(value):
     fig_oil.update_xaxes(showgrid=True, gridwidth=1, gridcolor='gray',linewidth=1, linecolor='white',title_text='Año')
     fig_oil.update_yaxes(showgrid=True, gridwidth=1, gridcolor='gray',linewidth=1, linecolor='white',title_text="Consumo (kT)")
     fig_oil.update_layout(title_text='Gases de efecto invernadero', title_x=0.5)
-    #fig_oil.update_yaxes(range=[110,720], dtick=1)
 
 
-    # Para eliminar la B de billones de plotly
+    # To change the order of magnitude
     new_X_train[variables[5]]=new_X_train[variables[5]].apply(lambda x: x/1000)
     new_X_futuro[variables[5]]=new_X_futuro[variables[5]].apply(lambda x: x/1000)
 
@@ -320,8 +295,8 @@ def plot_prediction(value):
     fig_population.update_xaxes(showgrid=True, gridwidth=1, gridcolor='gray',linewidth=1, linecolor='white',title_text='Año')
     fig_population.update_yaxes(showgrid=True, gridwidth=1, gridcolor='gray',linewidth=1, linecolor='white',title_text="Miles de millones")
     fig_population.update_layout(title_text='PIB', title_x=0.5)
-    #fig_population.update_yaxes(range=[30000000,160000000], dtick=1)
 
+    # Uptade all figure layouts
     for figura in [fig_coal,fig_fosil2,fig_fosil,fig_gas,fig_oil,fig_population]:
         figura.update_layout({
           "plot_bgcolor": "#040d10",

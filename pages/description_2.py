@@ -16,9 +16,6 @@ from pandas.io.json import json_normalize
 
 #MAPA COLOMBIA
 from components.maps.mapcol_departamentos import mapcol_departamentos
-# dataset de prueba para el mapa
-#datatest1=departments.to_json()
-#print(datatest)
 
 #INFORMACIÓN TEMPERATURA POR DEPARTAMENTOS_CSV
 df_finalCSV='https://raw.githubusercontent.com/ajrianop/projectDS4A/main/df_final.csv'
@@ -43,31 +40,13 @@ erase_years_df_temp=['1979', '1980', '1981', '1982', '1983', '1984', '1985', '19
 temp_department=temp_department.drop(columns=erase_years_df_temp, axis=1)
 departamentos=temp_department.DEPARTAMENTO.unique()
 
-#DATA CLEANING DE PIB
-'''pib_department=pib_department.dropna(axis='rows')
-pib_department=pib_department[pib_department['0']!='ARAUCA']
-pib_department=pib_department[pib_department['0']!='GUAVIARE']
-pib_department=pib_department[pib_department['0']!='AMAZONAS']
-pib_department=pib_department[pib_department['0']!='CASANARE']
-pib_department=pib_department[pib_department['0']!='GUAINIA']
-pib_department=pib_department[pib_department['0']!='VICHADA']
-pib_department=pib_department[pib_department['0']!='VAUPES']
-pib_department=pib_department[pib_department['0']!='PUTUMAYO']
-pib_department=pib_department[pib_department['0']!='ARCHIPIELAGO DE SAN ANDRES PROVIDENCIA Y SANTA CATALINA']'''
-
-#print(pib_department['0']!='SANTAFE DE BOGOTA D.C')
-
 #DATA CLEANING DE DEFORESTACION
 for i in range(1990,2013):
     l=str(i)
     def_department[l]=def_department[l].str.replace(',','.').astype(float)
-#print(def_department.info())
 
-#print(temp_department[temp_department['DEPARTAMENTO']=='CUNDINAMARCA']['latitude']),
-#print(temp_department[temp_department['DEPARTAMENTO']=='CUNDINAMARCA']['longitude']),
 LAT_CUN=temp_department[temp_department['DEPARTAMENTO']=='CUNDINAMARCA']['latitude']
 LON_CUN=temp_department[temp_department['DEPARTAMENTO']=='CUNDINAMARCA']['longitude']
-#print(temp_department.columns[1:43])
 
 #FILTROS PARA LA PARTE DEPARTAMENTAL
 #DF TEMPERATURA
@@ -107,41 +86,6 @@ mapa_colombia_departamentos_pib = mapcol_departamentos('Mapa PIB Colombia', 'div
 mapa_colombia_departamentos_def = mapcol_departamentos('Mapa Deforestación Colombia', 'div_departamentos_fig',def_department)
 ############
 
-###CODIGO DE LAS GRAFICAS DE DROPDOWN
-###
-###
-'''  CODIGO DE LA GRAFICAS CON DROPDOWN
-            ## Espacio para variable importante con texto un solo grafico
-            html.Section(className="pt-5 text-white",children=[
-                html.Div(className="row",children=[
-                    html.Div(className="col-xl-4 col-md-4 col",children=[
-                        html.H5(className="",children="Variable importante 1"),
-                        html.P(className="text-justify",children="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."),
-                        dcc.Dropdown(id="contamination_drop",multi=True, placeholder="Selecciona un gas de efecto infernadero...", options=[{'label': x, 'value': x} for x in ["coal_consumption", "gas_consumption","oil_consumption", "renewables_consumption"]]),
-                    ]),
-                    html.Div(className="col text-center",children=[
-                        dcc.Graph(id="indicador_barras",figure=fig)
-                    ])
-                ])
-            ]),
-
-            ## Area dos graficas solas
-            html.Section(className="pt-3 text-white",children=[
-                html.Div(className="row",children=[
-                    html.Div(className="col text-center",children=[
-                        dcc.Graph(id="plot_area_contaminacion",figure=fig2)
-                    ]),
-                    html.Div(className="col text-center",children=[
-                        dcc.Graph(id="plot_area_poblacion",figure=fig3)
-                    ])
-                ]),
-            ]),
-'''
-
-####
-####
-# Cambiar
-# Hay que cambiar esto para usar los datasets del github
 PATH = pathlib.Path(__file__).parent
 DATA_PATH = PATH.joinpath("../datasets").resolve()
 
@@ -158,9 +102,8 @@ Forest_area=df_data["Forest area (sq. km)"].iloc[-1]
 renewables=df_data["renewables_consumption"].iloc[-1]
 cattle=df_data["Cattle"].iloc[-1]
 
-## End Cambiar
 
-## Layout national
+## Layout Description page
 layout=html.Div(className="seccion_home px-4 pt-5",
     children=[
         html.H1(className="pt-4 text-center text-white pb-5",children="Sección descriptiva"),
@@ -213,7 +156,6 @@ layout=html.Div(className="seccion_home px-4 pt-5",
                         ])
                     ]),
                     html.Div(className="d-flex flex-column justify-content-around",children=[
-                        #html.H3("Info_drop", className="text-center text-black", id="Info_drop"),
                         html.H3("Deforestación departamento", className="text-center text-white", id="info_dep_def"),
                     ]),
                 ]),
@@ -232,32 +174,7 @@ layout=html.Div(className="seccion_home px-4 pt-5",
 def cambio_contenido(value,year):
     if not value:
         variables=["coal_consumption", "gas_consumption","oil_consumption", "renewables_consumption"]
-        df_barras=df[(df["Year"]>=year[0]) & (df["Year"]<=year[1])]
-        ''' fig = px.bar(df_barras, 
-                 x = "Year",
-                 y = variables,
-                 template = 'plotly_dark'
-            )
-        fig2 = px.area(df_barras, 
-                 x = "Year",
-                 y = variables,
-                 template = 'plotly_dark'
-            )
-
-        fig3 = px.area(df_barras, 
-                 x = "Year",
-                 y = ["Urban population", "Rural population"],
-                 template = 'plotly_dark'
-            )
-
-        for figura in [fig,fig2,fig3]:
-            figura.update_layout(transition_duration=500)
-            figura.update_layout(showlegend=False)
-            figura.update_layout({
-              "plot_bgcolor": "#040d10",
-              "paper_bgcolor": "#040d10",
-            })
-        '''   
+        df_barras=df[(df["Year"]>=year[0]) & (df["Year"]<=year[1])]   
         last_year=int(df_barras.iloc[-1]['Year'])
         texto_year=f'Datos del año mas reciente ({last_year})'
 
@@ -682,28 +599,17 @@ def cambio_contenido(value,year):
         layout_content=html.Div(className="text-center text-white", children=[
             #INFO DEPARTAMENTAL
             html.H3(className="text-center text-white",children=value),
-            #corregir
-            #html.Section(className="text-white row pb-5",id="filtros-mapa", children=[
             html.Section(className="text-white row text-center pb-5",id="tabla_vs_temp", children=[
-                #lolo
                 html.Div(className="col-xs-12 col-sm-12 col-md-6 col-xl-6 text-center pt-3", children=[
                     html.Div(id='my-output',children=[
                             dcc.Graph(id="fig_dep_temp_vs_pib",figure={}) 
                         ]),
-                    #html.Div(className="",id="info_dep_temp_vs_pib",style={'color': 'white', 'fontSize': 18}),
-                    #html.Div(className="d-flex flex-column justify-content-around",children=[
-                    #    html.H3("Temperatura vs PIB", className="text-center text-white", id="info_dep_temp_vs_pib"),
-                    #]),
                 ]),
 
                 html.Div(className="col-xs-12 col-sm-12 col-md-6 col-xl-6 text-center pt-3", children=[
                     html.Div(id='my-output',children=[
                             dcc.Graph(id="fig_dep_temp_vs_def",figure={}) 
                         ]),
-                    #html.Div(id="info_dep_temp_vs_def",style={'color': 'white', 'fontSize': 18}),
-                    #html.Div(className="d-flex flex-column justify-content-around",children=[
-                    #    html.H3("Temperatura vs deforestación", className="text-center text-white", id="info_dep_temp_vs_def"),
-                    #]),
                 ]),
             ]),
             
@@ -712,32 +618,7 @@ def cambio_contenido(value,year):
         
     return layout_content
 #####CALLBACK DROPDOWN ELIMINADOS
-'''
-#@callback(Output("indicador_barras","fig"),
-    [Input("contamination_drop","value")],
-    [Input("year_slider_d","value")]
-    )
-def drop_updater(variable,year):
-    if not variable:
-        variables=["coal_consumption", "gas_consumption","oil_consumption", "renewables_consumption"]
-    else:
-        variables=variable
 
-    df_barras=df[(df["Year"]>=year[0]) & (df["Year"]<=year[1])]
-    fig = px.bar(df_barras, 
-             x = "Year",
-             y = variables,
-             template = 'plotly_dark'
-        )
-    fig.update_layout(transition_duration=500)
-    fig.update_layout(showlegend=False)
-    fig.update_layout({
-      "plot_bgcolor": "#040d10",
-      "paper_bgcolor": "#040d10",
-    })
-
-    return fig
-'''
 #callback TEMPERATURA
 @callback(
     Output("row_map_temp", 'children'),
@@ -751,16 +632,15 @@ def drop_updater(variable,year):
 def update_map(depart,years):
     if not depart:
         info_dep_temp=f'Temperatura en Colombia, año {str(years[1])}'
-        #fig4=mapa_colombia_departamentos.display2(5.7489, -74.329597, str(years[1]),'Reds'),
-        fig4=mapa_colombia_departamentos_temp.display2(3.958788, -73.608479,str(years[1]),'turbo'),#'RdBu_r')#,'Reds'),
-        #fig5=mapa_colombia_departamentos_pib.display2(3.958788, -73.608479,str(years[1]),'dense'),
+        fig4=mapa_colombia_departamentos_temp.display2(3.958788, -73.608479,str(years[1]),'turbo'),
+
     else:
         LAT_CUN_DEP=temp_department[temp_department['DEPARTAMENTO']==depart]['latitude']
         LON_CUN_DEP=temp_department[temp_department['DEPARTAMENTO']==depart]['longitude']
         LAT_CUN_DEP=float(LAT_CUN_DEP.iloc[0])
         LON_CUN_DEP=float(LON_CUN_DEP.iloc[0])
         info_dep_temp=f'Temperatura en {depart}, año {str(years[1])}'
-        fig4=mapa_colombia_departamentos_temp.display3(LAT_CUN_DEP, LON_CUN_DEP, str(years[1]),'turbo'),#'RdBu_r')# 'Reds')
+        fig4=mapa_colombia_departamentos_temp.display3(LAT_CUN_DEP, LON_CUN_DEP, str(years[1]),'turbo'),
     return fig4,info_dep_temp
 
 #callback PIB
@@ -837,11 +717,7 @@ def update_map(depart,years):
         fig_temp_vs_pib.update_layout(
             title_text="Temperatura vs PIB", width=600, height=400,
             )
-        # Set x-axis title and range
-        #fig.update_xaxes(title_text="Año")
-        #fig.update_xaxes(range=(1990,2020))
 
-        # Set y-axes titles
         # Set y-axes titles
         fig_temp_vs_pib.update_yaxes(title_text="PIB (miles de millones de pesos)", secondary_y=False)
         fig_temp_vs_pib.update_yaxes(title_text="Población rural (número de habitantes)", secondary_y=True)
@@ -859,13 +735,12 @@ def update_map(depart,years):
 
         info_dep_pib=f'Temperatura vs PIB en {depart}, hasta año {str(years[1])}'
 
-    return fig_temp_vs_pib#,info_dep_pib
+    return fig_temp_vs_pib
 
 ####
 #Figura Temperatura vs PIB
 @callback(
 Output("fig_dep_temp_vs_def", 'figure'),
-#Output("info_dep_temp_vs_def","children"),
 Input("departamentos_drop", "value"),
 [Input("year_slider_d", "value")]
 )
@@ -890,8 +765,6 @@ def update_map(depart,years):
             title_text="Temperatura vs Deforestación", width=600, height=400,
             )
         # Set x-axis title and range
-        #fig.update_xaxes(title_text="Año")
-        #fig_temp_vs_def.update_xaxes(range=(years[0],years[1]))
 
         # Set y-axes titles
         fig_temp_vs_def.update_yaxes(title_text="Temperatura (Grados Celsius)", secondary_y=False)
@@ -908,8 +781,6 @@ def update_map(depart,years):
         fig_temp_vs_def.update_traces(line_width=5)
         fig_temp_vs_def.update_layout(template="plotly_dark")
         # Set x-axis title and range
-        #fig.update_xaxes(title_text="Año")
-        #fig.update_xaxes(range=(1990,2020))
 
         # Set y-axes titles
         fig_temp_vs_def.update_yaxes(title_text="Temperatura (Grados Celsius)", secondary_y=False)

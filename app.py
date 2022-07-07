@@ -1,3 +1,4 @@
+#Imports
 from sre_parse import State
 import dash
 import dash_bootstrap_components as dbc
@@ -8,22 +9,18 @@ import plotly.graph_objects as go
 import pandas as pd
 import pickle
 import numpy as np
-
-
 from callbacks import register_callbacks
 
-path_model="pages/model.pkl"
-model = pickle.load(open(path_model, 'rb'))
 
-
-
-# Df de las pruebas
+# Path where local datasets are located
 
 PATH = pathlib.Path(__file__).parent
 DATA_PATH = PATH.joinpath("datasets").resolve()
 
+# Read dataset with static values
 df_finalCSV='https://raw.githubusercontent.com/ajrianop/projectDS4A/main/df_final.csv'
 df=pd.read_csv(df_finalCSV,encoding='unicode_escape')
+
 #suppress_callback_exceptions gives us the debug marker in the layout. 
 app = dash.Dash(
     external_stylesheets=[dbc.themes.BOOTSTRAP, dbc.icons.BOOTSTRAP,dbc.icons.FONT_AWESOME],
@@ -39,110 +36,10 @@ from pages import prediction,home,regional,about,graficas,tabs_national,tabs_reg
 from pages.elements import nat_forest,nat_temperature,reg_forest,reg_temperature
 
 
+# Path of the logo
 PLOTLY_LOGO = "../assets/img/Logo.png"
 
-# Style of the sidebar
-SIDEBAR_STYLE = {
-    "position": "fixed",
-    "top": 0,
-    "left": 0,
-    "bottom": 0,
-    "width": "16rem",
-    "padding": "2rem 1rem",
-    "background-color": "#f8f9fa",
-}
-
-# Content style
-CONTENT_STYLE = {
-    "margin-left": "18rem",
-    "margin-right": "2rem",
-    "padding": "2rem 1rem",
-}
-
 ### CUSTOM COMPONENTS
-
-sidebar = html.Div(
-    [
-        html.H2("Corest", className="display-4"),
-        html.Hr(),
-        html.P(
-            "lorem ipsum", className="lead"
-        ),
-        dbc.Nav(
-            [
-                dbc.NavLink("Home", href="/", active="exact"),
-                dbc.NavLink("National", href="/prediction", active="exact"),
-                dbc.NavLink("Regional", href="/description", active="exact"),
-                dbc.NavLink("About", href="/about", active="exact"),
-                dbc.NavLink("Graficas", href="/graficas", active="exact"),
-            ],
-            vertical=True,
-            pills=True,
-        ),
-    ],
-    style=SIDEBAR_STYLE,
-)
-
-
-sidebar_responsive_estasi= html.Nav(className="navbar navbar-inverse fixed-top",id="sidebar-wrapper", role="navigation",children=[
-    html.Ul(className="nav sidebar-nav",children=[
-        html.Div(className="sidebar-header",children=[
-            html.Div(className="sidebar-brand",children=[
-                html.A(href="/",children="ECO Temp")
-                ])
-            ]),
-        html.Li(html.A(href="/home",children="Home")),
-        html.Li(html.A(href="/prediction",children="Predicción")),
-        html.Li(html.A(href="/description",children="Descripción"))
-        ])
-    ])
-
-
-sidebar_responsive2=html.Div(className="container-fluid overflow-hidden",
-    children=[
-        html.Div(className="row vh-100 overflow-auto",
-        children=[
-            html.Div(className="col-12 col-sm-3 col-xl-2 px-sm-2 px-0 bg-black d-flex sticky-top",
-            children=[
-                html.Div(className="d-flex flex-sm-column flex-row flex-grow-1 align-items-center align-items-sm-start px-3 pt-4 text-white",
-                children=[
-                    dbc.NavLink(href="/", className="d-flex align-items-center pb-sm-3 mb-md-0 me-md-auto text-white text-decoration-none",
-                    children=[
-                        html.Img(src="https://www.collinsdictionary.com/images/full/tree_267376982.jpg", className="w-25 rounded-circle"),
-                        html.Span("ECO REST",className="d-none d-md-inline p-2")
-                        ]),
-                    html.Br(),
-                    dbc.Nav(className="nav nav-pills flex-sm-column flex-row flex-nowrap flex-shrink-1 flex-sm-grow-0 flex-grow-1 mb-sm-auto mb-0 justify-content-center align-items-center align-items-sm-start pt-5",id="menu",
-                    children=[
-                        dbc.NavLink(className="nav-item",href="/",active="exact",
-                        children=[
-                            html.I(className="fs-5 bi-house"),
-                            html.Span("Home",className="ms-1 d-none d-sm-inline") 
-                        ]),
-                        dbc.NavLink(className="nav-item",href="/prediction",active="exact",
-                        children=[
-                            html.I(className="fa-solid fa-temperature-low"),
-                            html.Span("Predicción",className="ms-1 d-none d-sm-inline") 
-                        ]),
-                        dbc.NavLink(className="nav-item",href="/description",active="exact",
-                        children=[
-                            html.I(className="bi bi-graph-up"),
-                            html.Span("Area descriptiva",className="ms-1 d-none d-sm-inline") 
-                        ]),
-                        
-                        
-                    ])
-            ])
-            ]),
-            html.Div(id="page-content",className="col d-flex flex-column h-100 nopadding")
-        ]
-        )
-    ]
-)
-
-
-
-
 sidebar = html.Div(
     [
         html.Div(
@@ -253,16 +150,13 @@ navbar = dbc.Navbar(
 
 content = html.Div(id="page-content", className="content")
 
+
+# App layout
 app.layout = html.Div([dcc.Location(id="url"), navbar,content])
-
-
-### LAYOUT AND CONTENT
-
-
-
 
 ### Callbacks
 
+# Routes callback
 @app.callback(Output("page-content", "children"), [Input("url", "pathname")])
 def render_page_content(pathname):
     if pathname == "/":
@@ -273,14 +167,6 @@ def render_page_content(pathname):
         return  description_2.layout
     elif pathname == "/about":
         return about.layout
-
-    ##Enlaces no usados por ahora
-    elif pathname == "/graficas":
-        return graficas.layout
-    elif pathname == "/tabs_national":
-        return tabs_national.layout
-    elif pathname == "/tabs_regional":
-        return tabs_regional.layout
     # If the user tries to reach a different page, return a 404 message
     return html.Div(
     dbc.Container(
@@ -302,88 +188,10 @@ def render_page_content(pathname):
 )
 
 
-### CALLBACKS TABS NATIONAL ###
-
-@app.callback(Output('content_national', 'children'),
-              Input('tabs_national', 'value'))
-def render_content(tab):
-    if tab == 'tab_temperature':
-        return nat_temperature.layout
-    elif tab == 'tab_eforestation':
-        return nat_forest.layout
-
-### END CALLBACKS TABS NATIONAL ###
-
-### CALLBACKS TABS REGIONAL ###
-
-@app.callback(Output('content_regional', 'children'),
-              Input('tabs_regional', 'value'))
-def render_content(tab):
-    if tab == 'tab_temperature_reg':
-        return reg_temperature.layout
-    elif tab == 'tab_eforestation_reg':
-        return reg_forest.layout
-
-### END CALLBACKS TABS REGIONAL ###
 
 
 
-## CALLBACKS NATIONAL ##
-
-## Callback Slider
-@app.callback(
-    Output("LandUsePie","figure"),
-    Output("LandUseLines","figure"),
-    [Input("year_slider","value")],
-    [Input("land_use_drop","value")])
-
-def update_output(value,value_drop):
-    df_land=pd.read_csv(DATA_PATH.joinpath("landcoverFAO.csv"))
-    df_land["Year"]=df_land["Year"].astype(int)
-    df=df_land[(df_land["Year"]>=value[0]) & (df_land["Year"]<=value[1])]
-    fig = px.pie(df,values="Value", names="Item")
-    fig.update_layout(transition_duration=500)
-    fig.update_layout(showlegend=False)
-
-    if value_drop is None:
-        fig2 = px.line(df,x="Year", y="Value",color="Item")
-    else:
-        dff=df[df.Item.str.contains('|'.join(value_drop))]
-        fig2 = px.line(dff,x="Year", y="Value",color="Item")
-    fig2.update_layout(transition_duration=500)
-    fig2.update_layout(showlegend=False)
-    return fig,fig2
-
-@app.callback(
-    Output('parrafo', 'children'),
-    [Input('year_slider', 'value')])
-def update_output(value):
-    string_exit='Estas viendo datos desde {} hasta {}'.format(value[0],value[1])
-    return string_exit
-
-
-@app.callback(
-    Output("forestvs","figure"),
-    [Input("year_slider","value")],
-    [Input("forestvs_drop","value")]
-)
-def forestvs(year,variable):
-    df_data=pd.read_csv(DATA_PATH.joinpath("output_merge.csv"))
-    df=df_data[(df_data["year"]>=year[0]) & (df_data["year"]<=year[1])]
-    if variable is None:
-        fig2 = px.line(df,x="year",y=df.columns[1:])
-    else:
-        variable.append("year")
-        dff=df[variable]
-        fig2 = px.line(dff,x="year", y=dff.columns[:-1])
-    fig2.update_layout(transition_duration=500)
-    fig2.update_layout(showlegend=False)
-    return fig2
-
-## END CALLBACKS NATIONAL ##
-
-
-
+# Toggle navbar Callback
 @app.callback(
     Output("navbar-collapse", "is_open"),
     [Input("navbar-toggler", "n_clicks")],
@@ -395,8 +203,6 @@ def toggle_navbar_collapse(n, is_open):
     return is_open
 
 
-#CALLBACKS GRAFICAS
-
 
 # Call to external function to register all callbacks
 register_callbacks(app)
@@ -404,5 +210,4 @@ register_callbacks(app)
 
 if __name__ == "__main__":
     app.run_server(debug=False, host="0.0.0.0", port=8080)
-    #app.run_server(debug=False, port=8080)
 
